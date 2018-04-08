@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>pom</packaging>
+
+  <groupId>com.lichkin.framework</groupId>
+  <artifactId>lichkin-framework-parent</artifactId>
+  <version>1.0.0.RELEASE</version>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <com.lichkin.framework.version>${project.version}</com.lichkin.framework.version>
+
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
+    <start-class>com.lichkin.LKMain</start-class>
+  </properties>
+
+  <modules>
+    <module>../lichkin-framework-defines</module>
+    <module>../lichkin-framework-utils</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+	  <!-- starter -->
+      <dependency>
+        <groupId>com.lichkin.framework</groupId>
+        <artifactId>lichkin-framework-defines</artifactId>
+        <version>${com.lichkin.framework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.lichkin.framework</groupId>
+        <artifactId>lichkin-framework-utils</artifactId>
+        <version>${com.lichkin.framework.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+</project>
