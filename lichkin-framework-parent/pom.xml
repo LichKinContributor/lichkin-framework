@@ -8,6 +8,20 @@
   <artifactId>lichkin-framework-parent</artifactId>
   <version>1.0.0.RELEASE</version>
 
+  <name>lichkin-framework-parent</name>
+  <description>基础框架功能</description>
+  <url>http://codes.lichkin.com/framework-parent</url>
+  <organization>
+    <name>SuZhou LichKin Information Technology Co., Ltd.</name>
+    <url>http://www.lichkin.com</url>
+  </organization>
+  <developers>
+    <developer>
+      <name>XuXin Zhuang</name>
+      <email>zhuangxuxin@hotmail.com</email>
+    </developer>
+  </developers>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -20,13 +34,19 @@
   </properties>
 
   <modules>
+    <module>../lichkin-framework-log</module>
     <module>../lichkin-framework-defines</module>
     <module>../lichkin-framework-utils</module>
   </modules>
 
   <dependencyManagement>
     <dependencies>
-	  <!-- starter -->
+      <!-- lichkin framework -->
+      <dependency>
+        <groupId>com.lichkin.framework</groupId>
+        <artifactId>lichkin-framework-log</artifactId>
+        <version>${com.lichkin.framework.version}</version>
+      </dependency>
       <dependency>
         <groupId>com.lichkin.framework</groupId>
         <artifactId>lichkin-framework-defines</artifactId>
@@ -37,7 +57,56 @@
         <artifactId>lichkin-framework-utils</artifactId>
         <version>${com.lichkin.framework.version}</version>
       </dependency>
+
+      <!-- https://mvnrepository.com/artifact/junit/junit -->
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.7</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.16.20</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+      <dependency>
+        <groupId>joda-time</groupId>
+        <artifactId>joda-time</artifactId>
+        <version>2.9.9</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <dependencies>
+    <!-- https://mvnrepository.com/artifact/junit/junit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+    </dependency>
+  </dependencies>
 
 </project>
