@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * 日期模式枚举
+ * 错误编码枚举
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 @Getter
