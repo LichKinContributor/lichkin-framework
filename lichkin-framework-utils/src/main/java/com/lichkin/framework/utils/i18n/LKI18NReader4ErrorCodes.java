@@ -21,7 +21,13 @@ public class LKI18NReader4ErrorCodes extends LKI18NReader {
 	 * @return 配置值
 	 */
 	private static String read(LKCodeEnum errorCode, Locale locale) {
-		return read(locale, "errorCodes", errorCode.toString());
+		if (errorCode.getCode() == null) {
+			return "param error [" + errorCode.toString() + "]";
+		}
+		if (errorCode.getCode() < 10000) {
+			return read(locale, "errorCodes", errorCode.toString());
+		}
+		return read(locale, "app-errorCodes", errorCode.toString());
 	}
 
 
@@ -43,7 +49,7 @@ public class LKI18NReader4ErrorCodes extends LKI18NReader {
 	 * @return 配置值
 	 */
 	public static String read(String locale, LKCodeEnum errorCode) {
-		return read(LKI18NUtils.getLocale(locale), errorCode);
+		return read(errorCode, LKI18NUtils.getLocale(locale));
 	}
 
 }

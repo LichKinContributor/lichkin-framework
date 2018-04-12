@@ -27,21 +27,21 @@ public class LKFrameworkStatics {
 	public static boolean WEB_ADMIN_DEBUG = false;
 
 	/** 系统默认配置值：控制器类所在包名。 */
-	public static String CONTROLLER_PACKAGES = "com.lichkin.**.controllers.impl";
+	public static final String CONTROLLER_PACKAGES = "com.lichkin.**.controllers.impl";
 
 	/** 系统默认配置值：服务类所在包名。 */
-	public static String SERVICE_PACKAGES = "com.lichkin.**.services.impl";
+	public static final String SERVICE_PACKAGES = "com.lichkin.**.services.impl";
 
 	/** 系统默认配置值：数据库主库DAO类所在包名。 */
-	public static String DB_PRIMARY_DAO_PACKAGES = "com.lichkin.**.daos.impl";
+	public static final String DB_PRIMARY_DAO_PACKAGES = "com.lichkin.**.daos.impl";
 
 	/** 系统默认配置值：数据库主库ENTITY类所在包名。 */
-	public static String DB_PRIMARY_ENTITY_PACKAGES = "com.lichkin.**.entities.impl";
+	public static final String DB_PRIMARY_ENTITY_PACKAGES = "com.lichkin.**.entities.impl";
 
 	/** 系统默认配置值：数据库从库DAO类所在包名。 */
-	public static String DB_SECONDARY_DAO_PACKAGES = "com.lichkin.**.dao.impl";
+	public static final String DB_SECONDARY_DAO_PACKAGES = "com.lichkin.**.dao.impl";
 
 	/** 系统默认配置值：数据库从库ENTITY类所在包名。 */
-	public static String DB_SECONDARY_ENTITY_PACKAGES = "com.lichkin.**.entity.impl";
+	public static final String DB_SECONDARY_ENTITY_PACKAGES = "com.lichkin.**.entity.impl";
 
 }

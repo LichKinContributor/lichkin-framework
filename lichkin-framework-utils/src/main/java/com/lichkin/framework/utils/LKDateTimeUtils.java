@@ -44,7 +44,7 @@ public class LKDateTimeUtils {
 	 * @return 字符串
 	 */
 	public static String now(Locale locale) {
-		return now(locale, LKDateTimeTypeEnum.TIMESTAMP);
+		return now(locale, LKDateTimeTypeEnum.TIMESTAMP_MIN);
 	}
 
 
@@ -53,7 +53,7 @@ public class LKDateTimeUtils {
 	 * @return 字符串
 	 */
 	public static String now() {
-		return now(Locale.ENGLISH, LKDateTimeTypeEnum.TIMESTAMP);
+		return now(Locale.ENGLISH, LKDateTimeTypeEnum.TIMESTAMP_MIN);
 	}
 
 
@@ -87,7 +87,7 @@ public class LKDateTimeUtils {
 	 * @return 字符串
 	 */
 	public static String toString(DateTime dateTime, Locale locale) {
-		return toString(dateTime, locale, LKDateTimeTypeEnum.TIMESTAMP);
+		return toString(dateTime, locale, LKDateTimeTypeEnum.TIMESTAMP_MIN);
 	}
 
 
@@ -97,7 +97,7 @@ public class LKDateTimeUtils {
 	 * @return 字符串
 	 */
 	public static String toString(DateTime dateTime) {
-		return toString(dateTime, Locale.ENGLISH, LKDateTimeTypeEnum.TIMESTAMP);
+		return toString(dateTime, Locale.ENGLISH, LKDateTimeTypeEnum.TIMESTAMP_MIN);
 	}
 
 }
