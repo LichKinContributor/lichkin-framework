@@ -1,12 +1,15 @@
 package com.lichkin.framework.defines.beans;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * 接口响应基本对象类
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 @Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LKResponseBean<D> {
 
 	/** 错误编码 */
