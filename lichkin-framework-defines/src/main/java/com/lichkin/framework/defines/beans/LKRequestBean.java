@@ -7,6 +7,7 @@ import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * 接口请求基本对象类
@@ -14,6 +15,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class LKRequestBean {
 
