@@ -58,16 +58,4 @@ public class LKI18NReader {
 		return value;
 	}
 
-
-	/**
-	 * 获取值
-	 * @param locale 国际化类型
-	 * @param folderName 文件夹名
-	 * @param key 键
-	 * @return 值
-	 */
-	protected static String read(String locale, String folderName, String key) {
-		return read(LKI18NUtils.getLocale(locale), folderName, key);
-	}
-
 }

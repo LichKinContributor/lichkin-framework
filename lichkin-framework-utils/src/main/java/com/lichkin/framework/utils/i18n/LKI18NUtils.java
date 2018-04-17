@@ -45,22 +45,7 @@ public class LKI18NUtils {
 	 * @param key 键
 	 * @return 值
 	 */
-	public static String getString(String locale, String folderName, String key) {
-		return getString(getLocale(locale), folderName, key);
-	}
-
-
-	/**
-	 * 获取属性值，将会从classpath:i18n/forderName/locale.properties中读取属性值
-	 * @param locale 国际化类型。en_GB;en_US;en_CA可使用en.properties。
-	 * @param folderName 文件夹名
-	 * @param key 键
-	 * @return 值
-	 */
 	public static String getString(Locale locale, String folderName, String key) {
-		if (locale == null) {
-			locale = LKFrameworkStatics.DEFAULT_LOCALE;
-		}
 		String fileName = "i18n/" + folderName + "/" + locale.toString();
 		ResourceBundle file = null;
 		try {

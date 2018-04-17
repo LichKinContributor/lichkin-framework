@@ -26,6 +26,9 @@ public class LKFrameworkStatics {
 	/** 系统默认配置值：是否启用页面调试功能。 */
 	public static boolean WEB_ADMIN_DEBUG = false;
 
+	/** 请求扩展后缀映射类型 */
+	public static String WEB_REQUEST_SUFFIX_PATTERN = "yyyyMMddHH";
+
 	/** 系统默认配置值：控制器类所在包名。 */
 	public static final String CONTROLLER_PACKAGES = "com.lichkin.**.controllers.impl";
 

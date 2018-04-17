@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>jar</packaging>
+
+
+  <artifactId>lichkin-framework-data</artifactId>
+
+
+  <name>lichkin-framework-data</name>
+  <description>基于jackson库，实现了一些JSON、XML相关的功能。</description>
+  <url>http://codes.lichkin.com/framework-data</url>
+  <organization>
+    <name>SuZhou LichKin Information Technology Co., Ltd.</name>
+    <url>http://www.lichkin.com</url>
+  </organization>
+  <developers>
+    <developer>
+      <name>XuXin Zhuang</name>
+      <email>zhuangxuxin@hotmail.com</email>
+    </developer>
+  </developers>
+
+  <parent>
+    <groupId>com.lichkin.framework</groupId>
+    <artifactId>lichkin-framework-parent</artifactId>
+    <version>1.0.0.RELEASE</version>
+    <relativePath>../lichkin-framework-parent</relativePath>
+  </parent>
+
+  <dependencies>
+    <!-- lichkin framework -->
+    <dependency>
+      <groupId>com.lichkin.framework</groupId>
+      <artifactId>lichkin-framework-log</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.lichkin.framework</groupId>
+      <artifactId>lichkin-framework-defines</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.lichkin.framework</groupId>
+      <artifactId>lichkin-framework-utils</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.dataformat</groupId>
+      <artifactId>jackson-dataformat-xml</artifactId>
+      <version>2.9.5</version>
+    </dependency>
+  </dependencies>
+
+</project>

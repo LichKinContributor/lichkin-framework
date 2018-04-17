@@ -35,15 +35,4 @@ public class LKI18NReader4DateTimeType extends LKI18NReader {
 		return read(dateTimeType, locale);
 	}
 
-
-	/**
-	 * 读取配置值
-	 * @param locale 国际化类型
-	 * @param dateTimeType 日期时间类型
-	 * @return 配置值
-	 */
-	public static String read(String locale, LKDateTimeTypeEnum dateTimeType) {
-		return read(LKI18NUtils.getLocale(locale), dateTimeType);
-	}
-
 }

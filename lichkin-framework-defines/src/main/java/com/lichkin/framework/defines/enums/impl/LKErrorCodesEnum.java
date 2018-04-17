@@ -25,8 +25,11 @@ public enum LKErrorCodesEnum implements LKCodeEnum {
 	/** 配置错误 */
 	CONFIG_ERROR(1),
 
+	/** 请求参数错误 */
+	PARAM_ERROR(2),
+
 	/** 数据库验证错误 */
-	DB_VALIDATE_ERROR(2);
+	DB_VALIDATE_ERROR(3);
 
 	/** 编码 */
 	private final Integer code;
