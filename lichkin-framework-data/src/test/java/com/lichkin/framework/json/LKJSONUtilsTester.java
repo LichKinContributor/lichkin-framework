@@ -26,22 +26,24 @@ public class LKJSONUtilsTester {
 		person.setDate(new Date());
 		person.setDateTime(DateTime.now());
 
-		System.out.println(LKJSONUtils.toJSON(person));
+		System.out.println(LKJsonUtils.toJson(person));
+		System.out.println(LKJsonUtils.toJsonWithExcludes(person, "name", "age"));
+		System.out.println(LKJsonUtils.toJsonWithIncludes(person, "age", "name"));
 
 		final List<Person> list = new ArrayList<>();
 		list.add(person);
-		System.out.println(LKJSONUtils.toJSON(list));
+		System.out.println(LKJsonUtils.toJson(list));
 
 		final Map<String, Object> map = new HashMap<>();
 		map.put("person", person);
-		System.out.println(LKJSONUtils.toJSON(map));
+		System.out.println(LKJsonUtils.toJson(map));
 	}
 
 
 	@Test
 	public void test_toObj() {
 		final String personJson = "{\"name\":\"小红\",\"age\":18,\"married\":false,\"gender\":\"FEMALE\",\"birthday\":\"20180417152301\",\"dateTime\":\"20180417232301137\",\"date\":\"20180417232301093\"}";
-		final Person person = LKJSONUtils.toObj(personJson, Person.class);
+		final Person person = LKJsonUtils.toObj(personJson, Person.class);
 		System.out.println(person);
 	}
 
@@ -49,7 +51,7 @@ public class LKJSONUtilsTester {
 	@Test
 	public void test_toList() {
 		final String listJson = "[{\"name\":\"小红\",\"age\":18,\"married\":false,\"gender\":\"FEMALE\",\"birthday\":\"20180417152301\",\"dateTime\":\"20180417232301137\",\"date\":\"20180417232301093\"}]";
-		final List<Person> list = LKJSONUtils.toList(listJson, Person.class);
+		final List<Person> list = LKJsonUtils.toList(listJson, Person.class);
 		System.out.println(list);
 	}
 
@@ -57,7 +59,7 @@ public class LKJSONUtilsTester {
 	@Test
 	public void test_toMap() {
 		final String mapJson = "{\"name\":\"小红\",\"age\":18,\"married\":false,\"gender\":\"FEMALE\",\"birthday\":\"20180417152301\",\"dateTime\":\"20180417232301137\",\"date\":\"20180417232301093\"}";
-		final Map<?, ?> map = LKJSONUtils.toMap(mapJson);
+		final Map<?, ?> map = LKJsonUtils.toMap(mapJson);
 		System.out.println(map);
 	}
 
@@ -65,7 +67,7 @@ public class LKJSONUtilsTester {
 	@Test
 	public void test_toXML() {
 		final String json = "{\"name\":\"小红\",\"age\":18,\"married\":false,\"gender\":\"FEMALE\",\"birthday\":\"20180417152301\",\"dateTime\":\"20180417232301137\",\"date\":\"20180417232301093\"}";
-		System.out.println(LKJSONUtils.toXml(json));
+		System.out.println(LKJsonUtils.toXml(json));
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.lichkin.framework.defines.beans;
 
+import java.util.Locale;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -47,6 +49,12 @@ public class LKRequestBean {
 	@PositiveOrZero
 	@NotNull
 	private Short versionZ;
+
+	/**
+	 * 国际化
+	 * @see Locale
+	 */
+	private String locale;
 
 	/** 登录后获取得 */
 	private String token = "";
