@@ -26,6 +26,15 @@ public class LKFrameworkStatics {
 	/** 系统默认配置值：是否启用页面调试功能。 */
 	public static boolean WEB_ADMIN_DEBUG = false;
 
+	/** 系统默认配置值：数据请求映射。 */
+	public static final String WEB_MAPPING_DATAS = ".do";
+
+	/** 系统默认配置值：API数据请求映射。 */
+	public static final String WEB_MAPPING_APIS = "/API/";
+
+	/** 系统默认配置值：页面请求映射。 */
+	public static final String WEB_MAPPING_PAGES = ".html";
+
 	/** 请求扩展后缀映射类型 */
 	public static String WEB_REQUEST_SUFFIX_PATTERN = "yyyyMMddHH";
 

@@ -1,13 +1,21 @@
 package com.lichkin.framework.defines.exceptions;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 框架异常
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
+@Getter
+@Setter
 public class LKFrameworkException extends RuntimeException {
 
 	/** serialVersionUID */
 	private static final long serialVersionUID = -1111111111111112L;
+
+	/** 显示异常信息 */
+	private boolean showMessage = true;
 
 
 	/**
