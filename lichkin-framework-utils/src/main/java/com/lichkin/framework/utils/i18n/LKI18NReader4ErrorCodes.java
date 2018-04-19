@@ -42,4 +42,15 @@ public class LKI18NReader4ErrorCodes extends LKI18NReader {
 		return read(errorCode, locale);
 	}
 
+
+	/**
+	 * 获取值
+	 * @param locale 国际化类型
+	 * @param key 键
+	 * @return 值
+	 */
+	public static Object read(Locale locale, String key) {
+		return read(locale, "app-errorCodes", key);
+	}
+
 }

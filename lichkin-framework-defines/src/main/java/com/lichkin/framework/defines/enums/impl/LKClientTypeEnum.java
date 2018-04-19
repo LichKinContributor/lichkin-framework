@@ -18,6 +18,8 @@ public enum LKClientTypeEnum implements LKEnum {
 
 	MAC,
 
-	LINUX;
+	LINUX,
+
+	UNIX;
 
 }

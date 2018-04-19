@@ -30,7 +30,7 @@ public class LKFrameworkStatics {
 	public static final String WEB_MAPPING_DATAS = ".do";
 
 	/** 系统默认配置值：API数据请求映射。 */
-	public static final String WEB_MAPPING_APIS = "/API/";
+	public static final String WEB_MAPPING_API = "/API/";
 
 	/** 系统默认配置值：页面请求映射。 */
 	public static final String WEB_MAPPING_PAGES = ".html";

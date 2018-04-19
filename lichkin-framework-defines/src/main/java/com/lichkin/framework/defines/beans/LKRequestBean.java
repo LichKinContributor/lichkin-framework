@@ -4,8 +4,10 @@ import java.util.Locale;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 
 import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
 
@@ -24,7 +26,15 @@ import lombok.ToString;
 @NoArgsConstructor
 public class LKRequestBean {
 
+	/**
+	 * 国际化
+	 * @see Locale
+	 */
+	@Pattern(regexp = "([A-Za-z]{2}){1}(_[A-Za-z]{2})?")
+	private String locale;
+
 	/** 客户端唯一标识 */
+	@Size(min = 15, max = 128)
 	@NotEmpty
 	private String appKey;
 
@@ -33,6 +43,7 @@ public class LKRequestBean {
 	 * @see LKClientTypeEnum
 	 */
 	@NotEmpty
+	@Pattern(regexp = "ANDROID|IOS|JAVASCRIPT|WINDOWS|MAC|LINUX|UNIX")
 	private String clientType;
 
 	/** 客户端版本号（大版本号） */
@@ -50,13 +61,9 @@ public class LKRequestBean {
 	@NotNull
 	private Short versionZ;
 
-	/**
-	 * 国际化
-	 * @see Locale
-	 */
-	private String locale;
-
 	/** 登录后获取得 */
+	@Pattern(regexp = "(\\s&&[^\\f\\n\\r\\t\\v])*|\\w{64}")
+	@NotNull
 	private String token = "";
 
 }
