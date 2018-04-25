@@ -13,7 +13,7 @@ import lombok.Getter;
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 @Getter
-public class LKException extends RuntimeException {
+public class LKException extends Exception {
 
 	/** serialVersionUID */
 	private static final long serialVersionUID = -1111111111111111L;
