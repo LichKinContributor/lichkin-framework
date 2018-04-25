@@ -50,21 +50,36 @@ public class LKRequestBean {
 	/** 客户端版本号（大版本号） */
 	@Pattern(regexp = LKRegexPatternStatics.POSITIVE_INTEGER)
 	@NotNull
-	private Byte versionX;
+	private String versionX;
 
 	/** 客户端版本号（中版本号） */
 	@Pattern(regexp = LKRegexPatternStatics.POSITIVE_INTEGER_OR_ZERO)
 	@NotNull
-	private Byte versionY;
+	private String versionY;
 
 	/** 客户端版本号（小版本号） */
 	@Pattern(regexp = LKRegexPatternStatics.POSITIVE_INTEGER_OR_ZERO)
 	@NotNull
-	private Short versionZ;
+	private String versionZ;
 
 	/** 登录后获取得 */
 	@Pattern(regexp = LKRegexPatternStatics.EMPTY_OR + "\\w{64}")
 	@NotNull
 	private String token;
+
+
+	public byte getVersionX() {
+		return Byte.parseByte(versionX);
+	}
+
+
+	public byte getVersionY() {
+		return Byte.parseByte(versionY);
+	}
+
+
+	public short getVersionZ() {
+		return Short.parseShort(versionZ);
+	}
 
 }
