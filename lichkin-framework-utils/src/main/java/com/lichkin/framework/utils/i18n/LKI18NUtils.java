@@ -59,6 +59,19 @@ public class LKI18NUtils {
 	 * @return 值
 	 */
 	public static String getString(Locale locale, String folderName, String key) {
+		return getString(locale, folderName, key, false);
+	}
+
+
+	/**
+	 * 获取属性值，将会从classpath:i18n/forderName/locale.properties中读取属性值
+	 * @param locale 国际化类型。en_GB;en_US;en_CA可使用en.properties。
+	 * @param folderName 文件夹名
+	 * @param key 键
+	 * @param appErrorCodes2errorCodes 自定义错误编码转框架错误编码
+	 * @return 值
+	 */
+	public static String getString(Locale locale, String folderName, String key, boolean appErrorCodes2errorCodes) {
 		String fileName = "i18n/" + folderName + "/" + locale.toString();
 		ResourceBundle file = null;
 		try {
@@ -71,7 +84,29 @@ public class LKI18NUtils {
 				throw new LKFrameworkException(String.format("%s can not be found.", fileName));
 			}
 		}
-		return file.getString(key);
+		try {
+			String value = file.getString(key);
+			if ("app-errorCodes".equals(folderName) && key.startsWith("validation@")) {
+				String[] keys = key.split("\\.");
+				if (keys.length == 3) {
+					return String.format("%s#@#%s", keys[2], value);
+				}
+			}
+			return value;
+		} catch (MissingResourceException e) {
+			if ("app-errorCodes".equals(folderName) || appErrorCodes2errorCodes) {// 自定义错误编码
+				String[] keys = key.split("\\.");
+				switch (keys.length) {
+					case 3:// 使用validation报错信息
+						return String.format("%s#@#%s", keys[2], getString(locale, folderName, keys[0] + "." + keys[2], false));
+					case 2:// validation降级
+						return getString(locale, "errorCodes", keys[0], true);
+					case 1:// validation再次降级
+						return getString(locale, "errorCodes", "PARAM_ERROR", true);
+				}
+			}
+			throw e;
+		}
 	}
 
 }

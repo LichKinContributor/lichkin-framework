@@ -2,13 +2,12 @@ package com.lichkin.framework.defines.beans;
 
 import java.util.Locale;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
+import com.lichkin.framework.defines.LKRegexPatternStatics;
 import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
 
 import lombok.Getter;
@@ -31,39 +30,41 @@ public class LKRequestBean {
 	 * @see Locale
 	 */
 	@Pattern(regexp = "([A-Za-z]{2}){1}(_[A-Za-z]{2})?")
+	@Null // 意思就是这个值客户端发送请求时是不能够使用的
 	private String locale;
 
 	/** 客户端唯一标识 */
-	@Size(min = 15, max = 128)
-	@NotEmpty
+	@Size(max = 128)
+	@Pattern(regexp = "com\\.lichkin\\.app\\.(ios|android|javascript)\\.[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*")
+	@NotNull
 	private String appKey;
 
 	/**
 	 * 客户端类型
 	 * @see LKClientTypeEnum
 	 */
-	@NotEmpty
-	@Pattern(regexp = "ANDROID|IOS|JAVASCRIPT|WINDOWS|MAC|LINUX|UNIX")
+	@Pattern(regexp = "(ANDROID|IOS|JAVASCRIPT|WINDOWS|MAC|LINUX|UNIX){1}")
+	@NotNull
 	private String clientType;
 
 	/** 客户端版本号（大版本号） */
-	@Positive
+	@Pattern(regexp = LKRegexPatternStatics.POSITIVE_INTEGER)
 	@NotNull
 	private Byte versionX;
 
 	/** 客户端版本号（中版本号） */
-	@PositiveOrZero
+	@Pattern(regexp = LKRegexPatternStatics.POSITIVE_INTEGER_OR_ZERO)
 	@NotNull
 	private Byte versionY;
 
 	/** 客户端版本号（小版本号） */
-	@PositiveOrZero
+	@Pattern(regexp = LKRegexPatternStatics.POSITIVE_INTEGER_OR_ZERO)
 	@NotNull
 	private Short versionZ;
 
 	/** 登录后获取得 */
-	@Pattern(regexp = "(\\s&&[^\\f\\n\\r\\t\\v])*|\\w{64}")
+	@Pattern(regexp = LKRegexPatternStatics.EMPTY_OR + "\\w{64}")
 	@NotNull
-	private String token = "";
+	private String token;
 
 }
