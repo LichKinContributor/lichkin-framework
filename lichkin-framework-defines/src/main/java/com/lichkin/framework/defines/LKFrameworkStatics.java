@@ -9,7 +9,7 @@ import java.util.Locale;
 public class LKFrameworkStatics {
 
 	/** 默认国际化类型 */
-	public static Locale DEFAULT_LOCALE = Locale.ENGLISH;
+	public static Locale DEFAULT_LOCALE = Locale.SIMPLIFIED_CHINESE;
 
 	/** 系统默认配置值：系统标识。 */
 	public static String SYSTEM_TAG = "LichKin";
