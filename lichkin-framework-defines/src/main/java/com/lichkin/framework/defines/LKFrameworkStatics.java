@@ -11,6 +11,9 @@ public class LKFrameworkStatics {
 	/** 默认国际化类型 */
 	public static Locale DEFAULT_LOCALE = Locale.SIMPLIFIED_CHINESE;
 
+	/** 已经实现的国际化类型列表，没有实现的国际化类型都将采用英文作为国际化类型。 */
+	public static Locale[] IMPLEMENTED_LOCALE_ARR = { Locale.SIMPLIFIED_CHINESE };
+
 	/** 系统默认配置值：系统标识。 */
 	public static String SYSTEM_TAG = "LichKin";
 
@@ -34,9 +37,6 @@ public class LKFrameworkStatics {
 
 	/** 系统默认配置值：页面请求映射。 */
 	public static final String WEB_MAPPING_PAGES = ".html";
-
-	/** 请求扩展后缀映射类型 */
-	public static String WEB_REQUEST_SUFFIX_PATTERN = "yyyyMMddHH";
 
 	/** 系统默认配置值：控制器类所在包名。 */
 	public static final String CONTROLLER_PACKAGES = "com.lichkin.**.controllers.impl";
