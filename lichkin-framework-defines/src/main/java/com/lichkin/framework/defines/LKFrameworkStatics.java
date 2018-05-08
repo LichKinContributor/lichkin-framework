@@ -56,4 +56,7 @@ public class LKFrameworkStatics {
 	/** 系统默认配置值：数据库从库ENTITY类所在包名。 */
 	public static final String DB_SECONDARY_ENTITY_PACKAGES = "com.lichkin.**.entity.impl";
 
+	/** 自定义业务错误编码最小值 */
+	public static final int MIN_BUS_ERROR_CODE = 10000;
+
 }
