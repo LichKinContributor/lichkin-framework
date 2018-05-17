@@ -38,6 +38,12 @@ public class LKFrameworkStatics {
 	/** 系统默认配置值：页面请求映射。 */
 	public static final String WEB_MAPPING_PAGES = ".html";
 
+	/** 多字段分隔符 */
+	public static final String SPLITOR_FIELDS = "@#@";
+
+	/** 标准分隔符 */
+	public static final String SPLITOR = "#@#";
+
 	/** 系统默认配置值：控制器类所在包名。 */
 	public static final String CONTROLLER_PACKAGES = "com.lichkin.**.controllers.impl";
 
