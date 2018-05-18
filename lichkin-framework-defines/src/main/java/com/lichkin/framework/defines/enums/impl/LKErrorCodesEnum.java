@@ -29,7 +29,10 @@ public enum LKErrorCodesEnum implements LKCodeEnum {
 	PARAM_ERROR(2),
 
 	/** 数据库验证错误 */
-	DB_VALIDATE_ERROR(3);
+	DB_VALIDATE_ERROR(3),
+
+	/** SQL语句错误 */
+	SQL_ERROR(4);
 
 	/** 编码 */
 	private final Integer code;

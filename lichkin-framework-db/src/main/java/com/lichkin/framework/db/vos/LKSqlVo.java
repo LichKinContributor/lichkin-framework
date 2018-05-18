@@ -84,7 +84,9 @@ public class LKSqlVo {
 	/**
 	 * 获取SQL语句
 	 * @return SQL语句
+	 * @deprecated 框架内部使用
 	 */
+	@Deprecated
 	public String getSql() {
 		return sql.toString();
 	}
@@ -93,7 +95,9 @@ public class LKSqlVo {
 	/**
 	 * 获取参数数组
 	 * @return 参数数组
+	 * @deprecated 框架内部使用
 	 */
+	@Deprecated
 	public Object[] getParams() {
 		if (CollectionUtils.isNotEmpty(params)) {
 			return params.toArray();
@@ -107,7 +111,7 @@ public class LKSqlVo {
 	 * @param subSql 子SQL语句
 	 * @return SQL语句对象
 	 */
-	public LKSqlVo appendSql(final String subSql) {
+	protected LKSqlVo appendSql(final String subSql) {
 		sql.append(BLANK).append(subSql.trim());
 		return this;
 	}
@@ -118,7 +122,7 @@ public class LKSqlVo {
 	 * @param param 参数对象
 	 * @return SQL语句对象
 	 */
-	public LKSqlVo addParam(final Object param) {
+	protected LKSqlVo addParam(final Object param) {
 		if (CollectionUtils.isEmpty(params)) {
 			params = new ArrayList<>();
 		}
@@ -132,7 +136,9 @@ public class LKSqlVo {
 	 * @param subSql 子SQL语句
 	 * @param params 参数数组
 	 * @return SQL语句对象
+	 * @deprecated 只在特殊情况下使用
 	 */
+	@Deprecated
 	public LKSqlVo appendSqlAndAddParam(final String subSql, final Object... params) {
 		appendSql(subSql);
 		if (ArrayUtils.isNotEmpty(params)) {
@@ -148,8 +154,10 @@ public class LKSqlVo {
 	 * 拼接条件类型
 	 * @param isAnd true拼接AND条件，false拼接OR条件，null不拼接条件。
 	 * @return SQL语句对象
+	 * @deprecated 框架内部使用
 	 */
-	public LKSqlVo appendConditionType(Boolean isAnd) {
+	@Deprecated
+	private LKSqlVo appendConditionType(Boolean isAnd) {
 		if (isAnd != null) {
 			if (isAnd) {
 				appendSql(AND);
@@ -158,6 +166,28 @@ public class LKSqlVo {
 			}
 		}
 		return this;
+	}
+
+
+	/**
+	 * 拼接AND语句
+	 * @return SQL语句对象
+	 * @deprecated 只在特殊情况下使用
+	 */
+	@Deprecated
+	public LKSqlVo and() {
+		return appendConditionType(true);
+	}
+
+
+	/**
+	 * 拼接OR语句
+	 * @return SQL语句对象
+	 * @deprecated 只在特殊情况下使用
+	 */
+	@Deprecated
+	public LKSqlVo or() {
+		return appendConditionType(false);
 	}
 
 
@@ -184,6 +214,22 @@ public class LKSqlVo {
 	}
 
 
+	/** 是否拼接了WHERE条件 */
+	protected boolean whereAppended = false;
+
+
+	/**
+	 * 拼接WHERE语句
+	 */
+	protected void where() {
+		if (whereAppended) {
+			return;
+		}
+		whereAppended = true;
+		appendSql(WHERE).appendSql(ALWAYS_TRUE_CONDITION);
+	}
+
+
 	/**
 	 * 拼接SQL语句
 	 * @param fieldName 字段名
@@ -191,7 +237,7 @@ public class LKSqlVo {
 	 * @param isAnd true拼接AND条件，false拼接OR条件，null不拼接条件。
 	 * @return SQL语句对象
 	 */
-	private LKSqlVo append(String fieldName, String condition, Boolean isAnd) {
+	protected LKSqlVo append(String fieldName, String condition, Boolean isAnd) {
 		return appendConditionType(isAnd).appendSql(fieldName).appendSql(condition).appendSql(PLACEHOLDER);
 	}
 
@@ -203,7 +249,9 @@ public class LKSqlVo {
 	 * @param condition 条件
 	 * @param isAnd true拼接AND条件，false拼接OR条件，null不拼接条件。
 	 * @return SQL语句对象
+	 * @deprecated 框架内部使用
 	 */
+	@Deprecated
 	private LKSqlVo append(String fieldName, Object param, String condition, Boolean isAnd) {
 		return append(fieldName, condition, isAnd).addParam(param);
 	}
@@ -222,17 +270,6 @@ public class LKSqlVo {
 
 
 	/**
-	 * 拼接等于
-	 * @param fieldName 字段名
-	 * @param param 参数
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo eq(String fieldName, Object param) {
-		return append(fieldName, param, EQUAL, true);
-	}
-
-
-	/**
 	 * 拼接不等于
 	 * @param fieldName 字段名
 	 * @param param 参数
@@ -241,17 +278,6 @@ public class LKSqlVo {
 	 */
 	public LKSqlVo neq(String fieldName, Object param, Boolean isAnd) {
 		return append(fieldName, param, NOT_EQUAL, isAnd);
-	}
-
-
-	/**
-	 * 拼接不等于
-	 * @param fieldName 字段名
-	 * @param param 参数
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo neq(String fieldName, Object param) {
-		return append(fieldName, param, NOT_EQUAL, true);
 	}
 
 
@@ -268,17 +294,6 @@ public class LKSqlVo {
 
 
 	/**
-	 * 拼接小于等于
-	 * @param fieldName 字段名
-	 * @param param 参数
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo lte(String fieldName, Object param) {
-		return append(fieldName, param, LTE, true);
-	}
-
-
-	/**
 	 * 拼接大于等于
 	 * @param fieldName 字段名
 	 * @param param 参数
@@ -287,17 +302,6 @@ public class LKSqlVo {
 	 */
 	public LKSqlVo gte(String fieldName, Object param, Boolean isAnd) {
 		return append(fieldName, param, GTE, isAnd);
-	}
-
-
-	/**
-	 * 拼接大于等于
-	 * @param fieldName 字段名
-	 * @param param 参数
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo gte(String fieldName, Object param) {
-		return append(fieldName, param, GTE, true);
 	}
 
 
@@ -314,17 +318,6 @@ public class LKSqlVo {
 
 
 	/**
-	 * 拼接小于
-	 * @param fieldName 字段名
-	 * @param param 参数
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo lt(String fieldName, Object param) {
-		return append(fieldName, param, LT, true);
-	}
-
-
-	/**
 	 * 拼接大于
 	 * @param fieldName 字段名
 	 * @param param 参数
@@ -333,17 +326,6 @@ public class LKSqlVo {
 	 */
 	public LKSqlVo gt(String fieldName, Object param, Boolean isAnd) {
 		return append(fieldName, param, GT, isAnd);
-	}
-
-
-	/**
-	 * 拼接大于
-	 * @param fieldName 字段名
-	 * @param param 参数
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo gt(String fieldName, Object param) {
-		return append(fieldName, param, GT, true);
 	}
 
 
@@ -392,29 +374,6 @@ public class LKSqlVo {
 
 
 	/**
-	 * 拼接LIKE语句
-	 * @param fieldName 字段名
-	 * @param param 参数
-	 * @param likeType LIKE条件类型
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo like(String fieldName, Object param, LikeType likeType) {
-		return append(fieldName, LIKE, true).addLikeParam(param, likeType);
-	}
-
-
-	/**
-	 * 拼接LIKE语句
-	 * @param fieldName 字段名
-	 * @param param 参数
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo like(String fieldName, Object param) {
-		return like(fieldName, param, LikeType.ALL);
-	}
-
-
-	/**
 	 * 拼接NOT LIKE语句
 	 * @param fieldName 字段名
 	 * @param param 参数
@@ -428,25 +387,14 @@ public class LKSqlVo {
 
 
 	/**
-	 * 拼接NOT LIKE语句
+	 * 拼接 IS NULL/ IS NOT NULL
+	 * @param isNull true拼接IS NULL；false拼接IS NOT NULL。
 	 * @param fieldName 字段名
-	 * @param param 参数
-	 * @param likeType LIKE条件类型
+	 * @param isAnd true拼接AND条件，false拼接OR条件，null不拼接条件。
 	 * @return SQL语句对象
 	 */
-	public LKSqlVo notLike(String fieldName, Object param, LikeType likeType) {
-		return append(fieldName, NOT_LIKE, true).addLikeParam(param, likeType);
-	}
-
-
-	/**
-	 * 拼接NOT LIKE语句
-	 * @param fieldName 字段名
-	 * @param param 参数
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo notLike(String fieldName, Object param) {
-		return notLike(fieldName, param, LikeType.ALL);
+	protected LKSqlVo appendIsNull(boolean isNull, String fieldName, Boolean isAnd) {
+		return appendConditionType(isAnd).appendSql(fieldName).appendSql(isNull ? IS_NULL : IS_NOT_NULL);
 	}
 
 
@@ -457,17 +405,7 @@ public class LKSqlVo {
 	 * @return SQL语句对象
 	 */
 	public LKSqlVo isNull(String fieldName, Boolean isAnd) {
-		return appendConditionType(isAnd).appendSql(fieldName).appendSql(IS_NULL);
-	}
-
-
-	/**
-	 * 拼接 IS NULL
-	 * @param fieldName 字段名
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo isNull(String fieldName) {
-		return isNull(fieldName, true);
+		return appendIsNull(true, fieldName, isAnd);
 	}
 
 
@@ -478,33 +416,24 @@ public class LKSqlVo {
 	 * @return SQL语句对象
 	 */
 	public LKSqlVo isNotNull(String fieldName, Boolean isAnd) {
-		return appendConditionType(isAnd).appendSql(fieldName).appendSql(IS_NOT_NULL);
+		return appendIsNull(false, fieldName, isAnd);
 	}
 
 
 	/**
-	 * 拼接 IS NOT NULL
-	 * @param fieldName 字段名
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo isNotNull(String fieldName) {
-		return isNotNull(fieldName, true);
-	}
-
-
-	/**
-	 * 拼接IN语句
+	 * 拼接IN/NOT IN语句
+	 * @param isIn true拼接IN；false拼接NOT IN。
 	 * @param fieldName 字段名
 	 * @param params 参数
 	 * @param isAnd true拼接AND条件，false拼接OR条件，null不拼接条件。
 	 * @return SQL语句对象
 	 */
-	public LKSqlVo in(String fieldName, String[] params, Boolean isAnd) {
-		appendConditionType(isAnd).appendSql(fieldName).appendSql(IN);
+	protected LKSqlVo appendIn(boolean isIn, String fieldName, Object[] params, Boolean isAnd) {
+		appendConditionType(isAnd).appendSql(fieldName).appendSql(isIn ? IN : NOT_IN);
 
 		appendSql(BRACKET_LEFT);
 
-		for (final String param : params) {
+		for (final Object param : params) {
 			sql.append(QUOTATION).append(param).append(QUOTATION).append(COMMA);
 		}
 		sql.deleteCharAt(sql.length() - 1);
@@ -516,71 +445,18 @@ public class LKSqlVo {
 
 
 	/**
-	 * 拼接IN语句
-	 * @param fieldName 字段名
-	 * @param params 参数
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo in(String fieldName, String[] params) {
-		return in(fieldName, params, true);
-	}
-
-
-	/**
-	 * 拼接IN语句
-	 * @param fieldName 字段名
-	 * @param params 参数
-	 * @param isAnd true拼接AND条件，false拼接OR条件，null不拼接条件。
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo in(String fieldName, Number[] params, Boolean isAnd) {
-		appendConditionType(isAnd).appendSql(fieldName).appendSql(IN);
-
-		appendSql(BRACKET_LEFT);
-
-		for (final Number param : params) {
-			sql.append(param).append(COMMA);
-		}
-		sql.deleteCharAt(sql.length() - 1);
-
-		appendSql(BRACKET_RIGHT);
-
-		return this;
-	}
-
-
-	/**
-	 * 拼接IN语句
-	 * @param fieldName 字段名
-	 * @param params 参数
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo in(String fieldName, Number[] params) {
-		return in(fieldName, params, true);
-	}
-
-
-	/**
-	 * 使用#@#拼接的字符串，切分后按照字符串查询。
-	 * @param fieldName 字段名
-	 * @param params 参数
-	 * @param isAnd true拼接AND条件，false拼接OR条件，null不拼接条件。
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo in(String fieldName, String params, Boolean isAnd) {
-		return in(fieldName, params.split(SPLITOR), isAnd);
-	}
-
-
-	/**
+	 * 拼接IN/NOT IN语句
 	 * 使用#@#拼接的字符串，切分后按照数字查询。
+	 * @param isIn true拼接IN；false拼接NOT IN。
 	 * @param fieldName 字段名
 	 * @param params 参数
 	 * @param isAnd true拼接AND条件，false拼接OR条件，null不拼接条件。
 	 * @param numberClazz 数字类型
 	 * @return SQL语句对象
+	 * @deprecated 框架内部使用
 	 */
-	public LKSqlVo in(String fieldName, String params, Boolean isAnd, Class<? extends Number> numberClazz) {
+	@Deprecated
+	private LKSqlVo appendIn(boolean isIn, String fieldName, String params, Boolean isAnd, Class<? extends Number> numberClazz) {
 		String[] strs = params.split(SPLITOR);
 		String className = numberClazz.getName();
 		switch (className) {
@@ -589,28 +465,42 @@ public class LKSqlVo {
 				for (int i = 0; i < strs.length; i++) {
 					arr[i] = Byte.parseByte(strs[i]);
 				}
-				return in(fieldName, arr, isAnd);
+				return appendIn(isIn, fieldName, arr, isAnd);
 			}
 			case "java.lang.Short": {
 				Short[] arr = new Short[strs.length];
 				for (int i = 0; i < strs.length; i++) {
 					arr[i] = Short.parseShort(strs[i]);
 				}
-				return in(fieldName, arr, isAnd);
+				return appendIn(isIn, fieldName, arr, isAnd);
 			}
 			case "java.lang.Integer": {
 				Integer[] arr = new Integer[strs.length];
 				for (int i = 0; i < strs.length; i++) {
 					arr[i] = Integer.parseInt(strs[i]);
 				}
-				return in(fieldName, arr, isAnd);
+				return appendIn(isIn, fieldName, arr, isAnd);
 			}
 			case "java.lang.Long": {
 				Long[] arr = new Long[strs.length];
 				for (int i = 0; i < strs.length; i++) {
 					arr[i] = Long.parseLong(strs[i]);
 				}
-				return in(fieldName, arr, isAnd);
+				return appendIn(isIn, fieldName, arr, isAnd);
+			}
+			case "java.lang.Float": {
+				Float[] arr = new Float[strs.length];
+				for (int i = 0; i < strs.length; i++) {
+					arr[i] = Float.parseFloat(strs[i]);
+				}
+				return appendIn(isIn, fieldName, arr, isAnd);
+			}
+			case "java.lang.Double": {
+				Double[] arr = new Double[strs.length];
+				for (int i = 0; i < strs.length; i++) {
+					arr[i] = Double.parseDouble(strs[i]);
+				}
+				return appendIn(isIn, fieldName, arr, isAnd);
 			}
 		}
 		return null;
@@ -618,93 +508,56 @@ public class LKSqlVo {
 
 
 	/**
+	 * 拼接IN语句
 	 * 使用#@#拼接的字符串，切分后按照字符串查询。
 	 * @param fieldName 字段名
 	 * @param params 参数
+	 * @param isAnd true拼接AND条件，false拼接OR条件，null不拼接条件。
 	 * @return SQL语句对象
 	 */
-	public LKSqlVo in(String fieldName, String params) {
-		return in(fieldName, params, true);
+	public LKSqlVo in(String fieldName, String params, Boolean isAnd) {
+		return appendIn(true, fieldName, params.split(SPLITOR), isAnd);
 	}
 
 
 	/**
+	 * 拼接IN语句
 	 * 使用#@#拼接的字符串，切分后按照数字查询。
 	 * @param fieldName 字段名
 	 * @param params 参数
+	 * @param isAnd true拼接AND条件，false拼接OR条件，null不拼接条件。
 	 * @param numberClazz 数字类型
 	 * @return SQL语句对象
 	 */
-	public LKSqlVo in(String fieldName, String params, Class<? extends Number> numberClazz) {
-		return in(fieldName, params, true, numberClazz);
+	public LKSqlVo in(String fieldName, String params, Boolean isAnd, Class<? extends Number> numberClazz) {
+		return appendIn(true, fieldName, params, isAnd, numberClazz);
 	}
 
 
 	/**
 	 * 拼接NOT IN语句
+	 * 使用#@#拼接的字符串，切分后按照字符串查询。
 	 * @param fieldName 字段名
 	 * @param params 参数
 	 * @param isAnd true拼接AND条件，false拼接OR条件，null不拼接条件。
 	 * @return SQL语句对象
 	 */
-	public LKSqlVo notIn(String fieldName, String[] params, Boolean isAnd) {
-		appendConditionType(isAnd).appendSql(fieldName).appendSql(NOT_IN);
-
-		appendSql(BRACKET_LEFT);
-
-		for (final String param : params) {
-			sql.append(QUOTATION).append(param).append(QUOTATION).append(COMMA);
-		}
-		sql.deleteCharAt(sql.length() - 1);
-
-		appendSql(BRACKET_RIGHT);
-
-		return this;
+	public LKSqlVo notIn(String fieldName, String params, Boolean isAnd) {
+		return appendIn(false, fieldName, params.split(SPLITOR), isAnd);
 	}
 
 
 	/**
 	 * 拼接NOT IN语句
-	 * @param fieldName 字段名
-	 * @param params 参数
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo notIn(String fieldName, String[] params) {
-		return notIn(fieldName, params, true);
-	}
-
-
-	/**
-	 * 拼接NOT IN语句
+	 * 使用#@#拼接的字符串，切分后按照数字查询。
 	 * @param fieldName 字段名
 	 * @param params 参数
 	 * @param isAnd true拼接AND条件，false拼接OR条件，null不拼接条件。
+	 * @param numberClazz 数字类型
 	 * @return SQL语句对象
 	 */
-	public LKSqlVo notIn(String fieldName, Number[] params, Boolean isAnd) {
-		appendConditionType(isAnd).appendSql(fieldName).appendSql(NOT_IN);
-
-		appendSql(BRACKET_LEFT);
-
-		for (final Number param : params) {
-			sql.append(param).append(COMMA);
-		}
-		sql.deleteCharAt(sql.length() - 1);
-
-		appendSql(BRACKET_RIGHT);
-
-		return this;
-	}
-
-
-	/**
-	 * 拼接NOT IN语句
-	 * @param fieldName 字段名
-	 * @param params 参数
-	 * @return SQL语句对象
-	 */
-	public LKSqlVo notIn(String fieldName, Number[] params) {
-		return notIn(fieldName, params, true);
+	public LKSqlVo notIn(String fieldName, String params, Boolean isAnd, Class<? extends Number> numberClazz) {
+		return appendIn(false, fieldName, params, isAnd, numberClazz);
 	}
 
 }

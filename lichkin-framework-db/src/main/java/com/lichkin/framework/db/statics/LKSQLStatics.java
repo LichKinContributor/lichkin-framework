@@ -75,10 +75,19 @@ public interface LKSQLStatics extends LKStringStatics {
 	/** 1 = 1 */
 	public static final String ALWAYS_TRUE_CONDITION = "1 = 1";
 
+	/** 1 = 2 */
+	public static final String ALWAYS_FALSE_CONDITION = "1 = 2";
+
 	/** PLACEHOLDER */
 	public static final String PLACEHOLDER = QUESTION;
 
 	/** REGEX_PLACEHOLDER */
 	public static final String REGEX_PLACEHOLDER = LKRegexStatics.ESCAPE + PLACEHOLDER;
+
+	/** UPDATE */
+	public static final String UPDATE = "UPDATE";
+
+	/** SET */
+	public static final String SET = "SET";
 
 }
