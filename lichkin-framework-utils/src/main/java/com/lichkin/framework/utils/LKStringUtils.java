@@ -88,4 +88,72 @@ public class LKStringUtils {
 		return sb.toString().toUpperCase();// 转换为大写
 	}
 
+
+	/**
+	 * 补零
+	 *
+	 * <pre>
+	 * assertEquals(LKStringUtils.fillZero("3", 1, true), "3");
+	 * assertEquals(LKStringUtils.fillZero("3", 2, true), "03");
+	 * assertEquals(LKStringUtils.fillZero("33", 1, true), "33");
+	 * assertEquals(LKStringUtils.fillZero("33", 2, true), "33");
+	 * assertEquals(LKStringUtils.fillZero("33", 3, true), "033");
+	 * assertEquals(LKStringUtils.fillZero("3", 1, false), "3");
+	 * assertEquals(LKStringUtils.fillZero("3", 2, false), "30");
+	 * assertEquals(LKStringUtils.fillZero("33", 1, false), "33");
+	 * assertEquals(LKStringUtils.fillZero("33", 2, false), "33");
+	 * assertEquals(LKStringUtils.fillZero("33", 3, false), "330");
+	 * </pre>
+	 *
+	 * @param number 当前数字
+	 * @param digit 显示位数
+	 * @param before true：在前面补零；false：在后面补零。
+	 * @return 补零后的结果
+	 */
+	public static String fillZero(final String number, final int digit, final boolean before) {
+		final char[] cs = number.toCharArray();
+		if (digit <= cs.length) {
+			return String.valueOf(cs);
+		} else {
+			final char[] ncs = new char[digit];
+			for (int i = 0; i < ncs.length; i++) {
+				ncs[i] = '0';
+			}
+			if (before) {
+				for (int i = ncs.length - 1; i > (digit - number.length() - 1); i--) {
+					ncs[i] = cs[i - (digit - number.length())];
+				}
+			} else {
+				for (int i = 0; i < cs.length; i++) {
+					ncs[i] = cs[i];
+				}
+			}
+			return String.valueOf(ncs);
+		}
+	}
+
+
+	/**
+	 * 补零
+	 * @param number 当前数字
+	 * @param digit 显示位数
+	 * @return 补零后的结果
+	 * @see LKStringUtils#fillZero(String, int, boolean)
+	 */
+	public static String fillZero(final String number, final int digit) {
+		return fillZero(number, digit, true);
+	}
+
+
+	/**
+	 * 补零
+	 * @param number 当前数字
+	 * @param digit 显示位数
+	 * @return 补零后的结果
+	 * @see LKStringUtils#fillZero(String, int, boolean)
+	 */
+	public static String fillZero(final int number, final int digit) {
+		return fillZero(String.valueOf(number), digit, true);
+	}
+
 }
