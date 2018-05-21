@@ -1,7 +1,6 @@
 package com.lichkin.framework.db.beans;
 
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,7 +58,6 @@ class __FROM extends __SQL {
 	 * @return 本对象
 	 */
 	private __FROM appendJoin(int tableResId, String joinType, Condition condition, Condition... conditions) {
-		assertNotNull(condition);
 		JoinTable joinTable = new JoinTable(tableResId, joinType);
 		joinTable.conditions.add(condition);
 		joinTable.conditions.addAll(Arrays.asList(conditions));

@@ -43,8 +43,6 @@ public class LKReflectUtils {
 	 * @return 父类类型列表
 	 */
 	public static ArrayList<Class<?>> getAllExtendsClasses(final Class<?> clazz) {
-		assert (clazz != null) && !clazz.isInterface();
-
 		final ArrayList<Class<?>> list = new ArrayList<>();
 		if (clazz.equals(Object.class)) {
 			return list;
@@ -70,9 +68,6 @@ public class LKReflectUtils {
 	 * @return 继承父类返回true，否则返回false。
 	 */
 	public static boolean checkExtendsClass(final Class<?> clazz, final Class<?> supperClass) {
-		assert (clazz != null) && !clazz.equals(Object.class) && !clazz.isInterface();
-		assert (supperClass != null) && !supperClass.isInterface();
-
 		if (clazz.equals(supperClass)) {
 			return false;
 		}
@@ -97,8 +92,6 @@ public class LKReflectUtils {
 	 * @return 接口类型列表
 	 */
 	public static ArrayList<Class<?>> getAllImplementsClasses(final Class<?> clazz) {
-		assert (clazz != null) && !clazz.equals(Object.class) && !clazz.isInterface();
-
 		// 获取所有父类
 		final ArrayList<Class<?>> supperClasses = getAllExtendsClasses(clazz);
 
@@ -130,9 +123,6 @@ public class LKReflectUtils {
 	 * @return 实现接口类返回true，否则返回false。
 	 */
 	public static boolean checkImplementsInterface(final Class<?> clazz, final Class<?> interfaceClass) {
-		assert (clazz != null) && !clazz.equals(Object.class) && !clazz.isInterface();
-		assert (interfaceClass != null) && interfaceClass.isInterface();
-
 		final ArrayList<Class<?>> interfaceClasses = getAllImplementsClasses(clazz);
 		for (final Class<?> interfaceClazz : interfaceClasses) {
 			if (interfaceClass.equals(interfaceClazz)) {

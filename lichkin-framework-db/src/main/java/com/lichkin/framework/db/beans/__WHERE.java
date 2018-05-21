@@ -1,13 +1,10 @@
 package com.lichkin.framework.db.beans;
 
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
-import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * SQL语句 -> WHERE
@@ -25,7 +22,6 @@ class __WHERE extends __SQL {
 	 * @return 本对象
 	 */
 	__WHERE where(Condition... conditions) {
-		assertFalse(ArrayUtils.isEmpty(conditions));
 		this.conditions.addAll(Arrays.asList(conditions));
 		return this;
 	}

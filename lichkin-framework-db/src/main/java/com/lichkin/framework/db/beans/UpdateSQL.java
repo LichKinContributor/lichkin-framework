@@ -2,13 +2,10 @@ package com.lichkin.framework.db.beans;
 
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 import static com.lichkin.framework.defines.LKStringStatics.COMMA;
-import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * SQL语句 -> 更新语句
@@ -50,7 +47,6 @@ public class UpdateSQL extends SQL {
 
 	@Override
 	public String getSql() {
-		assertFalse(where.conditions.size() == 0);
 		StringBuilder sql = new StringBuilder();
 		sql.append(UPDATE).append(BLANK);
 		sql.append(getTableSQL(useSQL, tableResId));
@@ -88,7 +84,6 @@ public class UpdateSQL extends SQL {
 	 * @return 本对象
 	 */
 	public UpdateSQL update(eq... eqs) {
-		assertFalse(ArrayUtils.isEmpty(eqs));
 		this.eqs.addAll(Arrays.asList(eqs));
 		return this;
 	}

@@ -4,8 +4,6 @@ import static com.lichkin.framework.defines.LKFrameworkStatics.SPLITOR;
 import static com.lichkin.framework.defines.LKStringStatics.BRACKET_LEFT;
 import static com.lichkin.framework.defines.LKStringStatics.BRACKET_RIGHT;
 import static com.lichkin.framework.defines.LKStringStatics.COMMA;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,9 +26,7 @@ class ExpIn extends Exp {
 	 */
 	protected ExpIn(boolean in, int columnResId, String paramsStr) {
 		super(columnResId, in ? IN : NOT_IN);
-		assertNotNull(paramsStr);
 		params = Arrays.asList(paramsStr.split(SPLITOR));
-		assertFalse(params.size() == 0);
 	}
 
 

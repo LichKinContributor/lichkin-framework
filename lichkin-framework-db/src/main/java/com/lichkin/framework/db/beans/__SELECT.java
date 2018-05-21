@@ -2,13 +2,10 @@ package com.lichkin.framework.db.beans;
 
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 import static com.lichkin.framework.defines.LKStringStatics.COMMA;
-import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * SQL语句 -> SELECT
@@ -39,7 +36,6 @@ class __SELECT extends __SQL {
 	 * @return 本对象
 	 */
 	__SELECT select(Column... columns) {
-		assertFalse(ArrayUtils.isEmpty(columns));
 		this.columns.addAll(Arrays.asList(columns));
 		return this;
 	}

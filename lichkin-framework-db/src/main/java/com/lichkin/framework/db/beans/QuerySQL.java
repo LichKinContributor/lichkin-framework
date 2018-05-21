@@ -1,7 +1,6 @@
 package com.lichkin.framework.db.beans;
 
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
-import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,9 +127,6 @@ public class QuerySQL extends SQL {
 
 	@Override
 	public String getSql() {
-		assertFalse(select.columns.size() == 0);
-		assertFalse(where.conditions.size() == 0);
-
 		StringBuilder sql = new StringBuilder();
 		sql.append(select.getSql(useSQL));
 		sql.append(BLANK);
@@ -143,9 +139,6 @@ public class QuerySQL extends SQL {
 
 	@Override
 	public List<Object> getParams() {
-		assertFalse(select.columns.size() == 0);
-		assertFalse(where.conditions.size() == 0);
-
 		List<Object> params = new ArrayList<>();
 		params.addAll(select.getParams());
 		params.addAll(from.getParams());

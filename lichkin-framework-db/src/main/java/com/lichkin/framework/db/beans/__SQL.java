@@ -3,7 +3,6 @@ package com.lichkin.framework.db.beans;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 import static com.lichkin.framework.defines.LKStringStatics.DOT;
 import static com.lichkin.framework.defines.LKStringStatics.QUESTION;
-import static org.junit.Assert.assertNotNull;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -22,7 +21,6 @@ abstract class __SQL {
 	 */
 	protected StringBuilder getTableSQL(boolean useSQL, int tableResId) {
 		LKDBResource.__TableResource tableResource = LKDBResource.tables.get(tableResId);
-		assertNotNull(tableResource);
 		StringBuilder sql = new StringBuilder();
 		sql.append(useSQL ? tableResource.getTableName() : tableResource.getClassName()).append(BLANK).append(AS).append(BLANK).append(tableResource.getTableAlias());
 		return sql;
@@ -36,7 +34,6 @@ abstract class __SQL {
 	 */
 	protected StringBuilder getColumnSQL(boolean useSQL, int columnResId) {
 		LKDBResource.__ColumnResource columnResource = LKDBResource.columns.get(columnResId);
-		assertNotNull(columnResource);
 		StringBuilder sql = new StringBuilder();
 		sql.append(columnResource.getTable().getTableAlias()).append(DOT).append(columnResource.getColumnName());
 		return sql;

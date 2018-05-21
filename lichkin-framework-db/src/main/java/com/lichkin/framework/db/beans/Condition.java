@@ -3,7 +3,6 @@ package com.lichkin.framework.db.beans;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 import static com.lichkin.framework.defines.LKStringStatics.BRACKET_LEFT;
 import static com.lichkin.framework.defines.LKStringStatics.BRACKET_RIGHT;
-import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,10 +65,6 @@ public class Condition extends __SQL {
 	 */
 	public Condition(boolean and, Condition condition1, Condition condition2, Condition... conditions) {
 		this(and);
-		assertNotNull(condition1);
-		assertNotNull(condition2);
-		assertNotNull(conditions);
-
 		this.conditions.add(condition1);
 		this.conditions.add(condition2);
 		this.conditions.addAll(Arrays.asList(conditions));
