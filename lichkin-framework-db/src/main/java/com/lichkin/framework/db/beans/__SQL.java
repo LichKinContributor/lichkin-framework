@@ -5,13 +5,6 @@ import static com.lichkin.framework.defines.LKStringStatics.DOT;
 import static com.lichkin.framework.defines.LKStringStatics.QUESTION;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.lichkin.framework.json.LKJsonUtils;
-
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -19,70 +12,43 @@ import lombok.NoArgsConstructor;
  * SQL/HQL语句
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
-class __SQL {
-
-	/** SQL语句 */
-	final StringBuilder sql = new StringBuilder();
-
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+abstract class __SQL {
 
 	/**
-	 * 获取SQL语句
-	 * @return SQL语句
-	 * @deprecated 框架内部使用
+	 * 获取表SQL。表名 AS 表别名。
+	 * @param useSQL true:SQL;false:HQL.
+	 * @param tableResId 表资源ID
 	 */
-	@Deprecated
-	public StringBuilder getSql() {
+	protected StringBuilder getTableSQL(boolean useSQL, int tableResId) {
+		LKDBResource.__TableResource tableResource = LKDBResource.tables.get(tableResId);
+		assertNotNull(tableResource);
+		StringBuilder sql = new StringBuilder();
+		sql.append(useSQL ? tableResource.getTableName() : tableResource.getClassName()).append(BLANK).append(AS).append(BLANK).append(tableResource.getTableAlias());
 		return sql;
 	}
 
 
-	/** 参数列表 */
-	final List<Object> params = new ArrayList<>();
-
-
 	/**
-	 * 获取参数列表
-	 * @return 参数列表
-	 * @deprecated 框架内部使用
-	 */
-	@Deprecated
-	public List<Object> getParams() {
-		return params;
-	}
-
-
-	/**
-	 * 添加表。表名 AS 表别名。
-	 * @param tableResId 表资源ID
-	 */
-	__SQL appendTable(int tableResId) {
-		LKDBResource.__TableResource tableResource = LKDBResource.tables.get(tableResId);
-		assertNotNull(tableResource);
-		sql.append(tableResource.getTableName()).append(BLANK).append(AS).append(BLANK).append(tableResource.getTableAlias());
-		return this;
-	}
-
-
-	/**
-	 * 添加列。表别名.列名。
+	 * 获取列SQL。表别名.列名。
+	 * @param useSQL true:SQL;false:HQL.
 	 * @param columnResId 列资源ID
 	 */
-	__SQL appendColumn(int columnResId) {
+	protected StringBuilder getColumnSQL(boolean useSQL, int columnResId) {
 		LKDBResource.__ColumnResource columnResource = LKDBResource.columns.get(columnResId);
 		assertNotNull(columnResource);
+		StringBuilder sql = new StringBuilder();
 		sql.append(columnResource.getTable().getTableAlias()).append(DOT).append(columnResource.getColumnName());
-		return this;
+		return sql;
 	}
 
 
-	@Override
-	public String toString() {
-		Map<String, Object> map = new HashMap<>();
-		map.put("sql", getSql());
-		map.put("params", getParams());
-		return LKJsonUtils.toJson(map);
-	}
+	/**
+	 * 获取SQL语句
+	 * @param useSQL true:SQL;false:HQL.
+	 * @return SQL语句
+	 */
+	abstract StringBuilder getSql(boolean useSQL);
 
 
 	/** PLACEHOLDER */
@@ -138,9 +104,6 @@ class __SQL {
 
 	/** DISTINCT */
 	static final String DISTINCT = "DISTINCT";
-
-	/** UPDATE */
-	static final String UPDATE = "UPDATE";
 
 	/** SET */
 	static final String SET = "SET";

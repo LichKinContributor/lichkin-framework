@@ -6,6 +6,8 @@ import java.net.URISyntaxException;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.lichkin.framework.json.LKJsonUtils;
+
 public abstract class SQLTester {
 
 	@Before
@@ -24,7 +26,18 @@ public abstract class SQLTester {
 
 
 	public void printSQL(__SQL sql) {
-		System.out.println(sql);
+		System.out.println(sql.getSql(true));
+		if (sql instanceof ExpIn) {
+			System.out.println("params:" + LKJsonUtils.toJson(((ExpIn) sql).getParams()));
+		} else if (sql instanceof ExpLike) {
+			System.out.println("params:" + LKJsonUtils.toJson(((ExpLike) sql).getParam()));
+		} else if (sql instanceof ExpCompare) {
+			if (((ExpCompare) sql).isWithParam()) {
+				System.out.println("params:" + LKJsonUtils.toJson(((ExpCompare) sql).getParam()));
+			}
+		} else if (sql instanceof Condition) {
+			System.out.println("params:" + LKJsonUtils.toJson(((Condition) sql).getParams()));
+		}
 	}
 
 }

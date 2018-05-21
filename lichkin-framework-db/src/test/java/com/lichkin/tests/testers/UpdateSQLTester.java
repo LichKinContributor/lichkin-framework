@@ -5,6 +5,7 @@ import com.lichkin.framework.db.beans.R;
 import com.lichkin.framework.db.beans.SQLTester;
 import com.lichkin.framework.db.beans.UpdateSQL;
 import com.lichkin.framework.db.beans.eq;
+import com.lichkin.framework.json.LKJsonUtils;
 
 public class UpdateSQLTester extends SQLTester {
 
@@ -26,20 +27,18 @@ public class UpdateSQLTester extends SQLTester {
 
 		};
 
-		printSQL(
+		UpdateSQL sql = new UpdateSQL(R.Table.TestBean)
 
-				new UpdateSQL(R.Table.TestBean)
+				.update(new eq(R.TestBean.compId, "123"))
 
-						.update(new eq(R.TestBean.compId, "123"))
+				.update(updates)
 
-						.update(updates)
+				.where(new Condition(true, new eq(R.TestBean.compId, "123")))
 
-						.where(new Condition(true, new eq(R.TestBean.compId, "123")))
+				.where(conditions);
 
-						.where(conditions)
-
-		);
-		System.out.println();
+		System.out.println(sql.getSql());
+		System.out.println(LKJsonUtils.toJson(sql.getParams()));
 	}
 
 }

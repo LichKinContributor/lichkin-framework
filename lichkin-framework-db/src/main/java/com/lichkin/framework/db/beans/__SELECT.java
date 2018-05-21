@@ -17,7 +17,7 @@ import org.apache.commons.lang3.ArrayUtils;
 class __SELECT extends __SQL {
 
 	/** 是否使用DISTINCT */
-	final boolean distinct;
+	private final boolean distinct;
 
 	/** 列 */
 	final List<Column> columns = new ArrayList<>();
@@ -33,10 +33,6 @@ class __SELECT extends __SQL {
 	}
 
 
-	/** 是否为第一个列 */
-	private boolean first = true;
-
-
 	/**
 	 * 添加列
 	 * @param columns 列
@@ -45,9 +41,16 @@ class __SELECT extends __SQL {
 	__SELECT select(Column... columns) {
 		assertFalse(ArrayUtils.isEmpty(columns));
 		this.columns.addAll(Arrays.asList(columns));
-		for (Column column : columns) {
-			if (first) {
-				first = false;
+		return this;
+	}
+
+
+	@Override
+	StringBuilder getSql(boolean useSQL) {
+		StringBuilder sql = new StringBuilder();
+		for (int i = 0; i < columns.size(); i++) {
+			Column column = columns.get(i);
+			if (i == 0) {
 				sql.append(SELECT);
 				if (distinct) {
 					sql.append(BLANK).append(DISTINCT);
@@ -55,9 +58,14 @@ class __SELECT extends __SQL {
 			} else {
 				sql.append(COMMA);
 			}
-			sql.append(BLANK).append(column.sql);
+			sql.append(BLANK).append(column.getSql(useSQL));
 		}
-		return this;
+		return sql;
+	}
+
+
+	public List<Object> getParams() {
+		return new ArrayList<>();
 	}
 
 }

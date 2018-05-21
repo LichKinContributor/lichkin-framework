@@ -18,33 +18,20 @@ public class QuerySQL extends SQL {
 	 * @param distinct 是否使用DISTINCT
 	 */
 	public QuerySQL(int tableResId, boolean distinct) {
-		super();
+		this(true, tableResId, distinct);
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param useSQL true:SQL;false:HQL.
+	 * @param tableResId 表资源ID
+	 * @param distinct 是否使用DISTINCT
+	 */
+	public QuerySQL(boolean useSQL, int tableResId, boolean distinct) {
+		super(useSQL);
 		select = new __SELECT(distinct);
 		from = new __FROM(tableResId);
-	}
-
-
-	@Override
-	public StringBuilder getSql() {
-		assertFalse(select.columns.size() == 0);
-		assertFalse(where.conditions.size() == 0);
-		StringBuilder sql = new StringBuilder();
-		sql.append(select.sql);
-		sql.append(BLANK);
-		sql.append(from.sql);
-		sql.append(BLANK);
-		sql.append(where.sql);
-		return sql;
-	}
-
-
-	@Override
-	public List<Object> getParams() {
-		List<Object> params = new ArrayList<>();
-		params.addAll(select.params);
-		params.addAll(from.params);
-		params.addAll(where.params);
-		return params;
 	}
 
 
@@ -136,6 +123,34 @@ public class QuerySQL extends SQL {
 	public QuerySQL where(Condition... conditions) {
 		super.where(conditions);
 		return this;
+	}
+
+
+	@Override
+	public String getSql() {
+		assertFalse(select.columns.size() == 0);
+		assertFalse(where.conditions.size() == 0);
+
+		StringBuilder sql = new StringBuilder();
+		sql.append(select.getSql(useSQL));
+		sql.append(BLANK);
+		sql.append(from.getSql(useSQL));
+		sql.append(BLANK);
+		sql.append(where.getSql(useSQL));
+		return sql.toString();
+	}
+
+
+	@Override
+	public List<Object> getParams() {
+		assertFalse(select.columns.size() == 0);
+		assertFalse(where.conditions.size() == 0);
+
+		List<Object> params = new ArrayList<>();
+		params.addAll(select.getParams());
+		params.addAll(from.getParams());
+		params.addAll(where.getParams());
+		return params;
 	}
 
 }

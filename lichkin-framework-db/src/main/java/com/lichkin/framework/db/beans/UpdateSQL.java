@@ -5,6 +5,7 @@ import static com.lichkin.framework.defines.LKStringStatics.COMMA;
 import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -15,40 +16,70 @@ import org.apache.commons.lang3.ArrayUtils;
  */
 public class UpdateSQL extends SQL {
 
+	/** UPDATE */
+	static final String UPDATE = "UPDATE";
+
+	/** 表资源ID */
+	private final int tableResId;
+
+	/** 更新条件表达式 */
+	private List<eq> eqs = new ArrayList<>();
+
+
 	/**
 	 * 构造方法
 	 * @param tableResId 表资源ID
 	 * @param eqs 更新条件表达式
 	 */
 	public UpdateSQL(int tableResId) {
-		super();
-		sql.append(UPDATE).append(BLANK);
-		appendTable(tableResId);
+		this(true, tableResId);
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param useSQL true:SQL;false:HQL.
+	 * @param tableResId 表资源ID
+	 * @param eqs 更新条件表达式
+	 */
+	public UpdateSQL(boolean useSQL, int tableResId) {
+		super(useSQL);
+		this.tableResId = tableResId;
 	}
 
 
 	@Override
-	public StringBuilder getSql() {
+	public String getSql() {
 		assertFalse(where.conditions.size() == 0);
 		StringBuilder sql = new StringBuilder();
-		sql.append(this.sql);
+		sql.append(UPDATE).append(BLANK);
+		sql.append(getTableSQL(useSQL, tableResId));
+
+		for (int i = 0; i < eqs.size(); i++) {
+			eq eq = eqs.get(i);
+			if (i == 0) {
+				sql.append(BLANK).append(SET);
+			} else {
+				sql.append(COMMA);
+			}
+			sql.append(BLANK).append(eq.getSql(useSQL));
+		}
+
 		sql.append(BLANK);
-		sql.append(where.sql);
-		return sql;
+		sql.append(where.getSql(useSQL));
+		return sql.toString();
 	}
 
 
 	@Override
 	public List<Object> getParams() {
 		List<Object> params = new ArrayList<>();
-		params.addAll(this.params);
-		params.addAll(where.params);
+		for (eq eq : eqs) {
+			params.add(eq.getParam());
+		}
+		params.addAll(where.getParams());
 		return params;
 	}
-
-
-	/** 是否为第一个更新条件表达式 */
-	private boolean first = true;
 
 
 	/**
@@ -58,16 +89,7 @@ public class UpdateSQL extends SQL {
 	 */
 	public UpdateSQL update(eq... eqs) {
 		assertFalse(ArrayUtils.isEmpty(eqs));
-		for (eq eq : eqs) {
-			if (first) {
-				first = false;
-				sql.append(BLANK).append(SET);
-			} else {
-				sql.append(COMMA);
-			}
-			sql.append(BLANK).append(eq.sql);
-			params.addAll(eq.params);
-		}
+		this.eqs.addAll(Arrays.asList(eqs));
 		return this;
 	}
 

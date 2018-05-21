@@ -8,14 +8,24 @@ import static com.lichkin.framework.defines.LKStringStatics.BLANK;
  */
 class Exp extends __COLUMN {
 
+	/** 表达式类型 */
+	private final String expressionType;
+
+
 	/**
 	 * 构造方法
 	 * @param columnResId 列资源ID
 	 * @param expressionType 表达式类型
 	 */
-	Exp(int columnResId, String expressionType) {
+	protected Exp(int columnResId, String expressionType) {
 		super(columnResId);
-		sql.append(BLANK).append(expressionType);
+		this.expressionType = expressionType;
+	}
+
+
+	@Override
+	StringBuilder getSql(boolean useSQL) {
+		return super.getSql(useSQL).append(BLANK).append(expressionType);
 	}
 
 }

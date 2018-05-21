@@ -20,18 +20,6 @@ class __WHERE extends __SQL {
 
 
 	/**
-	 * 构造方法
-	 */
-	__WHERE() {
-		super();
-	}
-
-
-	/** 是否为第一个条件表达式 */
-	private boolean first = true;
-
-
-	/**
 	 * 添加条件表达式
 	 * @param conditions 条件表达式
 	 * @return 本对象
@@ -39,18 +27,35 @@ class __WHERE extends __SQL {
 	__WHERE where(Condition... conditions) {
 		assertFalse(ArrayUtils.isEmpty(conditions));
 		this.conditions.addAll(Arrays.asList(conditions));
-		if (ArrayUtils.isNotEmpty(conditions)) {
-			for (Condition condition : conditions) {
-				if (first) {
-					first = false;
-					sql.append(WHERE).append(BLANK).append(condition.sqlWithoutCondiiton);
-				} else {
-					sql.append(BLANK).append(condition.sql);
-				}
-				params.addAll(condition.params);
+		return this;
+	}
+
+
+	@Override
+	StringBuilder getSql(boolean useSQL) {
+		StringBuilder sql = new StringBuilder();
+		for (int i = 0; i < conditions.size(); i++) {
+			Condition condition = conditions.get(i);
+			if (i == 0) {
+				sql.append(WHERE).append(BLANK).append(condition.getSqlWithoutCondition(useSQL));
+			} else {
+				sql.append(BLANK).append(condition.getSql(useSQL));
 			}
 		}
-		return this;
+		return sql;
+	}
+
+
+	/**
+	 * 获取参数列表
+	 * @return 参数列表
+	 */
+	List<Object> getParams() {
+		List<Object> params = new ArrayList<>();
+		for (Condition condition : conditions) {
+			params.addAll(condition.getParams());
+		}
+		return params;
 	}
 
 }
