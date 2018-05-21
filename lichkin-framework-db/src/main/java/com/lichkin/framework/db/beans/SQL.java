@@ -9,7 +9,7 @@ import java.util.List;
 abstract class SQL extends __SQL {
 
 	/** 是否使用SQL语句 */
-	protected final boolean useSQL;
+	public final boolean useSQL;
 
 
 	/**
