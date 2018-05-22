@@ -46,7 +46,7 @@ public class UpdateSQL extends _SQL {
 	}
 
 
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	@Override
 	public String getSQL() {
 		return getSQL(isUseSQL()).toString();
@@ -75,6 +75,7 @@ public class UpdateSQL extends _SQL {
 	}
 
 
+	@Deprecated
 	@Override
 	public Object[] getParams() {
 		List<Object> params = new ArrayList<>();
