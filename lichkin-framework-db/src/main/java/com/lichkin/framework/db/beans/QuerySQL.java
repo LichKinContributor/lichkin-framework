@@ -125,25 +125,33 @@ public class QuerySQL extends _SQL {
 	}
 
 
+	@Deprecated
 	@Override
-	public String getSql() {
-		StringBuilder sql = new StringBuilder();
-		sql.append(select.getSql(useSQL));
-		sql.append(BLANK);
-		sql.append(from.getSql(useSQL));
-		sql.append(BLANK);
-		sql.append(where.getSql(useSQL));
-		return sql.toString();
+	public String getSQL() {
+		return getSQL(isUseSQL()).toString();
 	}
 
 
 	@Override
-	public List<Object> getParams() {
+	StringBuilder getSQL(boolean useSQL) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(select.getSQL(useSQL));
+		sql.append(BLANK);
+		sql.append(from.getSQL(useSQL));
+		sql.append(BLANK);
+		sql.append(where.getSQL(useSQL));
+		return sql;
+	}
+
+
+	@Deprecated
+	@Override
+	public Object[] getParams() {
 		List<Object> params = new ArrayList<>();
 		params.addAll(select.getParams());
 		params.addAll(from.getParams());
 		params.addAll(where.getParams());
-		return params;
+		return params.toArray();
 	}
 
 }

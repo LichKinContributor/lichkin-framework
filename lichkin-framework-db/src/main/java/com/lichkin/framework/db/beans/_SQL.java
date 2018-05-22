@@ -1,7 +1,5 @@
 package com.lichkin.framework.db.beans;
 
-import java.util.List;
-
 /**
  * SQL语句
  * @author SuZhou LichKin Information Technology Co., Ltd.
@@ -9,7 +7,18 @@ import java.util.List;
 abstract class _SQL extends __SQL {
 
 	/** 是否使用SQL语句 */
-	public final boolean useSQL;
+	private final boolean useSQL;
+
+
+	/**
+	 * 是否使用SQL
+	 * @return true:SQL;falseHQL.
+	 * @deprecated 框架内部使用
+	 */
+	@Deprecated
+	public boolean isUseSQL() {
+		return useSQL;
+	}
 
 
 	/**
@@ -37,23 +46,21 @@ abstract class _SQL extends __SQL {
 	}
 
 
-	@Override
-	StringBuilder getSql(boolean useSQL) {
-		return null;
-	}
-
-
 	/**
 	 * 获取SQL语句
 	 * @return SQL语句
+	 * @deprecated 框架内部使用
 	 */
-	public abstract String getSql();
+	@Deprecated
+	public abstract String getSQL();
 
 
 	/**
 	 * 获取参数列表
 	 * @return 参数列表
+	 * @deprecated 框架内部使用
 	 */
-	public abstract List<Object> getParams();
+	@Deprecated
+	public abstract Object[] getParams();
 
 }

@@ -44,7 +44,7 @@ class __SELECT extends __SQL {
 
 
 	@Override
-	StringBuilder getSql(boolean useSQL) {
+	StringBuilder getSQL(boolean useSQL) {
 		StringBuilder sql = new StringBuilder();
 		for (int i = 0; i < columns.size(); i++) {
 			Column column = columns.get(i);
@@ -56,7 +56,7 @@ class __SELECT extends __SQL {
 			} else {
 				sql.append(COMMA);
 			}
-			sql.append(BLANK).append(column.getSql(useSQL));
+			sql.append(BLANK).append(column.getSQL(useSQL));
 		}
 		return sql;
 	}

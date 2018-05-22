@@ -20,7 +20,7 @@ abstract class __COLUMN extends __SQL {
 
 
 	@Override
-	StringBuilder getSql(boolean useSQL) {
+	StringBuilder getSQL(boolean useSQL) {
 		return getColumnSQL(useSQL, columnResId);
 	}
 

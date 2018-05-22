@@ -78,33 +78,33 @@ public class Condition extends __SQL {
 	 * @param useSQL true:SQL;false:HQL.
 	 * @return SQL语句
 	 */
-	StringBuilder getSqlWithoutCondition(boolean useSQL) {
+	StringBuilder getSQLWithoutCondition(boolean useSQL) {
 		StringBuilder sql = new StringBuilder();
 		if (expression == null) {
 			sql.append(BRACKET_LEFT);
 			for (int i = 0; i < conditions.size(); i++) {
 				Condition condition = conditions.get(0);
 				if (i == 0) {
-					sql.append(condition.getSqlWithoutCondition(useSQL));
+					sql.append(condition.getSQLWithoutCondition(useSQL));
 				} else {
-					sql.append(BLANK).append(condition.getSql(useSQL));
+					sql.append(BLANK).append(condition.getSQL(useSQL));
 				}
 			}
 			sql.append(BRACKET_RIGHT);
 		} else {
-			sql.append(expression.getSql(useSQL));
+			sql.append(expression.getSQL(useSQL));
 		}
 		return sql;
 	}
 
 
 	@Override
-	StringBuilder getSql(boolean useSQL) {
+	StringBuilder getSQL(boolean useSQL) {
 		StringBuilder sql = new StringBuilder();
 		if (and != null) {
 			sql.append(and ? AND : OR).append(BLANK);
 		}
-		sql.append(getSqlWithoutCondition(useSQL));
+		sql.append(getSQLWithoutCondition(useSQL));
 		return sql;
 	}
 

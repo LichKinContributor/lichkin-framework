@@ -29,14 +29,14 @@ class __WHERE extends __SQL {
 
 
 	@Override
-	StringBuilder getSql(boolean useSQL) {
+	StringBuilder getSQL(boolean useSQL) {
 		StringBuilder sql = new StringBuilder();
 		for (int i = 0; i < conditions.size(); i++) {
 			Condition condition = conditions.get(i);
 			if (i == 0) {
-				sql.append(WHERE).append(BLANK).append(condition.getSqlWithoutCondition(useSQL));
+				sql.append(WHERE).append(BLANK).append(condition.getSQLWithoutCondition(useSQL));
 			} else {
-				sql.append(BLANK).append(condition.getSql(useSQL));
+				sql.append(BLANK).append(condition.getSQL(useSQL));
 			}
 		}
 		return sql;

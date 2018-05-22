@@ -34,8 +34,8 @@ class ExpIn extends Exp {
 
 
 	@Override
-	StringBuilder getSql(boolean useSQL) {
-		StringBuilder sql = super.getSql(useSQL);
+	StringBuilder getSQL(boolean useSQL) {
+		StringBuilder sql = super.getSQL(useSQL);
 		sql.append(BRACKET_LEFT);
 		for (int i = params.size() - 1; i >= 0; i--) {
 			sql.append(PLACEHOLDER);

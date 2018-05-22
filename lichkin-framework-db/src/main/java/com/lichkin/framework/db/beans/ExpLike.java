@@ -36,8 +36,8 @@ class ExpLike extends Exp {
 
 
 	@Override
-	StringBuilder getSql(boolean useSQL) {
-		StringBuilder sql = super.getSql(useSQL);
+	StringBuilder getSQL(boolean useSQL) {
+		StringBuilder sql = super.getSQL(useSQL);
 		sql.append(BLANK).append(PLACEHOLDER);
 		return sql;
 	}

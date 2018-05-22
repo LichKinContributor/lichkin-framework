@@ -44,7 +44,7 @@ public class QuerySQLTester extends SQLTester {
 				.where(new Condition(true, new eq(R.TestBean.compId, "123")))
 
 				.where(conditions);
-		System.out.println(sql.getSql());
+		System.out.println(sql.getSQL());
 		System.out.println(LKJsonUtils.toJson(sql.getParams()));
 	}
 

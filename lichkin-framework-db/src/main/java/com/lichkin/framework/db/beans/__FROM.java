@@ -134,7 +134,7 @@ class __FROM extends __SQL {
 
 
 	@Override
-	StringBuilder getSql(boolean useSQL) {
+	StringBuilder getSQL(boolean useSQL) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(FROM).append(BLANK);
 		sql.append(getTableSQL(useSQL, tableResId));
@@ -148,9 +148,9 @@ class __FROM extends __SQL {
 				Condition condition = conditions.get(j);
 				if (j == 0) {
 					sql.append(BLANK).append(ON);
-					sql.append(BLANK).append(condition.getSqlWithoutCondition(useSQL));
+					sql.append(BLANK).append(condition.getSQLWithoutCondition(useSQL));
 				} else {
-					sql.append(BLANK).append(condition.getSql(useSQL));
+					sql.append(BLANK).append(condition.getSQL(useSQL));
 				}
 			}
 		}

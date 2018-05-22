@@ -39,7 +39,7 @@ public class UpdateSQLTester extends SQLTester {
 
 				.where(conditions);
 
-		System.out.println(sql.getSql());
+		System.out.println(sql.getSQL());
 		System.out.println(LKJsonUtils.toJson(sql.getParams()));
 	}
 

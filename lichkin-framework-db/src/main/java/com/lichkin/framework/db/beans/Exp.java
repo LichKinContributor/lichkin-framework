@@ -24,8 +24,8 @@ class Exp extends __COLUMN {
 
 
 	@Override
-	StringBuilder getSql(boolean useSQL) {
-		return super.getSql(useSQL).append(BLANK).append(expressionType);
+	StringBuilder getSQL(boolean useSQL) {
+		return super.getSQL(useSQL).append(BLANK).append(expressionType);
 	}
 
 }

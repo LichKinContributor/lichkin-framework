@@ -26,7 +26,7 @@ public abstract class SQLTester {
 
 
 	public void printSQL(__SQL sql) {
-		System.out.println(sql.getSql(true));
+		System.out.println(sql.getSQL(true));
 		if (sql instanceof ExpIn) {
 			System.out.println("params:" + LKJsonUtils.toJson(((ExpIn) sql).getParams()));
 		} else if (sql instanceof ExpLike) {

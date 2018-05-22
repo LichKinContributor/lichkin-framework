@@ -46,8 +46,15 @@ public class UpdateSQL extends _SQL {
 	}
 
 
+	@SuppressWarnings("deprecation")
 	@Override
-	public String getSql() {
+	public String getSQL() {
+		return getSQL(isUseSQL()).toString();
+	}
+
+
+	@Override
+	StringBuilder getSQL(boolean useSQL) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(UPDATE).append(BLANK);
 		sql.append(getTableSQL(useSQL, tableResId));
@@ -59,23 +66,23 @@ public class UpdateSQL extends _SQL {
 			} else {
 				sql.append(COMMA);
 			}
-			sql.append(BLANK).append(eq.getSql(useSQL));
+			sql.append(BLANK).append(eq.getSQL(useSQL));
 		}
 
 		sql.append(BLANK);
-		sql.append(where.getSql(useSQL));
-		return sql.toString();
+		sql.append(where.getSQL(useSQL));
+		return sql;
 	}
 
 
 	@Override
-	public List<Object> getParams() {
+	public Object[] getParams() {
 		List<Object> params = new ArrayList<>();
 		for (eq eq : eqs) {
 			params.add(eq.getParam());
 		}
 		params.addAll(where.getParams());
-		return params;
+		return params.toArray();
 	}
 
 

@@ -47,8 +47,8 @@ class ExpCompare extends Exp {
 
 
 	@Override
-	StringBuilder getSql(boolean useSQL) {
-		StringBuilder sql = super.getSql(useSQL);
+	StringBuilder getSQL(boolean useSQL) {
+		StringBuilder sql = super.getSQL(useSQL);
 		if (withParam) {
 			sql.append(BLANK).append(PLACEHOLDER);
 		} else {
