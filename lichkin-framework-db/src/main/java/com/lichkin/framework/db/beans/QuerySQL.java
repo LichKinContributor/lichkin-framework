@@ -9,7 +9,7 @@ import java.util.List;
  * SQL语句 -> 查询语句
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public class QuerySQL extends SQL {
+public class QuerySQL extends _SQL {
 
 	/**
 	 * 构造方法

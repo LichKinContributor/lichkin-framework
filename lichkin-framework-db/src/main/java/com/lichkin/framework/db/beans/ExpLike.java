@@ -1,5 +1,8 @@
 package com.lichkin.framework.db.beans;
 
+import static com.lichkin.framework.db.beans.__SQL_STATICS.LIKE;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.NOT_LIKE;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.PLACEHOLDER;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 import static com.lichkin.framework.defines.LKStringStatics.PERCENT;
 

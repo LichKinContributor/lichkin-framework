@@ -1,5 +1,12 @@
 package com.lichkin.framework.db.beans;
 
+import static com.lichkin.framework.db.beans.__SQL_STATICS.FROM;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.FULL_JOIN;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.INNER_JOIN;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.JOIN;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.LEFT_JOIN;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.ON;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.RIGHT_JOIN;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 
 import java.util.ArrayList;

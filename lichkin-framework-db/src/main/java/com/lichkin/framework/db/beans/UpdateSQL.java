@@ -1,5 +1,6 @@
 package com.lichkin.framework.db.beans;
 
+import static com.lichkin.framework.db.beans.__SQL_STATICS.SET;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 import static com.lichkin.framework.defines.LKStringStatics.COMMA;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * SQL语句 -> 更新语句
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public class UpdateSQL extends SQL {
+public class UpdateSQL extends _SQL {
 
 	/** UPDATE */
 	static final String UPDATE = "UPDATE";

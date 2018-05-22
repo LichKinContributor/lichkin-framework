@@ -1,5 +1,8 @@
 package com.lichkin.framework.db.beans;
 
+import static com.lichkin.framework.db.beans.__SQL_STATICS.IN;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.NOT_IN;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.PLACEHOLDER;
 import static com.lichkin.framework.defines.LKFrameworkStatics.SPLITOR;
 import static com.lichkin.framework.defines.LKStringStatics.BRACKET_LEFT;
 import static com.lichkin.framework.defines.LKStringStatics.BRACKET_RIGHT;

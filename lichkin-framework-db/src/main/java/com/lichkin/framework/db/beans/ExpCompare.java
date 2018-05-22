@@ -1,5 +1,6 @@
 package com.lichkin.framework.db.beans;
 
+import static com.lichkin.framework.db.beans.__SQL_STATICS.PLACEHOLDER;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 
 /**

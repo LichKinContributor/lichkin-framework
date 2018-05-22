@@ -28,6 +28,8 @@ public class UpdateSQLTester extends SQLTester {
 		};
 
 		UpdateSQL sql = new UpdateSQL(R.Table.TestBean)
+				// UpdateSQL sql = new UpdateSQL(true, R.Table.TestBean)
+				// UpdateSQL sql = new UpdateSQL(false,R.Table.TestBean)
 
 				.update(new eq(R.TestBean.compId, "123"))
 

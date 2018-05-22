@@ -1,5 +1,7 @@
 package com.lichkin.framework.db.beans;
 
+import static com.lichkin.framework.db.beans.__SQL_STATICS.GT;
+
 /**
  * SQL语句 -> 大于
  * @author SuZhou LichKin Information Technology Co., Ltd.

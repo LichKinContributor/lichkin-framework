@@ -1,5 +1,7 @@
 package com.lichkin.framework.db.beans;
 
+import static com.lichkin.framework.db.beans.__SQL_STATICS.DISTINCT;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.SELECT;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 import static com.lichkin.framework.defines.LKStringStatics.COMMA;
 

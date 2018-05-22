@@ -1,8 +1,8 @@
 package com.lichkin.framework.db.beans;
 
+import static com.lichkin.framework.db.beans.__SQL_STATICS.AS;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 import static com.lichkin.framework.defines.LKStringStatics.DOT;
-import static com.lichkin.framework.defines.LKStringStatics.QUESTION;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -35,7 +35,7 @@ abstract class __SQL {
 	protected StringBuilder getColumnSQL(boolean useSQL, int columnResId) {
 		LKDBResource.__ColumnResource columnResource = LKDBResource.columns.get(columnResId);
 		StringBuilder sql = new StringBuilder();
-		sql.append(columnResource.getTable().getTableAlias()).append(DOT).append(columnResource.getColumnName());
+		sql.append(columnResource.getTable().getTableAlias()).append(DOT).append(useSQL ? columnResource.getColumnName() : columnResource.getFieldName());
 		return sql;
 	}
 
@@ -46,87 +46,5 @@ abstract class __SQL {
 	 * @return SQL语句
 	 */
 	abstract StringBuilder getSql(boolean useSQL);
-
-
-	/** PLACEHOLDER */
-	static final String PLACEHOLDER = QUESTION;
-
-	/** IN */
-	static final String IN = "IN";
-
-	/** NOT IN */
-	static final String NOT_IN = "NOT IN";
-
-	/** LIKE */
-	static final String LIKE = "LIKE";
-
-	/** NOT LIKE */
-	static final String NOT_LIKE = "NOT LIKE";
-
-	/** IS NULL */
-	static final String IS_NULL = "IS NULL";
-
-	/** IS NOT NULL */
-	static final String IS_NOT_NULL = "IS NOT NULL";
-
-	/** EQ */
-	static final String EQ = "=";
-
-	/** NEQ */
-	static final String NEQ = "!=";
-
-	/** LT */
-	static final String LT = "<";
-
-	/** GT */
-	static final String GT = ">";
-
-	/** LTE */
-	static final String LTE = "<=";
-
-	/** GTE */
-	static final String GTE = ">=";
-
-	/** AND */
-	static final String AND = "AND";
-
-	/** OR */
-	static final String OR = "OR";
-
-	/** AS */
-	static final String AS = "AS";
-
-	/** SELECT */
-	static final String SELECT = "SELECT";
-
-	/** DISTINCT */
-	static final String DISTINCT = "DISTINCT";
-
-	/** SET */
-	static final String SET = "SET";
-
-	/** FROM */
-	static final String FROM = "FROM";
-
-	/** JOIN */
-	static final String JOIN = "JOIN";
-
-	/** LEFT JOIN */
-	static final String LEFT_JOIN = "LEFT JOIN";
-
-	/** RIGHT JOIN */
-	static final String RIGHT_JOIN = "RIGHT JOIN";
-
-	/** FULL JOIN */
-	static final String FULL_JOIN = "FULL JOIN";
-
-	/** INNER JOIN */
-	static final String INNER_JOIN = "INNER JOIN";
-
-	/** ON */
-	static final String ON = "ON";
-
-	/** WHERE */
-	static final String WHERE = "WHERE";
 
 }

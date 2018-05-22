@@ -29,6 +29,11 @@ public class QuerySQLTester extends SQLTester {
 		};
 
 		QuerySQL sql = new QuerySQL(R.Table.TestBean, true)
+				// QuerySQL sql = new QuerySQL(R.Table.TestBean, false)
+				// QuerySQL sql = new QuerySQL(true, R.Table.TestBean, true)
+				// QuerySQL sql = new QuerySQL(true, R.Table.TestBean, false)
+				// QuerySQL sql = new QuerySQL(false, R.Table.TestBean, true)
+				// QuerySQL sql = new QuerySQL(false, R.Table.TestBean, false)
 
 				.select(new Column(R.TestBean.compId))
 
