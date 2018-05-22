@@ -1,5 +1,6 @@
 package com.lichkin.framework.utils;
 
+import static com.lichkin.framework.defines.LKStringStatics.EMPTY;
 import static com.lichkin.framework.defines.LKStringStatics.SEPARATOR;
 import static com.lichkin.framework.defines.LKStringStatics.UNDERLINE;
 
@@ -43,6 +44,72 @@ public class LKStringUtils {
 			return toStandardPath(subPath);
 		}
 		return path + toStandardPath(subPath);
+	}
+
+
+	/**
+	 * 首字母大写
+	 * @param str 待转换字符串
+	 * @return 首字母大写字符串
+	 */
+	public static String capitalize(final String str) {
+		final String result = str.trim();
+		if (EMPTY.equals(result)) {
+			return EMPTY;
+		}
+
+		final char firstChar = result.charAt(0);
+		if ((firstChar >= 'a') && (firstChar <= 'z')) {
+			return new StringBuilder().append((char) (firstChar - 32)).append(result.substring(1)).toString();
+		}
+		return result;
+	}
+
+
+	/**
+	 * 下划线转驼峰
+	 *
+	 * <pre>
+	 * assertEquals(LKStringUtils.underlineToHump("abcdefghijk"), "abcdefghijk");
+	 * assertEquals(LKStringUtils.underlineToHump("ABCDEFGHIJK"), "abcdefghijk");
+	 * assertEquals(LKStringUtils.underlineToHump("Abcdefghijk"), "Abcdefghijk");
+	 * assertEquals(LKStringUtils.underlineToHump("abcdefghijK"), "abcdefghijK");
+	 * assertEquals(LKStringUtils.underlineToHump("abcde_Fghijk"), "abcdeFghijk");
+	 * assertEquals(LKStringUtils.underlineToHump("Abcde_FghijK"), "AbcdeFghijK");
+	 * assertEquals(LKStringUtils.underlineToHump("1abcdefghijk"), "1abcdefghijk");
+	 * assertEquals(LKStringUtils.underlineToHump("abcdefghijk1"), "abcdefghijk1");
+	 * assertEquals(LKStringUtils.underlineToHump("abcde1fghijk"), "abcde1fghijk");
+	 * assertEquals(LKStringUtils.underlineToHump("1abcde1fghijk1"), "1abcde1fghijk1");
+	 * assertEquals(LKStringUtils.underlineToHump("1abcde1_Fghijk1"), "1abcde1Fghijk1");
+	 * assertEquals(LKStringUtils.underlineToHump("1abcde1_FGhijk1"), "1abcde1FGhijk1");
+	 * assertEquals(LKStringUtils.underlineToHump("1ab_Cde1_FGhijk1"), "1abCde1FGhijk1");
+	 * assertEquals(LKStringUtils.underlineToHump("USING_STATUS"), "usingStatus");
+	 * </pre>
+	 *
+	 * @param str 下划线
+	 * @return 驼峰
+	 */
+	public static String underlineToHump(final String str) {
+		// 先判断输入值是否为标准的下划线标识。即除下划线和数字以外，全部都是大写字母，或者全部都是小写字母。
+		final StringBuilder result = new StringBuilder();
+
+		if (LKMatcherUtils.getMatcher("[0-9_a-z]*", str).matches() || LKMatcherUtils.getMatcher("[0-9_A-Z]*", str).matches()) {// 标准的下划线标识，转换为标准的驼峰标识。即abcDefGh
+			result.append(str.toLowerCase());// 首先全部转换为小写
+			for (int i = result.length() - 1; i >= 0; i--) {// 倒序遍历
+				if (result.charAt(i) == '_') {// 如果当前字符是下划线，则将本字符删除，然后将移入该位置的字符转换为大写。
+					result.deleteCharAt(i);
+					result.setCharAt(i, Character.toUpperCase(result.charAt(i)));
+				}
+			}
+		} else {
+			// 非标准的下划线标识，则只将下划线去除，并将下划线后面的字符转换为大写。
+			final String[] strs = str.split(UNDERLINE);
+			for (int i = 0; i < strs.length; i++) {
+				result.append(i == 0 ? strs[i] : capitalize(strs[i]));
+			}
+		}
+
+		return result.toString();
 	}
 
 
