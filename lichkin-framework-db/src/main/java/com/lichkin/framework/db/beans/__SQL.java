@@ -35,7 +35,7 @@ abstract class __SQL {
 	protected StringBuilder getColumnSQL(boolean useSQL, int columnResId) {
 		LKDBResource.__ColumnResource columnResource = LKDBResource.columns.get(columnResId);
 		StringBuilder sql = new StringBuilder();
-		sql.append(columnResource.getTable().getTableAlias()).append(DOT).append(useSQL ? columnResource.getColumnName() : columnResource.getFieldName());
+		sql.append(columnResource.getTableAlias()).append(DOT).append(useSQL ? columnResource.getColumnName() : columnResource.getFieldName());
 		return sql;
 	}
 

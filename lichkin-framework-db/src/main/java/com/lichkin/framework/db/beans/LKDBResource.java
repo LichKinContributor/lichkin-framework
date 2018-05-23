@@ -57,8 +57,8 @@ public class LKDBResource {
 	@RequiredArgsConstructor
 	static class __ColumnResource {
 
-		/** 表资源 */
-		private final __TableResource table;
+		/** 表别名 */
+		private final String tableAlias;
 
 		/** 列名 */
 		private final String columnName;
@@ -107,7 +107,7 @@ public class LKDBResource {
 	 * 增加表资源
 	 * @param clazz 资源类
 	 */
-	public static void addTable(Class<?> clazz) {
+	static void addTable(Class<?> clazz) {
 		Table tableAnnotation = clazz.getAnnotation(Table.class);
 		if (tableAnnotation == null) {
 			throw new LKRuntimeException(LKErrorCodesEnum.CONFIG_ERROR);
@@ -116,8 +116,7 @@ public class LKDBResource {
 		String className = clazz.getName();
 		String tableName = tableAnnotation.name();
 		String tableAlias = clazz.getSimpleName();
-		__TableResource tableResource = new __TableResource(className, tableName, tableAlias);
-		tables.put(clazz, tableResource);
+		tables.put(clazz, new __TableResource(className, tableName, tableAlias));
 
 		// 添加列资源
 		StringBuilder columnsStr = new StringBuilder();
@@ -126,11 +125,22 @@ public class LKDBResource {
 		for (Field field : fields) {
 			String columnKey = LKStringUtils.fillZero(++columnIdx, 8);
 			String fieldName = field.getName();
-			columns.put(Integer.parseInt(columnKey, 16), new __ColumnResource(tableResource, LKStringUtils.humpToUnderline(fieldName), fieldName));
+			addColumn(columnKey, tableAlias, fieldName);
 			columnsStr.append("\n").append("\t").append("\t").append("public static final int ").append(fieldName).append(" = 0x").append(columnKey).append(";").append("\n");
 		}
 		columnsStr.append("\n").append("\t").append("}");
 		columnsStrList.add(columnsStr);
+	}
+
+
+	/**
+	 * 增加列资源
+	 * @param columnKey 列键
+	 * @param tableAlias 表别名
+	 * @param fieldName 字段名/列别名
+	 */
+	static void addColumn(String columnKey, String tableAlias, String fieldName) {
+		columns.put(Integer.parseInt(columnKey, 16), new __ColumnResource(tableAlias, LKStringUtils.humpToUnderline(fieldName), fieldName));
 	}
 
 
