@@ -6,6 +6,7 @@ import com.lichkin.framework.db.beans.R;
 import com.lichkin.framework.db.beans.SQLTester;
 import com.lichkin.framework.db.beans.eq;
 import com.lichkin.framework.json.LKJsonUtils;
+import com.lichkin.tests.beans.TestBean;
 
 public class QuerySQLTester extends SQLTester {
 
@@ -28,7 +29,7 @@ public class QuerySQLTester extends SQLTester {
 
 		};
 
-		QuerySQL sql = new QuerySQL(R.Table.TestBean)
+		QuerySQL sql = new QuerySQL(TestBean.class)
 				// QuerySQL sql = new QuerySQL(R.Table.TestBean, true)
 				// QuerySQL sql = new QuerySQL(R.Table.TestBean, false)
 				// QuerySQL sql = new QuerySQL(true, R.Table.TestBean, true)
@@ -40,7 +41,7 @@ public class QuerySQLTester extends SQLTester {
 
 				.select(columnResIds)
 
-				.innerJoin(R.Table.TestBean, new Condition(true, new eq(R.TestBean.compId, "123")), conditions)
+				.innerJoin(TestBean.class, new Condition(true, new eq(R.TestBean.compId, "123")), conditions)
 
 				.where(new Condition(true, new eq(R.TestBean.compId, "123")))
 

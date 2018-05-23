@@ -21,8 +21,8 @@ import lombok.RequiredArgsConstructor;
  */
 class __FROM extends __SQL {
 
-	/** 表资源ID */
-	private final int tableResId;
+	/** 表映射类型 */
+	private final Class<?> tableClazz;
 
 	/** 关联表 */
 	private final List<JoinTable> joinTables = new ArrayList<>();
@@ -30,11 +30,10 @@ class __FROM extends __SQL {
 
 	/**
 	 * 构造方法
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 */
-	__FROM(int tableResId) {
-		super();
-		this.tableResId = tableResId;
+	__FROM(Class<?> tableClazz) {
+		this.tableClazz = tableClazz;
 	}
 
 
@@ -45,8 +44,8 @@ class __FROM extends __SQL {
 	@RequiredArgsConstructor
 	private static class JoinTable {
 
-		/** 表资源ID */
-		final int tableResId;
+		/** 表映射类型 */
+		final Class<?> tableClazz;
 
 		/** 关联类型 */
 		final String joinType;
@@ -58,14 +57,14 @@ class __FROM extends __SQL {
 
 	/**
 	 * 添加关联表达式
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 * @param joinType 关联类型
 	 * @param condition 条件表达式
 	 * @param conditions 条件表达式
 	 * @return 本对象
 	 */
-	private __FROM appendJoin(int tableResId, String joinType, Condition condition, Condition... conditions) {
-		JoinTable joinTable = new JoinTable(tableResId, joinType);
+	private __FROM appendJoin(Class<?> tableClazz, String joinType, Condition condition, Condition... conditions) {
+		JoinTable joinTable = new JoinTable(tableClazz, joinType);
 		joinTable.conditions.add(condition);
 		joinTable.conditions.addAll(Arrays.asList(conditions));
 		joinTables.add(joinTable);
@@ -75,61 +74,61 @@ class __FROM extends __SQL {
 
 	/**
 	 * JOIN表
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 * @param condition 条件表达式
 	 * @param conditions 条件表达式
 	 * @return 本对象
 	 */
-	__FROM join(int tableResId, Condition condition, Condition... conditions) {
-		return appendJoin(tableResId, JOIN, condition, conditions);
+	__FROM join(Class<?> tableClazz, Condition condition, Condition... conditions) {
+		return appendJoin(tableClazz, JOIN, condition, conditions);
 	}
 
 
 	/**
 	 * LEFT JOIN表
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 * @param condition 条件表达式
 	 * @param conditions 条件表达式
 	 * @return 本对象
 	 */
-	__FROM leftJoin(int tableResId, Condition condition, Condition... conditions) {
-		return appendJoin(tableResId, LEFT_JOIN, condition, conditions);
+	__FROM leftJoin(Class<?> tableClazz, Condition condition, Condition... conditions) {
+		return appendJoin(tableClazz, LEFT_JOIN, condition, conditions);
 	}
 
 
 	/**
 	 * RIGHT JOIN表
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 * @param condition 条件表达式
 	 * @param conditions 条件表达式
 	 * @return 本对象
 	 */
-	__FROM rightJoin(int tableResId, Condition condition, Condition... conditions) {
-		return appendJoin(tableResId, RIGHT_JOIN, condition, conditions);
+	__FROM rightJoin(Class<?> tableClazz, Condition condition, Condition... conditions) {
+		return appendJoin(tableClazz, RIGHT_JOIN, condition, conditions);
 	}
 
 
 	/**
 	 * FULL JOIN表
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 * @param condition 条件表达式
 	 * @param conditions 条件表达式
 	 * @return 本对象
 	 */
-	__FROM fullJoin(int tableResId, Condition condition, Condition... conditions) {
-		return appendJoin(tableResId, FULL_JOIN, condition, conditions);
+	__FROM fullJoin(Class<?> tableClazz, Condition condition, Condition... conditions) {
+		return appendJoin(tableClazz, FULL_JOIN, condition, conditions);
 	}
 
 
 	/**
 	 * INNER JOIN表
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 * @param condition 条件表达式
 	 * @param conditions 条件表达式
 	 * @return 本对象
 	 */
-	__FROM innerJoin(int tableResId, Condition condition, Condition... conditions) {
-		return appendJoin(tableResId, INNER_JOIN, condition, conditions);
+	__FROM innerJoin(Class<?> tableClazz, Condition condition, Condition... conditions) {
+		return appendJoin(tableClazz, INNER_JOIN, condition, conditions);
 	}
 
 
@@ -137,11 +136,11 @@ class __FROM extends __SQL {
 	StringBuilder getSQL(boolean useSQL) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(FROM).append(BLANK);
-		sql.append(getTableSQL(useSQL, tableResId));
+		sql.append(getTableSQL(useSQL, tableClazz));
 
 		for (JoinTable joinTable : joinTables) {
 			sql.append(BLANK).append(joinTable.joinType).append(BLANK);
-			sql.append(getTableSQL(useSQL, joinTable.tableResId));
+			sql.append(getTableSQL(useSQL, joinTable.tableClazz));
 
 			List<Condition> conditions = joinTable.conditions;
 			for (int j = 0; j < conditions.size(); j++) {

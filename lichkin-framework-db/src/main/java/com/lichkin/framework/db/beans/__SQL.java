@@ -17,10 +17,10 @@ abstract class __SQL {
 	/**
 	 * 获取表SQL。表名 AS 表别名。
 	 * @param useSQL true:SQL;false:HQL.
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 */
-	protected StringBuilder getTableSQL(boolean useSQL, int tableResId) {
-		LKDBResource.__TableResource tableResource = LKDBResource.tables.get(tableResId);
+	protected StringBuilder getTableSQL(boolean useSQL, Class<?> tableClazz) {
+		LKDBResource.__TableResource tableResource = LKDBResource.tables.get(tableClazz);
 		StringBuilder sql = new StringBuilder();
 		sql.append(useSQL ? tableResource.getTableName() : tableResource.getClassName()).append(BLANK).append(AS).append(BLANK).append(tableResource.getTableAlias());
 		return sql;

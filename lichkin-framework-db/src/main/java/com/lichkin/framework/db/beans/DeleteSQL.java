@@ -11,16 +11,16 @@ public class DeleteSQL extends __SQL {
 	/** DELETE FROM */
 	private static final String DELETE_FROM = "DELETE FROM";
 
-	/** 表资源ID */
-	private final int tableResId;
+	/** 表映射类型 */
+	private final Class<?> tableClazz;
 
 
 	/**
 	 * 构造方法
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 */
-	public DeleteSQL(int tableResId) {
-		this.tableResId = tableResId;
+	public DeleteSQL(Class<?> tableClazz) {
+		this.tableClazz = tableClazz;
 	}
 
 
@@ -66,7 +66,7 @@ public class DeleteSQL extends __SQL {
 		StringBuilder sql = new StringBuilder();
 		sql.append(DELETE_FROM);
 		sql.append(BLANK);
-		sql.append(getTableSQL(useSQL, tableResId));
+		sql.append(getTableSQL(useSQL, tableClazz));
 		sql.append(BLANK);
 		sql.append(where.getSQL(useSQL));
 		return sql;

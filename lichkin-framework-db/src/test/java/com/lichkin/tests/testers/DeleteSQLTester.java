@@ -6,6 +6,7 @@ import com.lichkin.framework.db.beans.R;
 import com.lichkin.framework.db.beans.SQLTester;
 import com.lichkin.framework.db.beans.eq;
 import com.lichkin.framework.json.LKJsonUtils;
+import com.lichkin.tests.beans.TestBean;
 
 public class DeleteSQLTester extends SQLTester {
 
@@ -20,7 +21,7 @@ public class DeleteSQLTester extends SQLTester {
 
 		};
 
-		DeleteSQL sql = new DeleteSQL(R.Table.TestBean)
+		DeleteSQL sql = new DeleteSQL(TestBean.class)
 
 				.where(new Condition(true, new eq(R.TestBean.compId, "123")))
 

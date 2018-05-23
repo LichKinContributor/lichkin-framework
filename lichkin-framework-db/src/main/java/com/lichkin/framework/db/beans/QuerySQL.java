@@ -28,33 +28,33 @@ public class QuerySQL extends __SQL {
 
 	/**
 	 * 构造方法（useSQL:true,distinct:false）
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 */
-	public QuerySQL(int tableResId) {
-		this(true, tableResId, false);
+	public QuerySQL(Class<?> tableClazz) {
+		this(true, tableClazz, false);
 	}
 
 
 	/**
 	 * 构造方法（useSQL:true）
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 * @param distinct 是否使用DISTINCT
 	 */
-	public QuerySQL(int tableResId, boolean distinct) {
-		this(true, tableResId, distinct);
+	public QuerySQL(Class<?> tableClazz, boolean distinct) {
+		this(true, tableClazz, distinct);
 	}
 
 
 	/**
 	 * 构造方法
 	 * @param useSQL true:SQL;false:HQL.
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 * @param distinct 是否使用DISTINCT
 	 */
-	public QuerySQL(boolean useSQL, int tableResId, boolean distinct) {
+	public QuerySQL(boolean useSQL, Class<?> tableClazz, boolean distinct) {
 		this.useSQL = useSQL;
 		select = new __SELECT(distinct);
-		from = new __FROM(tableResId);
+		from = new __FROM(tableClazz);
 	}
 
 
@@ -79,65 +79,65 @@ public class QuerySQL extends __SQL {
 
 	/**
 	 * JOIN表
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 * @param condition 条件表达式
 	 * @param conditions 条件表达式
 	 * @return 本对象
 	 */
-	public QuerySQL join(int tableResId, Condition condition, Condition... conditions) {
-		from.join(tableResId, condition, conditions);
+	public QuerySQL join(Class<?> tableClazz, Condition condition, Condition... conditions) {
+		from.join(tableClazz, condition, conditions);
 		return this;
 	}
 
 
 	/**
 	 * LEFT JOIN表
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 * @param condition 条件表达式
 	 * @param conditions 条件表达式
 	 * @return 本对象
 	 */
-	public QuerySQL leftJoin(int tableResId, Condition condition, Condition... conditions) {
-		from.leftJoin(tableResId, condition, conditions);
+	public QuerySQL leftJoin(Class<?> tableClazz, Condition condition, Condition... conditions) {
+		from.leftJoin(tableClazz, condition, conditions);
 		return this;
 	}
 
 
 	/**
 	 * RIGHT JOIN表
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 * @param condition 条件表达式
 	 * @param conditions 条件表达式
 	 * @return 本对象
 	 */
-	public QuerySQL rightJoin(int tableResId, Condition condition, Condition... conditions) {
-		from.rightJoin(tableResId, condition, conditions);
+	public QuerySQL rightJoin(Class<?> tableClazz, Condition condition, Condition... conditions) {
+		from.rightJoin(tableClazz, condition, conditions);
 		return this;
 	}
 
 
 	/**
 	 * FULL JOIN表
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 * @param condition 条件表达式
 	 * @param conditions 条件表达式
 	 * @return 本对象
 	 */
-	public QuerySQL fullJoin(int tableResId, Condition condition, Condition... conditions) {
-		from.fullJoin(tableResId, condition, conditions);
+	public QuerySQL fullJoin(Class<?> tableClazz, Condition condition, Condition... conditions) {
+		from.fullJoin(tableClazz, condition, conditions);
 		return this;
 	}
 
 
 	/**
 	 * INNER JOIN表
-	 * @param tableResId 表资源ID
+	 * @param tableClazz 表映射类型
 	 * @param condition 条件表达式
 	 * @param conditions 条件表达式
 	 * @return 本对象
 	 */
-	public QuerySQL innerJoin(int tableResId, Condition condition, Condition... conditions) {
-		from.innerJoin(tableResId, condition, conditions);
+	public QuerySQL innerJoin(Class<?> tableClazz, Condition condition, Condition... conditions) {
+		from.innerJoin(tableClazz, condition, conditions);
 		return this;
 	}
 

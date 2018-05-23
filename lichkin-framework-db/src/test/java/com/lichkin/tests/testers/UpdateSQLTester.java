@@ -6,6 +6,7 @@ import com.lichkin.framework.db.beans.SQLTester;
 import com.lichkin.framework.db.beans.UpdateSQL;
 import com.lichkin.framework.db.beans.eq;
 import com.lichkin.framework.json.LKJsonUtils;
+import com.lichkin.tests.beans.TestBean;
 
 public class UpdateSQLTester extends SQLTester {
 
@@ -28,7 +29,7 @@ public class UpdateSQLTester extends SQLTester {
 
 		};
 
-		UpdateSQL sql = new UpdateSQL(R.Table.TestBean)
+		UpdateSQL sql = new UpdateSQL(TestBean.class)
 
 				.update(new eq(R.TestBean.compId, "123"))
 

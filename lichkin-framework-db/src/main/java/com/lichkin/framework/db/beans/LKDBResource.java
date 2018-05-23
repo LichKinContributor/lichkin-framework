@@ -69,19 +69,13 @@ public class LKDBResource {
 
 
 	/** 表资源 */
-	static final Map<Integer, __TableResource> tables = new HashMap<>();
+	static final Map<Class<?>, __TableResource> tables = new HashMap<>();
 
 	/** 列资源 */
 	static final Map<Integer, __ColumnResource> columns = new HashMap<>();
 
-	/** 表资源索引值 */
-	private static int tableIdx = 0;
-
 	/** R文件字符串 */
 	private static StringBuilder RFileStr = new StringBuilder();
-
-	/** 表资源字符串 */
-	private static StringBuilder tablesStr = new StringBuilder();
 
 	/** 列资源字符串 */
 	private static List<StringBuilder> columnsStrList = new ArrayList<>();
@@ -97,7 +91,7 @@ public class LKDBResource {
 		@SuppressWarnings("unchecked")
 		List<Class<?>> classes = LKClassScanner.scanClasses(Table.class);// 扫描所有带Table注解的类
 		for (Class<?> clazz : classes) {
-			addTable(clazz, ++tableIdx);
+			addTable(clazz);
 		}
 		LOGGER.info(tables);
 		LOGGER.info(columns);
@@ -105,32 +99,31 @@ public class LKDBResource {
 	}
 
 
+	static int columnIdx = 0;
+
+
 	/**
 	 * 增加表资源
 	 * @param clazz 资源类
-	 * @param tableIdx 表资源索引值
 	 */
-	public static void addTable(Class<?> clazz, int tableIdx) {
+	public static void addTable(Class<?> clazz) {
 		Table tableAnnotation = clazz.getAnnotation(Table.class);
 		if (tableAnnotation == null) {
 			throw new LKRuntimeException(LKErrorCodesEnum.CONFIG_ERROR);
 		}
 		// 添加表资源
-		String tableKey = LKStringUtils.fillZero(tableIdx, 4);
 		String className = clazz.getName();
 		String tableName = tableAnnotation.name();
 		String tableAlias = clazz.getSimpleName();
 		__TableResource tableResource = new __TableResource(className, tableName, tableAlias);
-		tables.put(Integer.parseInt(tableKey + "0000", 16), tableResource);
-		tablesStr.append("\n").append("\n").append("\t").append("\t").append("public static final int ").append(tableAlias).append(" = 0x").append(tableKey).append("0000;");
+		tables.put(clazz, tableResource);
 
 		// 添加列资源
 		StringBuilder columnsStr = new StringBuilder();
 		columnsStr.append("\n").append("\t").append("public static final class ").append(tableAlias).append(" {").append("\n");
 		Field[] fields = clazz.getDeclaredFields();
-		int columnIdx = 0;
 		for (Field field : fields) {
-			String columnKey = tableKey + LKStringUtils.fillZero(++columnIdx, 4);
+			String columnKey = LKStringUtils.fillZero(++columnIdx, 8);
 			String fieldName = field.getName();
 			columns.put(Integer.parseInt(columnKey, 16), new __ColumnResource(tableResource, LKStringUtils.humpToUnderline(fieldName), fieldName));
 			columnsStr.append("\n").append("\t").append("\t").append("public static final int ").append(fieldName).append(" = 0x").append(columnKey).append(";").append("\n");
@@ -144,13 +137,9 @@ public class LKDBResource {
 	 * 获取R文件字符串
 	 * @return R文件字符串
 	 */
-	public static String getRFileStr() {
+	private static String getRFileStr() {
 		RFileStr.append("package com.lichkin.framework.db.beans;").append("\n").append("\n");
-		RFileStr.append("public class R {").append("\n").append("\n");
-		RFileStr.append("\t").append("public static final class Table {");
-
-		RFileStr.append(tablesStr);
-		RFileStr.append("\n").append("\n").append("\t").append("}").append("\n");
+		RFileStr.append("public class R {").append("\n");
 
 		for (StringBuilder columnsStr : columnsStrList) {
 			RFileStr.append(columnsStr).append("\n");

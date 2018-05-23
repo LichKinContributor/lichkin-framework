@@ -19,8 +19,8 @@ public class UpdateSQL extends __SQL {
 	/** SET */
 	private static final String SET = "SET";
 
-	/** 表资源ID */
-	private final int tableResId;
+	/** 表映射类型 */
+	private final Class<?> tableClazz;
 
 	/** 更新条件表达式 */
 	private List<eq> eqs = new ArrayList<>();
@@ -28,11 +28,10 @@ public class UpdateSQL extends __SQL {
 
 	/**
 	 * 构造方法
-	 * @param tableResId 表资源ID
-	 * @param eqs 更新条件表达式
+	 * @param tableClazz 表映射类型
 	 */
-	public UpdateSQL(int tableResId) {
-		this.tableResId = tableResId;
+	public UpdateSQL(Class<?> tableClazz) {
+		this.tableClazz = tableClazz;
 	}
 
 
@@ -89,7 +88,7 @@ public class UpdateSQL extends __SQL {
 	StringBuilder getSQL(boolean useSQL) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(UPDATE).append(BLANK);
-		sql.append(getTableSQL(useSQL, tableResId));
+		sql.append(getTableSQL(useSQL, tableClazz));
 
 		for (int i = 0; i < eqs.size(); i++) {
 			eq eq = eqs.get(i);
