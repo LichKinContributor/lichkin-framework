@@ -2,7 +2,6 @@ package com.lichkin.framework.utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -37,26 +36,12 @@ public class LKClassScanner {
 
 	/**
 	 * 扫描com.lichkin包中的类
-	 * @param annotationClasses 注解类型
+	 * @param annotationClassNames 注解类名称
 	 * @return 类列表
 	 * @throws IOException IOException
-	 * @throws ClassNotFoundException ClassNotFoundException
-	 * @throws URISyntaxException URISyntaxException
 	 */
-	public static List<Class<?>> scanClasses(@SuppressWarnings("unchecked") Class<? extends Annotation>... annotationClasses) throws ClassNotFoundException, IOException, URISyntaxException {
-		return scanClasses(PACKAGE_NAME, true, annotationClasses);
-	}
-
-
-	/**
-	 * 扫描com.lichkin包中的类
-	 * @return 类列表
-	 * @throws IOException IOException
-	 * @throws ClassNotFoundException ClassNotFoundException
-	 * @throws URISyntaxException URISyntaxException
-	 */
-	public static List<Class<?>> scanClasses() throws ClassNotFoundException, IOException, URISyntaxException {
-		return scanClasses(PACKAGE_NAME, true, null);
+	public static List<Class<?>> scanClasses(String... annotationClassNames) throws IOException {
+		return scanClasses(PACKAGE_NAME, true, annotationClassNames);
 	}
 
 
@@ -64,13 +49,11 @@ public class LKClassScanner {
 	 * 扫描类
 	 * @param packageName 包名
 	 * @param recursive 是否递归扫描
-	 * @param annotationClasses 注解类型
+	 * @param annotationClassNames 注解类名称
 	 * @return 类列表
 	 * @throws IOException IOException
-	 * @throws ClassNotFoundException ClassNotFoundException
-	 * @throws URISyntaxException URISyntaxException
 	 */
-	public static List<Class<?>> scanClasses(String packageName, boolean recursive, Class<? extends Annotation>[] annotationClasses) throws IOException, ClassNotFoundException, URISyntaxException {
+	public static List<Class<?>> scanClasses(String packageName, boolean recursive, String... annotationClassNames) throws IOException {
 		LOGGER.info("scan classes from %s", packageName);
 		List<Class<?>> classes = new ArrayList<>();
 		Enumeration<URL> iterator = Thread.currentThread().getContextClassLoader().getResources(packageName.replace(DOT, File.separatorChar));
@@ -78,7 +61,11 @@ public class LKClassScanner {
 			URL url = iterator.nextElement();
 			switch (url.getProtocol()) {
 				case "file":
-					classes.addAll(scanClassesInFilePath(Paths.get(url.toURI()), packageName, recursive, annotationClasses));
+					try {
+						classes.addAll(scanClassesInFilePath(Paths.get(url.toURI()), packageName, recursive, annotationClassNames));
+					} catch (URISyntaxException e) {
+						e.printStackTrace();// ignore this
+					}
 				break;
 				case "jar":
 				// classes.addAll(getClassInJar(url, packageName, recursive));
@@ -93,20 +80,19 @@ public class LKClassScanner {
 	 * 在文件目录中扫描类
 	 * @param path 路径
 	 * @param packageName 包名
-	 * @param annotationClasses 注解类型
+	 * @param annotationClassNames 注解类名称
 	 * @param recursive 是否递归扫描
 	 * @return 类列表
 	 * @throws IOException IOException
-	 * @throws ClassNotFoundException ClassNotFoundException
 	 */
-	public static List<Class<?>> scanClassesInFilePath(Path path, String packageName, boolean recursive, Class<? extends Annotation>[] annotationClasses) throws IOException, ClassNotFoundException {
+	public static List<Class<?>> scanClassesInFilePath(Path path, String packageName, boolean recursive, String... annotationClassNames) throws IOException {
 		List<Class<?>> classes = new ArrayList<>();
 		if (Files.isDirectory(path)) {
 			if (recursive) {
 				@SuppressWarnings("resource")
 				Stream<Path> stream = Files.list(path);
 				for (Iterator<Path> iterator = stream.iterator(); iterator.hasNext();) {
-					classes.addAll(scanClassesInFilePath(iterator.next(), packageName, recursive, annotationClasses));
+					classes.addAll(scanClassesInFilePath(iterator.next(), packageName, recursive, annotationClassNames));
 				}
 			}
 		} else {
@@ -118,17 +104,18 @@ public class LKClassScanner {
 				int start = className.lastIndexOf(packageName);
 				if (start != -1) {
 					className = (end == -1) ? className.substring(start) : className.substring(start, end);
-					Class<?> clazz = Class.forName(className);
-					if (ArrayUtils.isNotEmpty(annotationClasses)) {
-						Annotation[] annotations = clazz.getAnnotations();
-						out: for (Annotation annotation : annotations) {
-							for (Class<?> annotationClass : annotationClasses) {
-								if (annotation.annotationType().equals(annotationClass)) {
+					try {
+						Class<?> clazz = Class.forName(className);
+						if (ArrayUtils.isNotEmpty(annotationClassNames)) {
+							for (String annotationClassName : annotationClassNames) {
+								if (LKClassUtils.containsAnnotation(clazz, annotationClassName)) {
 									classes.add(clazz);
-									break out;
+									break;
 								}
 							}
 						}
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();// ignore this
 					}
 				}
 			}

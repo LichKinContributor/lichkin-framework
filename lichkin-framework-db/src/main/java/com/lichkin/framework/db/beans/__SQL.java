@@ -20,7 +20,7 @@ abstract class __SQL {
 	 * @param tableClazz 表映射类型
 	 */
 	protected StringBuilder getTableSQL(boolean useSQL, Class<?> tableClazz) {
-		LKDBResource.__TableResource tableResource = LKDBResource.tables.get(tableClazz);
+		LKDBResource.TableResource tableResource = LKDBResource.getTableResource(tableClazz);
 		StringBuilder sql = new StringBuilder();
 		sql.append(useSQL ? tableResource.getTableName() : tableResource.getClassName()).append(BLANK).append(AS).append(BLANK).append(tableResource.getTableAlias());
 		return sql;
@@ -33,7 +33,7 @@ abstract class __SQL {
 	 * @param columnResId 列资源ID
 	 */
 	protected StringBuilder getColumnSQL(boolean useSQL, int columnResId) {
-		LKDBResource.__ColumnResource columnResource = LKDBResource.columns.get(columnResId);
+		LKDBResource.ColumnResource columnResource = LKDBResource.getColumnResource(columnResId);
 		StringBuilder sql = new StringBuilder();
 		sql.append(columnResource.getTableAlias()).append(DOT).append(useSQL ? columnResource.getColumnName() : columnResource.getFieldName());
 		return sql;

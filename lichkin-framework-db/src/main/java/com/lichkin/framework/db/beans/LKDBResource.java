@@ -1,21 +1,10 @@
 package com.lichkin.framework.db.beans;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.lichkin.framework.db.annotations.Table;
-import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
-import com.lichkin.framework.defines.exceptions.LKRuntimeException;
-import com.lichkin.framework.log.LKLog;
-import com.lichkin.framework.log.LKLogFactory;
-import com.lichkin.framework.utils.LKClassScanner;
-import com.lichkin.framework.utils.LKFieldUtils;
-import com.lichkin.framework.utils.LKStringUtils;
+import com.lichkin.framework.db.utils.LKDBUtils;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -26,17 +15,13 @@ import lombok.RequiredArgsConstructor;
  */
 public class LKDBResource {
 
-	/** 日志对象 */
-	private static final LKLog LOGGER = LKLogFactory.getLog(LKClassScanner.class);
-
-
 	/**
 	 * 表资源
 	 * @author SuZhou LichKin Information Technology Co., Ltd.
 	 */
 	@Getter
 	@RequiredArgsConstructor
-	static class __TableResource {
+	static class TableResource {
 
 		/** 类名/实体名 */
 		private final String className;
@@ -49,13 +34,28 @@ public class LKDBResource {
 
 	}
 
+
+	/** 表资源 */
+	private static final Map<String, TableResource> tables = new HashMap<>();
+
+
+	/**
+	 * 获取表资源
+	 * @param clazz 表资源类
+	 * @return 表资源对象
+	 */
+	static TableResource getTableResource(Class<?> clazz) {
+		return tables.get(clazz.getName());
+	}
+
+
 	/**
 	 * 列资源
 	 * @author SuZhou LichKin Information Technology Co., Ltd.
 	 */
 	@Getter
 	@RequiredArgsConstructor
-	static class __ColumnResource {
+	static class ColumnResource {
 
 		/** 表别名 */
 		private final String tableAlias;
@@ -69,67 +69,43 @@ public class LKDBResource {
 	}
 
 
-	/** 表资源 */
-	static final Map<Class<?>, __TableResource> tables = new HashMap<>();
-
 	/** 列资源 */
-	static final Map<Integer, __ColumnResource> columns = new HashMap<>();
-
-	/** R文件字符串 */
-	private static StringBuilder RFileStr = new StringBuilder();
-
-	/** 列资源字符串 */
-	private static List<StringBuilder> columnsStrList = new ArrayList<>();
+	private static final Map<Integer, ColumnResource> columns = new HashMap<>();
 
 
 	/**
-	 * 初始化数据库资源
-	 * @throws ClassNotFoundException ClassNotFoundException
-	 * @throws IOException IOException
-	 * @throws URISyntaxException URISyntaxException
+	 * 获取列资源
+	 * @param columnResId 列资源ID
+	 * @return 列资源对象
 	 */
-	public static void init() throws ClassNotFoundException, IOException, URISyntaxException {
-		@SuppressWarnings("unchecked")
-		List<Class<?>> classes = LKClassScanner.scanClasses(Table.class);// 扫描所有带Table注解的类
-		for (Class<?> clazz : classes) {
-			addTable(clazz);
-		}
-		LOGGER.info(tables);
-		LOGGER.info(columns);
-		LOGGER.info(getRFileStr());
+	static ColumnResource getColumnResource(Integer columnResId) {
+		return columns.get(columnResId);
 	}
 
 
-	static int columnIdx = 0;
+	/**
+	 * 调用com.lichkin.framework.db.beans.RInitializer的public static void init()方法进行资源初始化
+	 * @throws ClassNotFoundException ClassNotFoundException
+	 * @throws SecurityException SecurityException
+	 * @throws NoSuchMethodException NoSuchMethodException
+	 * @throws InvocationTargetException InvocationTargetException
+	 * @throws IllegalArgumentException IllegalArgumentException
+	 * @throws IllegalAccessException IllegalAccessException
+	 */
+	public static void load() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+		Class.forName("com.lichkin.framework.db.beans.RInitializer").getMethod("init").invoke(null);
+	}
 
 
 	/**
 	 * 增加表资源
-	 * @param clazz 资源类
+	 * @param clazz 类型
+	 * @param className 类名/实体名
+	 * @param tableName 表名
+	 * @param tableAlias 表别名
 	 */
-	static void addTable(Class<?> clazz) {
-		Table tableAnnotation = clazz.getAnnotation(Table.class);
-		if (tableAnnotation == null) {
-			throw new LKRuntimeException(LKErrorCodesEnum.CONFIG_ERROR);
-		}
-		// 添加表资源
-		String className = clazz.getName();
-		String tableName = tableAnnotation.name();
-		String tableAlias = clazz.getSimpleName();
-		tables.put(clazz, new __TableResource(className, tableName, tableAlias));
-
-		// 添加列资源
-		StringBuilder columnsStr = new StringBuilder();
-		columnsStr.append("\n").append("\t").append("public static final class ").append(tableAlias).append(" {").append("\n");
-		List<Field> fields = LKFieldUtils.getRealFieldList(clazz, "serialVersionUID");
-		for (Field field : fields) {
-			String columnKey = LKStringUtils.fillZero(++columnIdx, 8);
-			String fieldName = field.getName();
-			addColumn(columnKey, tableAlias, fieldName);
-			columnsStr.append("\n").append("\t").append("\t").append("public static final int ").append(fieldName).append(" = 0x").append(columnKey).append(";").append("\n");
-		}
-		columnsStr.append("\n").append("\t").append("}");
-		columnsStrList.add(columnsStr);
+	static void addTable(String className, String tableName, String tableAlias) {
+		tables.put(className, new TableResource(className, tableName, tableAlias));
 	}
 
 
@@ -140,25 +116,7 @@ public class LKDBResource {
 	 * @param fieldName 字段名/列别名
 	 */
 	static void addColumn(String columnKey, String tableAlias, String fieldName) {
-		columns.put(Integer.parseInt(columnKey, 16), new __ColumnResource(tableAlias, LKStringUtils.humpToUnderline(fieldName), fieldName));
-	}
-
-
-	/**
-	 * 获取R文件字符串
-	 * @return R文件字符串
-	 */
-	private static String getRFileStr() {
-		RFileStr.append("\n").append("package com.lichkin.framework.db.beans;").append("\n").append("\n");
-		RFileStr.append("public class R {").append("\n");
-
-		for (StringBuilder columnsStr : columnsStrList) {
-			RFileStr.append(columnsStr).append("\n");
-		}
-
-		RFileStr.append("\n").append("}").append("\n");
-
-		return RFileStr.toString();
+		columns.put(Integer.parseInt(columnKey, 16), new ColumnResource(tableAlias, LKDBUtils.toPhysicalColumnName(fieldName), fieldName));
 	}
 
 }
