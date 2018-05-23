@@ -14,6 +14,7 @@ import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 import com.lichkin.framework.log.LKLog;
 import com.lichkin.framework.log.LKLogFactory;
 import com.lichkin.framework.utils.LKClassScanner;
+import com.lichkin.framework.utils.LKFieldUtils;
 import com.lichkin.framework.utils.LKStringUtils;
 
 import lombok.Getter;
@@ -121,7 +122,7 @@ public class LKDBResource {
 		// 添加列资源
 		StringBuilder columnsStr = new StringBuilder();
 		columnsStr.append("\n").append("\t").append("public static final class ").append(tableAlias).append(" {").append("\n");
-		Field[] fields = clazz.getDeclaredFields();
+		List<Field> fields = LKFieldUtils.getRealFieldList(clazz, "serialVersionUID");
 		for (Field field : fields) {
 			String columnKey = LKStringUtils.fillZero(++columnIdx, 8);
 			String fieldName = field.getName();
@@ -138,7 +139,7 @@ public class LKDBResource {
 	 * @return R文件字符串
 	 */
 	private static String getRFileStr() {
-		RFileStr.append("package com.lichkin.framework.db.beans;").append("\n").append("\n");
+		RFileStr.append("\n").append("package com.lichkin.framework.db.beans;").append("\n").append("\n");
 		RFileStr.append("public class R {").append("\n");
 
 		for (StringBuilder columnsStr : columnsStrList) {
