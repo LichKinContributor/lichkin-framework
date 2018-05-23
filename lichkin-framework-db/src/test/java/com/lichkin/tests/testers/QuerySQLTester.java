@@ -1,6 +1,5 @@
 package com.lichkin.tests.testers;
 
-import com.lichkin.framework.db.beans.Column;
 import com.lichkin.framework.db.beans.Condition;
 import com.lichkin.framework.db.beans.QuerySQL;
 import com.lichkin.framework.db.beans.R;
@@ -10,13 +9,14 @@ import com.lichkin.framework.json.LKJsonUtils;
 
 public class QuerySQLTester extends SQLTester {
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void doTest() {
-		Column[] columns = new Column[] {
+		int[] columnResIds = new int[] {
 
-				new Column(R.TestBean.compId),
+				R.TestBean.compId,
 
-				new Column(R.TestBean.compId)
+				R.TestBean.compId
 
 		};
 
@@ -28,22 +28,26 @@ public class QuerySQLTester extends SQLTester {
 
 		};
 
-		QuerySQL sql = new QuerySQL(R.Table.TestBean, true)
+		QuerySQL sql = new QuerySQL(R.Table.TestBean)
+				// QuerySQL sql = new QuerySQL(R.Table.TestBean, true)
 				// QuerySQL sql = new QuerySQL(R.Table.TestBean, false)
 				// QuerySQL sql = new QuerySQL(true, R.Table.TestBean, true)
 				// QuerySQL sql = new QuerySQL(true, R.Table.TestBean, false)
 				// QuerySQL sql = new QuerySQL(false, R.Table.TestBean, true)
 				// QuerySQL sql = new QuerySQL(false, R.Table.TestBean, false)
 
-				.select(new Column(R.TestBean.compId))
+				.select(R.TestBean.compId)
 
-				.select(columns)
+				.select(columnResIds)
 
 				.innerJoin(R.Table.TestBean, new Condition(true, new eq(R.TestBean.compId, "123")), conditions)
 
 				.where(new Condition(true, new eq(R.TestBean.compId, "123")))
 
-				.where(conditions);
+				.where(conditions)
+
+				.where(new eq(R.TestBean.compId, "123"));
+
 		System.out.println(sql.getSQL());
 		System.out.println(LKJsonUtils.toJson(sql.getParams()));
 	}

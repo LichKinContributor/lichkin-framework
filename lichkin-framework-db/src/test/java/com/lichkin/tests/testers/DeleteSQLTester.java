@@ -1,25 +1,17 @@
 package com.lichkin.tests.testers;
 
 import com.lichkin.framework.db.beans.Condition;
+import com.lichkin.framework.db.beans.DeleteSQL;
 import com.lichkin.framework.db.beans.R;
 import com.lichkin.framework.db.beans.SQLTester;
-import com.lichkin.framework.db.beans.UpdateSQL;
 import com.lichkin.framework.db.beans.eq;
 import com.lichkin.framework.json.LKJsonUtils;
 
-public class UpdateSQLTester extends SQLTester {
+public class DeleteSQLTester extends SQLTester {
 
 	@SuppressWarnings("deprecation")
 	@Override
 	public void doTest() {
-		eq[] updates = new eq[] {
-
-				new eq(R.TestBean.compId, "123"),
-
-				new eq(R.TestBean.compId, "123")
-
-		};
-
 		Condition[] conditions = new Condition[] {
 
 				new Condition(true, new eq(R.TestBean.compId, "123")),
@@ -28,11 +20,7 @@ public class UpdateSQLTester extends SQLTester {
 
 		};
 
-		UpdateSQL sql = new UpdateSQL(R.Table.TestBean)
-
-				.update(new eq(R.TestBean.compId, "123"))
-
-				.update(updates)
+		DeleteSQL sql = new DeleteSQL(R.Table.TestBean)
 
 				.where(new Condition(true, new eq(R.TestBean.compId, "123")))
 

@@ -45,6 +45,7 @@ abstract class __SQL {
 	 * @param useSQL true:SQL;false:HQL.
 	 * @return SQL语句
 	 */
+	@Deprecated
 	abstract StringBuilder getSQL(boolean useSQL);
 
 }

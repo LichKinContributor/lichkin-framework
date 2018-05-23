@@ -62,9 +62,6 @@ public interface __SQL_STATICS {
 	/** DISTINCT */
 	public static final String DISTINCT = "DISTINCT";
 
-	/** SET */
-	public static final String SET = "SET";
-
 	/** FROM */
 	public static final String FROM = "FROM";
 

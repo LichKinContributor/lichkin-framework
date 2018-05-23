@@ -23,7 +23,20 @@ class __WHERE extends __SQL {
 	 * @return 本对象
 	 */
 	__WHERE where(Condition... conditions) {
+		// 不做非空判断，即无参数时就应该报错。
 		this.conditions.addAll(Arrays.asList(conditions));
+		return this;
+	}
+
+
+	/**
+	 * 添加表达式
+	 * @param expression 表达式
+	 * @return 本对象
+	 */
+	__WHERE where(Exp expression) {
+		// 不做非空判断，即无参数时就应该报错。
+		conditions.add(new Condition(true, expression));
 		return this;
 	}
 

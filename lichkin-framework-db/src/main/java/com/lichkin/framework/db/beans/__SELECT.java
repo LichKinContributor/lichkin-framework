@@ -6,7 +6,6 @@ import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 import static com.lichkin.framework.defines.LKStringStatics.COMMA;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,7 +18,7 @@ class __SELECT extends __SQL {
 	private final boolean distinct;
 
 	/** 列 */
-	final List<Column> columns = new ArrayList<>();
+	final List<__COLUMN> columns = new ArrayList<>();
 
 
 	/**
@@ -34,11 +33,14 @@ class __SELECT extends __SQL {
 
 	/**
 	 * 添加列
-	 * @param columns 列
+	 * @param columnResIds 列资源ID
 	 * @return 本对象
 	 */
-	__SELECT select(Column... columns) {
-		this.columns.addAll(Arrays.asList(columns));
+	__SELECT select(int... columnResIds) {
+		// 不做非空判断，即无参数时就应该报错。
+		for (int resId : columnResIds) {
+			columns.add(new __COLUMN(resId));
+		}
 		return this;
 	}
 
@@ -47,7 +49,7 @@ class __SELECT extends __SQL {
 	StringBuilder getSQL(boolean useSQL) {
 		StringBuilder sql = new StringBuilder();
 		for (int i = 0; i < columns.size(); i++) {
-			Column column = columns.get(i);
+			__COLUMN column = columns.get(i);
 			if (i == 0) {
 				sql.append(SELECT);
 				if (distinct) {

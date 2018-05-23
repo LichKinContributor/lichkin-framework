@@ -4,7 +4,7 @@ package com.lichkin.framework.db.beans;
  * SQL语句 -> 列
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-abstract class __COLUMN extends __SQL {
+class __COLUMN extends __SQL {
 
 	/** 列资源ID */
 	private final int columnResId;
@@ -14,7 +14,7 @@ abstract class __COLUMN extends __SQL {
 	 * 构造方法
 	 * @param columnResId 列资源ID
 	 */
-	protected __COLUMN(int columnResId) {
+	__COLUMN(int columnResId) {
 		this.columnResId = columnResId;
 	}
 

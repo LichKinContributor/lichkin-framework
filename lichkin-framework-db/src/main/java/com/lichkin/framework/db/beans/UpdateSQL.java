@@ -1,6 +1,5 @@
 package com.lichkin.framework.db.beans;
 
-import static com.lichkin.framework.db.beans.__SQL_STATICS.SET;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 import static com.lichkin.framework.defines.LKStringStatics.COMMA;
 
@@ -12,10 +11,13 @@ import java.util.List;
  * SQL语句 -> 更新语句
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public class UpdateSQL extends _SQL {
+public class UpdateSQL extends __SQL {
 
 	/** UPDATE */
-	static final String UPDATE = "UPDATE";
+	private static final String UPDATE = "UPDATE";
+
+	/** SET */
+	private static final String SET = "SET";
 
 	/** 表资源ID */
 	private final int tableResId;
@@ -30,26 +32,56 @@ public class UpdateSQL extends _SQL {
 	 * @param eqs 更新条件表达式
 	 */
 	public UpdateSQL(int tableResId) {
-		this(true, tableResId);
-	}
-
-
-	/**
-	 * 构造方法
-	 * @param useSQL true:SQL;false:HQL.
-	 * @param tableResId 表资源ID
-	 * @param eqs 更新条件表达式
-	 */
-	public UpdateSQL(boolean useSQL, int tableResId) {
-		super(useSQL);
 		this.tableResId = tableResId;
 	}
 
 
+	/**
+	 * 添加列
+	 * @param eq 更新条件表达式
+	 * @return 本对象
+	 */
+	public UpdateSQL update(eq... eqs) {
+		// 不做非空判断，即无参数时就应该报错。
+		this.eqs.addAll(Arrays.asList(eqs));
+		return this;
+	}
+
+
+	/** WHERE */
+	protected final __WHERE where = new __WHERE();
+
+
+	/**
+	 * 添加条件表达式
+	 * @param conditions 条件表达式
+	 * @return 本对象
+	 */
+	public UpdateSQL where(Condition... conditions) {
+		where.where(conditions);
+		return this;
+	}
+
+
+	/**
+	 * 添加AND条件表达式
+	 * @param expression 表达式
+	 * @return 本对象
+	 */
+	public UpdateSQL where(Exp expression) {
+		where.where(expression);
+		return this;
+	}
+
+
+	/**
+	 * 获取SQL语句
+	 * @return SQL语句
+	 * @deprecated 框架内部使用
+	 */
 	@Deprecated
-	@Override
 	public String getSQL() {
-		return getSQL(isUseSQL()).toString();
+		return getSQL(true).toString();
 	}
 
 
@@ -75,8 +107,12 @@ public class UpdateSQL extends _SQL {
 	}
 
 
+	/**
+	 * 获取参数列表
+	 * @return 参数列表
+	 * @deprecated 框架内部使用
+	 */
 	@Deprecated
-	@Override
 	public Object[] getParams() {
 		List<Object> params = new ArrayList<>();
 		for (eq eq : eqs) {
@@ -84,24 +120,6 @@ public class UpdateSQL extends _SQL {
 		}
 		params.addAll(where.getParams());
 		return params.toArray();
-	}
-
-
-	/**
-	 * 添加列
-	 * @param eq 更新条件表达式
-	 * @return 本对象
-	 */
-	public UpdateSQL update(eq... eqs) {
-		this.eqs.addAll(Arrays.asList(eqs));
-		return this;
-	}
-
-
-	@Override
-	public UpdateSQL where(Condition... conditions) {
-		super.where(conditions);
-		return this;
 	}
 
 }

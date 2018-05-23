@@ -9,10 +9,34 @@ import java.util.List;
  * SQL语句 -> 查询语句
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public class QuerySQL extends _SQL {
+public class QuerySQL extends __SQL {
+
+	/** 是否使用SQL语句 */
+	private final boolean useSQL;
+
 
 	/**
-	 * 构造方法
+	 * 是否使用SQL
+	 * @return true:SQL;falseHQL.
+	 * @deprecated 框架内部使用
+	 */
+	@Deprecated
+	public boolean isUseSQL() {
+		return useSQL;
+	}
+
+
+	/**
+	 * 构造方法（useSQL:true,distinct:false）
+	 * @param tableResId 表资源ID
+	 */
+	public QuerySQL(int tableResId) {
+		this(true, tableResId, false);
+	}
+
+
+	/**
+	 * 构造方法（useSQL:true）
 	 * @param tableResId 表资源ID
 	 * @param distinct 是否使用DISTINCT
 	 */
@@ -28,7 +52,7 @@ public class QuerySQL extends _SQL {
 	 * @param distinct 是否使用DISTINCT
 	 */
 	public QuerySQL(boolean useSQL, int tableResId, boolean distinct) {
-		super(useSQL);
+		this.useSQL = useSQL;
 		select = new __SELECT(distinct);
 		from = new __FROM(tableResId);
 	}
@@ -40,11 +64,11 @@ public class QuerySQL extends _SQL {
 
 	/**
 	 * 添加列
-	 * @param columns 列
+	 * @param columnResIds 列资源ID
 	 * @return 本对象
 	 */
-	public QuerySQL select(Column... columns) {
-		select.select(columns);
+	public QuerySQL select(int... columnResIds) {
+		select.select(columnResIds);
 		return this;
 	}
 
@@ -118,17 +142,40 @@ public class QuerySQL extends _SQL {
 	}
 
 
-	@Override
+	/** WHERE */
+	protected final __WHERE where = new __WHERE();
+
+
+	/**
+	 * 添加条件表达式
+	 * @param conditions 条件表达式
+	 * @return 本对象
+	 */
 	public QuerySQL where(Condition... conditions) {
-		super.where(conditions);
+		where.where(conditions);
 		return this;
 	}
 
 
+	/**
+	 * 添加AND条件表达式
+	 * @param expression 表达式
+	 * @return 本对象
+	 */
+	public QuerySQL where(Exp expression) {
+		where.where(expression);
+		return this;
+	}
+
+
+	/**
+	 * 获取SQL语句
+	 * @return SQL语句
+	 * @deprecated 框架内部使用
+	 */
 	@Deprecated
-	@Override
 	public String getSQL() {
-		return getSQL(isUseSQL()).toString();
+		return getSQL(useSQL).toString();
 	}
 
 
@@ -144,8 +191,12 @@ public class QuerySQL extends _SQL {
 	}
 
 
+	/**
+	 * 获取参数列表
+	 * @return 参数列表
+	 * @deprecated 框架内部使用
+	 */
 	@Deprecated
-	@Override
 	public Object[] getParams() {
 		List<Object> params = new ArrayList<>();
 		params.addAll(select.getParams());
