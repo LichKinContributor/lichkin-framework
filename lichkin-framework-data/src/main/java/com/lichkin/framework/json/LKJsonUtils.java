@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
  * JSON工具类
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-@SuppressWarnings("deprecation")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class LKJsonUtils extends LKObjectMapper {
 

@@ -20,10 +20,8 @@ import lombok.NoArgsConstructor;
 
 /**
  * 对象映射工具类
- * @deprecated 仅供框架使用。
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-@Deprecated
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class LKObjectMapper {
 
@@ -114,7 +112,7 @@ public class LKObjectMapper {
 	 * @param str 字符串
 	 * @return Map对象
 	 */
-	public static HashMap<String, String> toMap(ObjectMapper mapper, String str) {
+	protected static HashMap<String, String> toMap(ObjectMapper mapper, String str) {
 		if (StringUtils.isNotBlank(str)) {
 			try {
 				if (mapper instanceof XmlMapper) {
@@ -140,7 +138,7 @@ public class LKObjectMapper {
 	 * @param clazz List泛型对象类型
 	 * @return List对象
 	 */
-	public static <T> ArrayList<T> toList(ObjectMapper mapper, String str, Class<T> clazz) {
+	protected static <T> ArrayList<T> toList(ObjectMapper mapper, String str, Class<T> clazz) {
 		if (StringUtils.isNotBlank(str)) {
 			try {
 				return mapper.readValue(str, mapper.getTypeFactory().constructParametricType(ArrayList.class, clazz));
@@ -159,7 +157,7 @@ public class LKObjectMapper {
 	 * @param str 字符串
 	 * @return JsonNode对象
 	 */
-	public static JsonNode readTree(ObjectMapper mapper, String str) {
+	protected static JsonNode readTree(ObjectMapper mapper, String str) {
 		try {
 			return mapper.readTree(str);
 		} catch (final Exception e) {
@@ -177,7 +175,7 @@ public class LKObjectMapper {
 	 * @param keys 键数组
 	 * @return JsonNode对象
 	 */
-	public static JsonNode deepGet(ObjectMapper mapper, String str, String... keys) {
+	protected static JsonNode deepGet(ObjectMapper mapper, String str, String... keys) {
 		try {
 			JsonNode jsonNode = mapper.readTree(str);
 			if (LOGGER.isTraceEnabled()) {
@@ -222,7 +220,7 @@ public class LKObjectMapper {
 	 * @param excludesPropertyArray 排除的字段名
 	 * @return 字符串
 	 */
-	public static String writeValueAsStringWithExcludes(ObjectMapper mapper, Object obj, boolean nullable, boolean isArray, String... excludesPropertyArray) {
+	protected static String writeValueAsStringWithExcludes(ObjectMapper mapper, Object obj, boolean nullable, boolean isArray, String... excludesPropertyArray) {
 		if (ArrayUtils.isNotEmpty(excludesPropertyArray)) {
 			mapper.setFilterProvider(new SimpleFilterProvider().addFilter(JSON_FILTER_ID, SimpleBeanPropertyFilter.serializeAllExcept(excludesPropertyArray)));
 			mapper.addMixIn(obj.getClass(), LKJsonFilter.class);
@@ -240,7 +238,7 @@ public class LKObjectMapper {
 	 * @param includesPropertyArray 包含的字段名
 	 * @return 字符串
 	 */
-	public static String writeValueAsStringWithIncludes(ObjectMapper mapper, Object obj, boolean nullable, boolean isArray, String... includesPropertyArray) {
+	protected static String writeValueAsStringWithIncludes(ObjectMapper mapper, Object obj, boolean nullable, boolean isArray, String... includesPropertyArray) {
 		if (ArrayUtils.isNotEmpty(includesPropertyArray)) {
 			mapper.setFilterProvider(new SimpleFilterProvider().addFilter(JSON_FILTER_ID, SimpleBeanPropertyFilter.filterOutAllExcept(includesPropertyArray)));
 			mapper.addMixIn(obj.getClass(), LKJsonFilter.class);
