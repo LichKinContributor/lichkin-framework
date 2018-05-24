@@ -83,7 +83,7 @@ public class Condition extends __SQL {
 		if (expression == null) {
 			sql.append(BRACKET_LEFT);
 			for (int i = 0; i < conditions.size(); i++) {
-				Condition condition = conditions.get(0);
+				Condition condition = conditions.get(i);
 				if (i == 0) {
 					sql.append(condition.getSQLWithoutCondition(useSQL));
 				} else {
