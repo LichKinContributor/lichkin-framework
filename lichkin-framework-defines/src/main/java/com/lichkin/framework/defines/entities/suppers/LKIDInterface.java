@@ -21,4 +21,18 @@ public interface LKIDInterface extends Serializable {
 	 */
 	public void setId(String id);
 
+
+	/**
+	 * 获取公司ID
+	 * @return 公司ID
+	 */
+	public String getCompId();
+
+
+	/**
+	 * 设置公司ID
+	 * @param id 公司ID
+	 */
+	public void setCompId(String id);
+
 }

@@ -16,9 +16,7 @@ public interface LKBaseSysInterface extends LKBaseInterface {
 	/**
 	 * 设置操作系统编码
 	 * @param systemTag 操作系统编码
-	 * @deprecated 新增数据时系统将自动注入当前系统标识，如无特殊情况请勿手动设置。
 	 */
-	@Deprecated
 	public void setSystemTag(final String systemTag);
 
 
