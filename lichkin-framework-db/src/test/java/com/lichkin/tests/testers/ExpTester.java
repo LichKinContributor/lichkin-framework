@@ -1,5 +1,7 @@
 package com.lichkin.tests.testers;
 
+import static com.lichkin.framework.defines.LKFrameworkStatics.SPLITOR;
+
 import com.lichkin.framework.db.beans.R;
 import com.lichkin.framework.db.beans.SQLTester;
 import com.lichkin.framework.db.beans.eq;
@@ -26,9 +28,11 @@ public class ExpTester extends SQLTester {
 
 	@Override
 	public void doTest() {
-		// IN语法参数需要使用框架约定的#@#拼接的参数
-		printSQL(new in(R.TestBean.compId, "a#@#b#@#c"));
-		printSQL(new notIn(R.TestBean.compId, "a#@#b#@#c#@#"));
+		// IN语法参数需要使用框架约定的LKFrameworkStatics.SPLITOR拼接的参数
+		String paramsStr = "a" + SPLITOR + "b" + SPLITOR + "c";
+
+		printSQL(new in(R.TestBean.compId, paramsStr));
+		printSQL(new notIn(R.TestBean.compId, paramsStr));
 		System.out.println();
 
 		// IS NULL语法不需要参数

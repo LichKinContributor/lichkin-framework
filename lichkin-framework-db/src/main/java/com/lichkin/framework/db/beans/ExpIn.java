@@ -22,7 +22,7 @@ class ExpIn extends Exp {
 	 * 构造方法
 	 * @param in true:IN; false:NOT IN
 	 * @param columnResId 列资源ID
-	 * @param paramsStr 参数。使用#@#作为分隔符。
+	 * @param paramsStr 参数。使用LKFrameworkStatics.SPLITOR作为分隔符。
 	 */
 	protected ExpIn(boolean in, int columnResId, String paramsStr) {
 		super(columnResId, in ? IN : NOT_IN);

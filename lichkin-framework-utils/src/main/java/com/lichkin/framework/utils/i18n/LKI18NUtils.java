@@ -1,5 +1,7 @@
 package com.lichkin.framework.utils.i18n;
 
+import static com.lichkin.framework.defines.LKFrameworkStatics.SPLITOR;
+
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -89,7 +91,7 @@ public class LKI18NUtils {
 			if ("app-errorCodes".equals(folderName) && key.startsWith("validation@")) {
 				String[] keys = key.split("\\.");
 				if (keys.length == 3) {
-					return String.format("%s#@#%s", keys[2], value);
+					return String.format("%s%s%s", keys[2], SPLITOR, value);
 				}
 			}
 			return value;
@@ -98,7 +100,7 @@ public class LKI18NUtils {
 				String[] keys = key.split("\\.");
 				switch (keys.length) {
 					case 3:// 使用validation报错信息
-						return String.format("%s#@#%s", keys[2], getString(locale, folderName, keys[0] + "." + keys[2], false));
+						return String.format("%s%s%s", keys[2], SPLITOR, getString(locale, folderName, keys[0] + "." + keys[2], false));
 					case 2:// validation降级
 						return getString(locale, "errorCodes", keys[0], true);
 					case 1:// validation再次降级

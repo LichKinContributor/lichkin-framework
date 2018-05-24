@@ -1,5 +1,7 @@
 package com.lichkin.tests.testers;
 
+import static com.lichkin.framework.defines.LKFrameworkStatics.SPLITOR;
+
 import org.junit.Test;
 
 import com.lichkin.framework.db.beans.SQL;
@@ -11,6 +13,9 @@ public class SQLTester {
 	@SuppressWarnings("deprecation")
 	@Test
 	public void test() {
+		// IN语法参数需要使用框架约定的LKFrameworkStatics.SPLITOR拼接的参数
+		String paramsStr = "a" + SPLITOR + "b" + SPLITOR + "c";
+
 		SQL sql = new SQL(true);
 
 		sql.appendSQL("select * from t_demo where a = ?");
@@ -19,8 +24,8 @@ public class SQLTester {
 		sql.and("1 = 1");
 		sql.or("1 = 1");
 
-		sql.in(true, "a", "a#@#b#@#c");
-		sql.notIn(false, "a", "a#@#b#@#c");
+		sql.in(true, "a", paramsStr);
+		sql.notIn(false, "a", paramsStr);
 
 		sql.isNull(true, "a");
 		sql.isNotNull(false, "a");
