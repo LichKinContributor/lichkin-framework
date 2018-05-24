@@ -233,7 +233,25 @@ public class QuerySQL extends __SQL {
 	 * @return 本对象
 	 */
 	public QuerySQL setSort(Sort sort) {
-		this.sort = sort;
+		if (this.sort == null) {
+			this.sort = sort;
+		} else {
+			this.sort.listOrder.addAll(sort.listOrder);
+		}
+		return this;
+	}
+
+
+	/**
+	 * 添加排序信息对象
+	 * @param orders 排序信息对象
+	 * @return 本对象
+	 */
+	public QuerySQL addOrders(Order... orders) {
+		if (sort == null) {
+			sort = new Sort();
+		}
+		sort.addOrders(orders);
 		return this;
 	}
 

@@ -51,7 +51,9 @@ public class QuerySQLTester extends SQLTester {
 
 				.where(new eq(R.TestBean.compId, "123"))
 
-				.setSort(new Sort(new Order(R.TestBean.compId, true), new Order(R.TestBean.compId, false)));
+				.setSort(new Sort(new Order(R.TestBean.compId, true), new Order(R.TestBean.compId, false)))
+
+				.addOrders(new Order(R.TestBean.compId, true), new Order(R.TestBean.compId, false));
 
 		System.out.println(sql.getSQL());
 		System.out.println(LKJsonUtils.toJson(sql.getParams()));
