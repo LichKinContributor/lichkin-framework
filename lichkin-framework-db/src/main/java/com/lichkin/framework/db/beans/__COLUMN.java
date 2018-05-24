@@ -1,7 +1,7 @@
 package com.lichkin.framework.db.beans;
 
 /**
- * SQL语句 -> 列
+ * SQL语句 -&gt; 列
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 class __COLUMN extends __SQL {

@@ -294,7 +294,7 @@ public class SQL {
 	 * @param like true:LIKE;false:NOT LIKE.
 	 * @param columnName 键
 	 * @param likeType LIKE表达式类型
-	 * @parma param 参数
+	 * @param param 参数
 	 * @return 本对象
 	 */
 	private SQL appendLike(Boolean and, boolean like, String columnName, LikeType likeType, String param) {
@@ -320,7 +320,7 @@ public class SQL {
 	 * @param and true:AND;false:OR;null:无条件。
 	 * @param columnName 键
 	 * @param likeType LIKE表达式类型
-	 * @parma param 参数
+	 * @param param 参数
 	 * @return 本对象
 	 */
 	public SQL like(Boolean and, String columnName, LikeType likeType, String param) {
@@ -333,7 +333,7 @@ public class SQL {
 	 * @param and true:AND;false:OR;null:无条件。
 	 * @param columnName 键
 	 * @param likeType LIKE表达式类型
-	 * @parma param 参数
+	 * @param param 参数
 	 * @return 本对象
 	 */
 	public SQL notLike(Boolean and, String columnName, LikeType likeType, String param) {
@@ -346,7 +346,7 @@ public class SQL {
 	 * @param and true:AND;false:OR;null:无条件。
 	 * @param in true:IN;false:NOT IN.
 	 * @param columnName 键
-	 * @parma param 参数
+	 * @param param 参数
 	 * @return 本对象
 	 */
 	private SQL appendIn(Boolean and, boolean in, String columnName, String param) {
@@ -370,7 +370,7 @@ public class SQL {
 	 * 拼接IN条件
 	 * @param and true:AND;false:OR;null:无条件。
 	 * @param columnName 键
-	 * @parma param 参数
+	 * @param param 参数
 	 * @return 本对象
 	 */
 	public SQL in(Boolean and, String columnName, String param) {
@@ -382,7 +382,7 @@ public class SQL {
 	 * 拼接NOT IN条件
 	 * @param and true:AND;false:OR;null:无条件。
 	 * @param columnName 键
-	 * @parma param 参数
+	 * @param param 参数
 	 * @return 本对象
 	 */
 	public SQL notIn(Boolean and, String columnName, String param) {

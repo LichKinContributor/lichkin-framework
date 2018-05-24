@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * SQL语句 -> 条件表达式语句
+ * SQL语句 -&gt; 条件表达式语句
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 public class Condition extends __SQL {

@@ -16,7 +16,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 
 /**
- * SQL语句 -> FROM
+ * SQL语句 -&gt; FROM
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 class __FROM extends __SQL {

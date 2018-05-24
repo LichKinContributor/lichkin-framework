@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * SQL语句 -> WHERE
+ * SQL语句 -&gt; WHERE
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 class __WHERE extends __SQL {

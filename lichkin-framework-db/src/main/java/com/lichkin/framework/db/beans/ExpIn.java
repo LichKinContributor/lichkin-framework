@@ -9,7 +9,7 @@ import static com.lichkin.framework.defines.LKStringStatics.BRACKET_RIGHT;
 import static com.lichkin.framework.defines.LKStringStatics.COMMA;
 
 /**
- * SQL语句 -> IN/NOT IN表达式
+ * SQL语句 -&gt; IN/NOT IN表达式
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 class ExpIn extends Exp {

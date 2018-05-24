@@ -4,7 +4,7 @@ import static com.lichkin.framework.db.beans.__SQL_STATICS.PLACEHOLDER;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 
 /**
- * SQL语句 -> EQ/NEQ/GT/GTE/LT/LTE表达式
+ * SQL语句 -&gt; EQ/NEQ/GT/GTE/LT/LTE表达式
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 class ExpCompare extends Exp {

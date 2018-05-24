@@ -9,7 +9,7 @@ import static com.lichkin.framework.defines.LKStringStatics.PERCENT;
 import com.lichkin.framework.db.enums.LikeType;
 
 /**
- * SQL语句 -> LIKE/NOT LIKE表达式
+ * SQL语句 -&gt; LIKE/NOT LIKE表达式
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 class ExpLike extends Exp {

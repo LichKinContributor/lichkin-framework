@@ -18,6 +18,7 @@ abstract class __SQL {
 	 * 获取表SQL。表名 AS 表别名。
 	 * @param useSQL true:SQL;false:HQL.
 	 * @param tableClazz 表映射类型
+	 * @return SQL语句
 	 */
 	protected StringBuilder getTableSQL(boolean useSQL, Class<?> tableClazz) {
 		LKDBResource.TableResource tableResource = LKDBResource.getTableResource(tableClazz);
@@ -31,6 +32,7 @@ abstract class __SQL {
 	 * 获取列SQL。表别名.列名。
 	 * @param useSQL true:SQL;false:HQL.
 	 * @param columnResId 列资源ID
+	 * @return SQL语句
 	 */
 	protected StringBuilder getColumnSQL(boolean useSQL, int columnResId) {
 		LKDBResource.ColumnResource columnResource = LKDBResource.getColumnResource(columnResId);
@@ -45,7 +47,6 @@ abstract class __SQL {
 	 * @param useSQL true:SQL;false:HQL.
 	 * @return SQL语句
 	 */
-	@Deprecated
 	abstract StringBuilder getSQL(boolean useSQL);
 
 }

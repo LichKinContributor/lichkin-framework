@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * SQL语句 -> 查询语句
+ * SQL语句 -&gt; 查询语句
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 public class QuerySQL extends __SQL {

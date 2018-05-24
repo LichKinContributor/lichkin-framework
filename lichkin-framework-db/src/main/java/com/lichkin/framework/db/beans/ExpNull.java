@@ -4,7 +4,7 @@ import static com.lichkin.framework.db.beans.__SQL_STATICS.IS_NOT_NULL;
 import static com.lichkin.framework.db.beans.__SQL_STATICS.IS_NULL;
 
 /**
- * SQL语句 -> IS NULL/IS NOT NULL表达式
+ * SQL语句 -&gt; IS NULL/IS NOT NULL表达式
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 class ExpNull extends Exp {

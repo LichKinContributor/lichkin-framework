@@ -11,7 +11,7 @@ import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
 import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 
 /**
- * SQL语句 -> 更新语句
+ * SQL语句 -&gt; 更新语句
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 public class UpdateSQL extends __SQL {
@@ -40,7 +40,7 @@ public class UpdateSQL extends __SQL {
 
 	/**
 	 * 添加列
-	 * @param eq 更新条件表达式
+	 * @param eqs 更新条件表达式
 	 * @return 本对象
 	 */
 	public UpdateSQL update(eq... eqs) {

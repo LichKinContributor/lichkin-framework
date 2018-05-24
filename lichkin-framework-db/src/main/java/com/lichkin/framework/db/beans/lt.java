@@ -3,7 +3,7 @@ package com.lichkin.framework.db.beans;
 import static com.lichkin.framework.db.beans.__SQL_STATICS.LT;
 
 /**
- * SQL语句 -> 小于
+ * SQL语句 -&gt; 小于
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 public class lt extends ExpCompare {

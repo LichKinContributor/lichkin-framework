@@ -3,7 +3,7 @@ package com.lichkin.framework.db.beans;
 import com.lichkin.framework.db.enums.LikeType;
 
 /**
- * SQL语句 -> NOT LIKE
+ * SQL语句 -&gt; NOT LIKE
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 public class notLike extends ExpLike {

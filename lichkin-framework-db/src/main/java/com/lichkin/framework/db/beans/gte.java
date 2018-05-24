@@ -3,7 +3,7 @@ package com.lichkin.framework.db.beans;
 import static com.lichkin.framework.db.beans.__SQL_STATICS.GTE;
 
 /**
- * SQL语句 -> 大于等于
+ * SQL语句 -&gt; 大于等于
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 public class gte extends ExpCompare {

@@ -1,7 +1,7 @@
 package com.lichkin.framework.db.beans;
 
 /**
- * SQL语句 -> NOT IN
+ * SQL语句 -&gt; NOT IN
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 public class notIn extends ExpIn {

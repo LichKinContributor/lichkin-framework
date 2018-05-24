@@ -1,7 +1,7 @@
 package com.lichkin.framework.db.beans;
 
 /**
- * SQL语句 -> IN
+ * SQL语句 -&gt; IN
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 public class in extends ExpIn {

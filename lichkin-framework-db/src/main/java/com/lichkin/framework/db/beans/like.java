@@ -3,7 +3,7 @@ package com.lichkin.framework.db.beans;
 import com.lichkin.framework.db.enums.LikeType;
 
 /**
- * SQL语句 -> LIKE
+ * SQL语句 -&gt; LIKE
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 public class like extends ExpLike {

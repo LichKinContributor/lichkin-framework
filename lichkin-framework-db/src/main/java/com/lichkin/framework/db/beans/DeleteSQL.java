@@ -6,7 +6,7 @@ import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
 import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 
 /**
- * SQL语句 -> 删除语句
+ * SQL语句 -&gt; 删除语句
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 public class DeleteSQL extends __SQL {

@@ -1,7 +1,7 @@
 package com.lichkin.framework.db.beans;
 
 /**
- * SQL语句 -> IS NULL
+ * SQL语句 -&gt; IS NULL
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 public class isNull extends ExpNull {
