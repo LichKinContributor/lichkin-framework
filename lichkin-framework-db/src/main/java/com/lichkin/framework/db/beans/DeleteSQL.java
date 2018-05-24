@@ -2,6 +2,9 @@ package com.lichkin.framework.db.beans;
 
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 
+import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
+import com.lichkin.framework.defines.exceptions.LKRuntimeException;
+
 /**
  * SQL语句 -> 删除语句
  * @author SuZhou LichKin Information Technology Co., Ltd.
@@ -25,7 +28,7 @@ public class DeleteSQL extends __SQL {
 
 
 	/** WHERE */
-	protected final __WHERE where = new __WHERE();
+	private __WHERE where;
 
 
 	/**
@@ -34,6 +37,9 @@ public class DeleteSQL extends __SQL {
 	 * @return 本对象
 	 */
 	public DeleteSQL where(Condition... conditions) {
+		if (where == null) {
+			where = new __WHERE();
+		}
 		where.where(conditions);
 		return this;
 	}
@@ -45,9 +51,16 @@ public class DeleteSQL extends __SQL {
 	 * @return 本对象
 	 */
 	public DeleteSQL where(Exp expression) {
+		if (where == null) {
+			where = new __WHERE();
+		}
 		where.where(expression);
 		return this;
 	}
+
+
+	/** SQL语句 */
+	private String sql;
 
 
 	/**
@@ -57,12 +70,19 @@ public class DeleteSQL extends __SQL {
 	 */
 	@Deprecated
 	public String getSQL() {
-		return getSQL(true).toString();
+		if (sql == null) {
+			sql = getSQL(true).toString();
+		}
+		return sql;
 	}
 
 
 	@Override
 	StringBuilder getSQL(boolean useSQL) {
+		if (where == null) {
+			throw new LKRuntimeException(LKErrorCodesEnum.SQL_ERROR);
+		}
+
 		StringBuilder sql = new StringBuilder();
 		sql.append(DELETE_FROM);
 		sql.append(BLANK);
@@ -80,7 +100,7 @@ public class DeleteSQL extends __SQL {
 	 */
 	@Deprecated
 	public Object[] getParams() {
-		return where.getParams().toArray();
+		return where.params.toArray();
 	}
 
 }

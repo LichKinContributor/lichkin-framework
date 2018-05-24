@@ -16,6 +16,9 @@ class __WHERE extends __SQL {
 	/** 条件表达式 */
 	final List<Condition> conditions = new ArrayList<>();
 
+	/** 参数列表 */
+	List<Object> params = new ArrayList<>();
+
 
 	/**
 	 * 添加条件表达式
@@ -25,6 +28,9 @@ class __WHERE extends __SQL {
 	__WHERE where(Condition... conditions) {
 		// 不做非空判断，即无参数时就应该报错。
 		this.conditions.addAll(Arrays.asList(conditions));
+		for (Condition condition : conditions) {
+			params.addAll(condition.getParams());
+		}
 		return this;
 	}
 
@@ -36,7 +42,9 @@ class __WHERE extends __SQL {
 	 */
 	__WHERE where(Exp expression) {
 		// 不做非空判断，即无参数时就应该报错。
-		conditions.add(new Condition(true, expression));
+		Condition condition = new Condition(true, expression);
+		conditions.add(condition);
+		params.addAll(condition.getParams());
 		return this;
 	}
 
@@ -53,19 +61,6 @@ class __WHERE extends __SQL {
 			}
 		}
 		return sql;
-	}
-
-
-	/**
-	 * 获取参数列表
-	 * @return 参数列表
-	 */
-	List<Object> getParams() {
-		List<Object> params = new ArrayList<>();
-		for (Condition condition : conditions) {
-			params.addAll(condition.getParams());
-		}
-		return params;
 	}
 
 }

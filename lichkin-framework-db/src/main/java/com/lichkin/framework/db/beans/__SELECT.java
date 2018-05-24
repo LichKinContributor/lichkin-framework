@@ -63,9 +63,4 @@ class __SELECT extends __SQL {
 		return sql;
 	}
 
-
-	public List<Object> getParams() {
-		return new ArrayList<>();
-	}
-
 }

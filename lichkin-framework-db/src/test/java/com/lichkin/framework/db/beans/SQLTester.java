@@ -28,12 +28,12 @@ public abstract class SQLTester {
 	public void printSQL(__SQL sql) {
 		System.out.println(sql.getSQL(true));
 		if (sql instanceof ExpIn) {
-			System.out.println("params:" + LKJsonUtils.toJson(((ExpIn) sql).getParams()));
+			System.out.println("params:" + LKJsonUtils.toJson(((ExpIn) sql).params));
 		} else if (sql instanceof ExpLike) {
-			System.out.println("params:" + LKJsonUtils.toJson(((ExpLike) sql).getParam()));
+			System.out.println("params:" + LKJsonUtils.toJson(((ExpLike) sql).param));
 		} else if (sql instanceof ExpCompare) {
-			if (((ExpCompare) sql).isWithParam()) {
-				System.out.println("params:" + LKJsonUtils.toJson(((ExpCompare) sql).getParam()));
+			if (((ExpCompare) sql).withParam) {
+				System.out.println("params:" + LKJsonUtils.toJson(((ExpCompare) sql).param));
 			}
 		} else if (sql instanceof Condition) {
 			System.out.println("params:" + LKJsonUtils.toJson(((Condition) sql).getParams()));

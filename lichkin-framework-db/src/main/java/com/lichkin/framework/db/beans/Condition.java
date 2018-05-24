@@ -47,13 +47,13 @@ public class Condition extends __SQL {
 		this(and);
 		this.expression = expression;
 		if (expression instanceof ExpCompare) {
-			if (((ExpCompare) expression).isWithParam()) {
-				params.add(((ExpCompare) expression).getParam());
+			if (((ExpCompare) expression).withParam) {
+				params.add(((ExpCompare) expression).param);
 			}
 		} else if (expression instanceof ExpIn) {
-			params.addAll(((ExpIn) expression).getParams());
+			params.addAll(Arrays.asList(((ExpIn) expression).params));
 		} else if (expression instanceof ExpLike) {
-			params.add(((ExpLike) expression).getParam());
+			params.add(((ExpLike) expression).param);
 		}
 	}
 

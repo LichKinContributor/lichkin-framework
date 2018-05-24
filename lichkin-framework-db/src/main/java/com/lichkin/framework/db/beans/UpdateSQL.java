@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
+import com.lichkin.framework.defines.exceptions.LKRuntimeException;
+
 /**
  * SQL语句 -> 更新语句
  * @author SuZhou LichKin Information Technology Co., Ltd.
@@ -48,7 +51,7 @@ public class UpdateSQL extends __SQL {
 
 
 	/** WHERE */
-	protected final __WHERE where = new __WHERE();
+	private __WHERE where;
 
 
 	/**
@@ -57,6 +60,9 @@ public class UpdateSQL extends __SQL {
 	 * @return 本对象
 	 */
 	public UpdateSQL where(Condition... conditions) {
+		if (where == null) {
+			where = new __WHERE();
+		}
 		where.where(conditions);
 		return this;
 	}
@@ -68,9 +74,16 @@ public class UpdateSQL extends __SQL {
 	 * @return 本对象
 	 */
 	public UpdateSQL where(Exp expression) {
+		if (where == null) {
+			where = new __WHERE();
+		}
 		where.where(expression);
 		return this;
 	}
+
+
+	/** SQL语句 */
+	private String sql;
 
 
 	/**
@@ -80,12 +93,19 @@ public class UpdateSQL extends __SQL {
 	 */
 	@Deprecated
 	public String getSQL() {
-		return getSQL(true).toString();
+		if (sql == null) {
+			sql = getSQL(true).toString();
+		}
+		return sql;
 	}
 
 
 	@Override
 	StringBuilder getSQL(boolean useSQL) {
+		if (where == null) {
+			throw new LKRuntimeException(LKErrorCodesEnum.SQL_ERROR);
+		}
+
 		StringBuilder sql = new StringBuilder();
 		sql.append(UPDATE).append(BLANK);
 		sql.append(getTableSQL(useSQL, tableClazz));
@@ -115,9 +135,9 @@ public class UpdateSQL extends __SQL {
 	public Object[] getParams() {
 		List<Object> params = new ArrayList<>();
 		for (eq eq : eqs) {
-			params.add(eq.getParam());
+			params.add(eq.param);
 		}
-		params.addAll(where.getParams());
+		params.addAll(where.params);
 		return params.toArray();
 	}
 

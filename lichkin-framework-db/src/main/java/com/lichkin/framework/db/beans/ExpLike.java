@@ -14,11 +14,8 @@ import com.lichkin.framework.db.enums.LikeType;
  */
 class ExpLike extends Exp {
 
-	/** LIKE表达式类型 */
-	private final LikeType likeType;
-
 	/** 参数 */
-	private final String param;
+	final String param;
 
 
 	/**
@@ -30,8 +27,20 @@ class ExpLike extends Exp {
 	 */
 	protected ExpLike(boolean like, int columnResId, LikeType likeType, String param) {
 		super(columnResId, like ? LIKE : NOT_LIKE);
-		this.likeType = likeType;
-		this.param = param;
+		switch (likeType) {
+			case LEFT:
+				this.param = PERCENT + param;
+			break;
+			case RIGHT:
+				this.param = param + PERCENT;
+			break;
+			case ALL:
+				this.param = PERCENT + param + PERCENT;
+			break;
+			default:
+				this.param = null;
+			break;
+		}
 	}
 
 
@@ -40,19 +49,6 @@ class ExpLike extends Exp {
 		StringBuilder sql = super.getSQL(useSQL);
 		sql.append(BLANK).append(PLACEHOLDER);
 		return sql;
-	}
-
-
-	String getParam() {
-		switch (likeType) {
-			case LEFT:
-				return PERCENT + param;
-			case RIGHT:
-				return param + PERCENT;
-			case ALL:
-				return PERCENT + param + PERCENT;
-		}
-		return null;
 	}
 
 }

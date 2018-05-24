@@ -1,9 +1,11 @@
 package com.lichkin.tests.testers;
 
 import com.lichkin.framework.db.beans.Condition;
+import com.lichkin.framework.db.beans.Order;
 import com.lichkin.framework.db.beans.QuerySQL;
 import com.lichkin.framework.db.beans.R;
 import com.lichkin.framework.db.beans.SQLTester;
+import com.lichkin.framework.db.beans.Sort;
 import com.lichkin.framework.db.beans.eq;
 import com.lichkin.framework.json.LKJsonUtils;
 import com.lichkin.tests.beans.TestBean;
@@ -47,7 +49,9 @@ public class QuerySQLTester extends SQLTester {
 
 				.where(conditions)
 
-				.where(new eq(R.TestBean.compId, "123"));
+				.where(new eq(R.TestBean.compId, "123"))
+
+				.setSort(new Sort(new Order(R.TestBean.compId, true), new Order(R.TestBean.compId, false)));
 
 		System.out.println(sql.getSQL());
 		System.out.println(LKJsonUtils.toJson(sql.getParams()));

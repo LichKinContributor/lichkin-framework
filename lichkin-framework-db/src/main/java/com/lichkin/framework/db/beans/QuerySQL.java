@@ -143,7 +143,7 @@ public class QuerySQL extends __SQL {
 
 
 	/** WHERE */
-	protected final __WHERE where = new __WHERE();
+	private __WHERE where;
 
 
 	/**
@@ -152,6 +152,9 @@ public class QuerySQL extends __SQL {
 	 * @return 本对象
 	 */
 	public QuerySQL where(Condition... conditions) {
+		if (where == null) {
+			where = new __WHERE();
+		}
 		where.where(conditions);
 		return this;
 	}
@@ -163,9 +166,16 @@ public class QuerySQL extends __SQL {
 	 * @return 本对象
 	 */
 	public QuerySQL where(Exp expression) {
+		if (where == null) {
+			where = new __WHERE();
+		}
 		where.where(expression);
 		return this;
 	}
+
+
+	/** SQL语句 */
+	private String sql;
 
 
 	/**
@@ -175,7 +185,10 @@ public class QuerySQL extends __SQL {
 	 */
 	@Deprecated
 	public String getSQL() {
-		return getSQL(useSQL).toString();
+		if (sql == null) {
+			sql = getSQL(useSQL).toString();
+		}
+		return sql;
 	}
 
 
@@ -185,8 +198,13 @@ public class QuerySQL extends __SQL {
 		sql.append(select.getSQL(useSQL));
 		sql.append(BLANK);
 		sql.append(from.getSQL(useSQL));
-		sql.append(BLANK);
-		sql.append(where.getSQL(useSQL));
+		if (where != null) {
+			sql.append(BLANK);
+			sql.append(where.getSQL(useSQL));
+		}
+		if (sort != null) {
+			sql.append(sort.getSQL(useSQL));
+		}
 		return sql;
 	}
 
@@ -199,10 +217,66 @@ public class QuerySQL extends __SQL {
 	@Deprecated
 	public Object[] getParams() {
 		List<Object> params = new ArrayList<>();
-		params.addAll(select.getParams());
-		params.addAll(from.getParams());
-		params.addAll(where.getParams());
+		params.addAll(from.params);
+		params.addAll(where.params);
 		return params.toArray();
+	}
+
+
+	/** 排序信息对象 */
+	private Sort sort;
+
+
+	/**
+	 * 设置排序信息
+	 * @param sort 排序信息对象
+	 * @return 本对象
+	 */
+	public QuerySQL setSort(Sort sort) {
+		this.sort = sort;
+		return this;
+	}
+
+
+	/**
+	 * 设置分页信息
+	 * @param page 分页信息对象
+	 * @return 本对象
+	 */
+	public QuerySQL setPage(Page page) {
+		pageNumber = page.pageNumber;
+		pageSize = page.pageSize;
+		return this;
+	}
+
+
+	/** 页码 */
+	private int pageNumber;
+
+
+	/**
+	 * 获取页码
+	 * @return 页码
+	 * @deprecated 框架内部使用
+	 */
+	@Deprecated
+	public int getPageNumber() {
+		return pageNumber;
+	}
+
+
+	/** 每页数据量 */
+	private int pageSize;
+
+
+	/**
+	 * 获取每页数据量
+	 * @return 每页数据量
+	 * @deprecated 框架内部使用
+	 */
+	@Deprecated
+	public int getPageSize() {
+		return pageSize;
 	}
 
 }

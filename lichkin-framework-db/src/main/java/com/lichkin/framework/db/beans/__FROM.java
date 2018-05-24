@@ -27,6 +27,9 @@ class __FROM extends __SQL {
 	/** 关联表 */
 	private final List<JoinTable> joinTables = new ArrayList<>();
 
+	/** 参数列表 */
+	List<Object> params = new ArrayList<>();
+
 
 	/**
 	 * 构造方法
@@ -66,7 +69,11 @@ class __FROM extends __SQL {
 	private __FROM appendJoin(Class<?> tableClazz, String joinType, Condition condition, Condition... conditions) {
 		JoinTable joinTable = new JoinTable(tableClazz, joinType);
 		joinTable.conditions.add(condition);
+		params.addAll(condition.getParams());
 		joinTable.conditions.addAll(Arrays.asList(conditions));
+		for (Condition c : conditions) {
+			params.addAll(c.getParams());
+		}
 		joinTables.add(joinTable);
 		return this;
 	}
@@ -154,24 +161,6 @@ class __FROM extends __SQL {
 			}
 		}
 		return sql;
-	}
-
-
-	/**
-	 * 获取参数列表
-	 * @return 参数列表
-	 */
-	List<Object> getParams() {
-		List<Object> params = new ArrayList<>();
-
-		for (JoinTable joinTable : joinTables) {
-			List<Condition> conditions = joinTable.conditions;
-			for (Condition condition : conditions) {
-				params.addAll(condition.getParams());
-			}
-		}
-
-		return params;
 	}
 
 }

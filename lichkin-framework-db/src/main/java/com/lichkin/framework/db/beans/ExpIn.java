@@ -8,9 +8,6 @@ import static com.lichkin.framework.defines.LKStringStatics.BRACKET_LEFT;
 import static com.lichkin.framework.defines.LKStringStatics.BRACKET_RIGHT;
 import static com.lichkin.framework.defines.LKStringStatics.COMMA;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * SQL语句 -> IN/NOT IN表达式
  * @author SuZhou LichKin Information Technology Co., Ltd.
@@ -18,7 +15,7 @@ import java.util.List;
 class ExpIn extends Exp {
 
 	/** 参数列表 */
-	private final List<String> params;
+	final String[] params;
 
 
 	/**
@@ -29,7 +26,7 @@ class ExpIn extends Exp {
 	 */
 	protected ExpIn(boolean in, int columnResId, String paramsStr) {
 		super(columnResId, in ? IN : NOT_IN);
-		params = Arrays.asList(paramsStr.split(SPLITOR));
+		params = paramsStr.split(SPLITOR);
 	}
 
 
@@ -37,7 +34,7 @@ class ExpIn extends Exp {
 	StringBuilder getSQL(boolean useSQL) {
 		StringBuilder sql = super.getSQL(useSQL);
 		sql.append(BRACKET_LEFT);
-		for (int i = params.size() - 1; i >= 0; i--) {
+		for (int i = params.length - 1; i >= 0; i--) {
 			sql.append(PLACEHOLDER);
 			if (i == 0) {
 				sql.append(BRACKET_RIGHT);
@@ -46,11 +43,6 @@ class ExpIn extends Exp {
 			}
 		}
 		return sql;
-	}
-
-
-	List<String> getParams() {
-		return params;
 	}
 
 }

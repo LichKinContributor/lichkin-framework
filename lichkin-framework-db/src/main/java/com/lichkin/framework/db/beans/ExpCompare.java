@@ -13,10 +13,10 @@ class ExpCompare extends Exp {
 	private int rightColumnResId;
 
 	/** 参数 */
-	private Object param;
+	Object param;
 
 	/** 是否带参数 */
-	private final boolean withParam;
+	final boolean withParam;
 
 
 	/**
@@ -56,16 +56,6 @@ class ExpCompare extends Exp {
 			sql.append(getColumnSQL(useSQL, rightColumnResId));
 		}
 		return sql;
-	}
-
-
-	boolean isWithParam() {
-		return withParam;
-	}
-
-
-	Object getParam() {
-		return param;
 	}
 
 }
