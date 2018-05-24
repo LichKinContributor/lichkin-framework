@@ -11,7 +11,7 @@ public abstract class SQLTester {
 
 	@Before
 	public void before() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-		LKDBResource.load();// TODO 在程序启动时调用
+		LKDBResource.load();
 	}
 
 
@@ -24,7 +24,6 @@ public abstract class SQLTester {
 	public abstract void doTest();
 
 
-	@SuppressWarnings("deprecation")
 	public void printSQL(__SQL sql) {
 		System.out.println(sql.getSQL(true));
 		if (sql instanceof ExpIn) {

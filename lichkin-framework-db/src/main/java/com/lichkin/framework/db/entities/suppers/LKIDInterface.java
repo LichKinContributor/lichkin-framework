@@ -1,4 +1,4 @@
-package com.lichkin.framework.defines.entities.suppers;
+package com.lichkin.framework.db.entities.suppers;
 
 import java.io.Serializable;
 

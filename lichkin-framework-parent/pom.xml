@@ -39,6 +39,7 @@
     <module>../lichkin-framework-utils</module>
     <module>../lichkin-framework-data</module>
     <module>../lichkin-framework-db</module>
+    <module>../lichkin-framework-web</module>
   </modules>
 
   <dependencyManagement>
@@ -67,6 +68,11 @@
       <dependency>
         <groupId>com.lichkin.framework</groupId>
         <artifactId>lichkin-framework-db</artifactId>
+        <version>${com.lichkin.framework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.lichkin.framework</groupId>
+        <artifactId>lichkin-framework-web</artifactId>
         <version>${com.lichkin.framework.version}</version>
       </dependency>
 
