@@ -31,12 +31,19 @@ public class QuerySQLTester extends SQLTester {
 
 		};
 
+		// SQL 以下三种含义相同
 		QuerySQL sql = new QuerySQL(TestBean.class)
-				// QuerySQL sql = new QuerySQL(TestBean.class, true)
 				// QuerySQL sql = new QuerySQL(TestBean.class, false)
-				// QuerySQL sql = new QuerySQL(true, TestBean.class, true)
 				// QuerySQL sql = new QuerySQL(true, TestBean.class, false)
+
+				// SQL DISTINCT 以下两种含义相同
+				// QuerySQL sql = new QuerySQL(TestBean.class, true)
+				// QuerySQL sql = new QuerySQL(true, TestBean.class, true)
+
+				// HQL
 				// QuerySQL sql = new QuerySQL(false, TestBean.class, true)
+
+				// HQL DISTINCT
 				// QuerySQL sql = new QuerySQL(false, TestBean.class, false)
 
 				.select(R.TestBean.compId)

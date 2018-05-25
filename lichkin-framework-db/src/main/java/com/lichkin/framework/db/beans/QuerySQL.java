@@ -1,6 +1,11 @@
 package com.lichkin.framework.db.beans;
 
+import static com.lichkin.framework.db.beans.__SQL_STATICS.DISTINCT;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.SELECT;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
+import static com.lichkin.framework.defines.LKStringStatics.COMMA;
+import static com.lichkin.framework.defines.LKStringStatics.DOT;
+import static com.lichkin.framework.defines.LKStringStatics.STAR;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +18,9 @@ public class QuerySQL extends __SQL {
 
 	/** 是否使用SQL语句 */
 	private final boolean useSQL;
+
+	/** 是否使用DISTINCT */
+	private final boolean distinct;
 
 
 	/**
@@ -49,17 +57,27 @@ public class QuerySQL extends __SQL {
 	 * 构造方法
 	 * @param useSQL true:SQL;false:HQL.
 	 * @param tableClazz 表映射类型
+	 */
+	public QuerySQL(boolean useSQL, Class<?> tableClazz) {
+		this(useSQL, tableClazz, false);
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param useSQL true:SQL;false:HQL.
+	 * @param tableClazz 表映射类型
 	 * @param distinct 是否使用DISTINCT
 	 */
 	public QuerySQL(boolean useSQL, Class<?> tableClazz, boolean distinct) {
 		this.useSQL = useSQL;
-		select = new __SELECT(distinct);
+		this.distinct = distinct;
 		from = new __FROM(tableClazz);
 	}
 
 
-	/** SELECT */
-	private final __SELECT select;
+	/** 列 */
+	final List<__COLUMN> columns = new ArrayList<>();
 
 
 	/**
@@ -68,7 +86,10 @@ public class QuerySQL extends __SQL {
 	 * @return 本对象
 	 */
 	public QuerySQL select(int... columnResIds) {
-		select.select(columnResIds);
+		// 不做非空判断，即无参数时就应该报错。
+		for (int resId : columnResIds) {
+			columns.add(new __COLUMN(resId));
+		}
 		return this;
 	}
 
@@ -195,8 +216,31 @@ public class QuerySQL extends __SQL {
 	@Override
 	StringBuilder getSQL(boolean useSQL) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(select.getSQL(useSQL));
-		sql.append(BLANK);
+		if (columns.isEmpty()) {
+			sql.append(SELECT);
+			if (distinct) {
+				sql.append(BLANK).append(DISTINCT);
+			}
+			sql.append(BLANK).append(from.getMainTableAlias());
+			if (useSQL) {
+				sql.append(DOT).append(STAR);
+			}
+			sql.append(BLANK);
+		} else {
+			for (int i = 0; i < columns.size(); i++) {
+				__COLUMN column = columns.get(i);
+				if (i == 0) {
+					sql.append(SELECT);
+					if (distinct) {
+						sql.append(BLANK).append(DISTINCT);
+					}
+				} else {
+					sql.append(COMMA);
+				}
+				sql.append(BLANK).append(column.getSQL(useSQL));
+			}
+			sql.append(BLANK);
+		}
 		sql.append(from.getSQL(useSQL));
 		if (where != null) {
 			sql.append(BLANK);

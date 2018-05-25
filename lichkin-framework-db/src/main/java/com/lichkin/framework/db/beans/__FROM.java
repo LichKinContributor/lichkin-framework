@@ -163,4 +163,13 @@ class __FROM extends __SQL {
 		return sql;
 	}
 
+
+	/**
+	 * 获取主表别名
+	 * @return 主表别名
+	 */
+	String getMainTableAlias() {
+		return LKDBResource.getTableResource(tableClazz).getTableAlias();
+	}
+
 }

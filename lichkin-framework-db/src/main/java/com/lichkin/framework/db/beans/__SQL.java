@@ -15,6 +15,16 @@ import lombok.NoArgsConstructor;
 abstract class __SQL {
 
 	/**
+	 * 获取表别名
+	 * @param tableClazz 表映射类型
+	 * @return 表别名
+	 */
+	protected String getTableAlias(Class<?> tableClazz) {
+		return LKDBResource.getTableResource(tableClazz).getTableAlias();
+	}
+
+
+	/**
 	 * 获取表SQL。表名 AS 表别名。
 	 * @param useSQL true:SQL;false:HQL.
 	 * @param tableClazz 表映射类型

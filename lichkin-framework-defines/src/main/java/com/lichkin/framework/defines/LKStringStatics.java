@@ -51,4 +51,7 @@ public interface LKStringStatics {
 	/** ? */
 	public static final String QUESTION = "?";
 
+	/** * */
+	public static final String STAR = "*";
+
 }
