@@ -34,12 +34,12 @@
   </properties>
 
   <modules>
-    <module>../lichkin-framework-log</module>
-    <module>../lichkin-framework-defines</module>
-    <module>../lichkin-framework-utils</module>
-    <module>../lichkin-framework-data</module>
-    <module>../lichkin-framework-db</module>
-    <module>../lichkin-framework-web</module>
+    <module>lichkin-framework-log</module>
+    <module>lichkin-framework-defines</module>
+    <module>lichkin-framework-utils</module>
+    <module>lichkin-framework-data</module>
+    <module>lichkin-framework-db</module>
+    <module>lichkin-framework-web</module>
   </modules>
 
   <dependencyManagement>
