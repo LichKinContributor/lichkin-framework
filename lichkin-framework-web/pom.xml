@@ -24,7 +24,7 @@
 
   <parent>
     <groupId>com.lichkin.framework</groupId>
-    <artifactId>lichkin-framework-parent</artifactId>
+    <artifactId>lichkin-framework</artifactId>
     <version>1.0.0.RELEASE</version>
     <relativePath>../</relativePath>
   </parent>
