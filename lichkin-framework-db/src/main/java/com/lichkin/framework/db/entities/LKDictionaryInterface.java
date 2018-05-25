@@ -68,13 +68,13 @@ public interface LKDictionaryInterface extends LKBaseSysInterface {
 	 * 获取排序号
 	 * @return 排序号
 	 */
-	public Byte getOrderId();
+	public Short getOrderId();
 
 
 	/**
 	 * 设置排序号
 	 * @param orderId 排序号
 	 */
-	public void setOrderId(Byte orderId);
+	public void setOrderId(Short orderId);
 
 }
