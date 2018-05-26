@@ -8,7 +8,11 @@ import static com.lichkin.framework.defines.LKStringStatics.DOT;
 import static com.lichkin.framework.defines.LKStringStatics.STAR;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
+import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 
 /**
  * SQL语句 -&gt; 查询语句
@@ -86,10 +90,32 @@ public class QuerySQL extends __SQL {
 	 * @return 本对象
 	 */
 	public QuerySQL select(int... columnResIds) {
+		if (!useSQL) {
+			throw new LKRuntimeException(LKErrorCodesEnum.SQL_ERROR);
+		}
 		// 不做非空判断，即无参数时就应该报错。
 		for (int resId : columnResIds) {
 			columns.add(new __COLUMN(resId));
 		}
+		return this;
+	}
+
+
+	/** 选择表所有列的表资源ID */
+	final List<Class<?>> tableClasses = new ArrayList<>();
+
+
+	/**
+	 * 添加表所有列
+	 * @param tableResIds 表资源ID
+	 * @return 本对象
+	 */
+	public QuerySQL selectTable(Class<?>... tableClasses) {
+		if (!useSQL) {
+			throw new LKRuntimeException(LKErrorCodesEnum.SQL_ERROR);
+		}
+		// 不做非空判断，即无参数时就应该报错。
+		this.tableClasses.addAll(Arrays.asList(tableClasses));
 		return this;
 	}
 
@@ -216,31 +242,50 @@ public class QuerySQL extends __SQL {
 	@Override
 	StringBuilder getSQL(boolean useSQL) {
 		StringBuilder sql = new StringBuilder();
-		if (columns.isEmpty()) {
+		if (useSQL) {
 			sql.append(SELECT);
 			if (distinct) {
 				sql.append(BLANK).append(DISTINCT);
 			}
-			sql.append(BLANK).append(from.getMainTableAlias());
-			if (useSQL) {
-				sql.append(DOT).append(STAR);
+
+			boolean noTableClasses = tableClasses.isEmpty();
+			if (!noTableClasses) {
+				for (int i = 0; i < tableClasses.size(); i++) {
+					Class<?> tableClazz = tableClasses.get(i);
+					if (i != 0) {
+						sql.append(COMMA);
+					}
+					sql.append(BLANK).append(getTableAlias(tableClazz));
+					if (useSQL) {
+						sql.append(DOT).append(STAR);
+					}
+				}
+			}
+
+			if (columns.isEmpty()) {
+				if (noTableClasses) {
+					sql.append(BLANK).append(getTableAlias(from.tableClazz)).append(DOT).append(STAR);
+				}
+			} else {
+				for (int i = 0; i < columns.size(); i++) {
+					__COLUMN column = columns.get(i);
+					if (i == 0) {
+						if (!noTableClasses) {
+							sql.append(COMMA);
+						}
+					} else {
+						sql.append(COMMA);
+					}
+					sql.append(BLANK).append(column.getSQL(useSQL));
+				}
 			}
 			sql.append(BLANK);
 		} else {
-			for (int i = 0; i < columns.size(); i++) {
-				__COLUMN column = columns.get(i);
-				if (i == 0) {
-					sql.append(SELECT);
-					if (distinct) {
-						sql.append(BLANK).append(DISTINCT);
-					}
-				} else {
-					sql.append(COMMA);
-				}
-				sql.append(BLANK).append(column.getSQL(useSQL));
+			if (distinct) {
+				sql.append(SELECT).append(BLANK).append(DISTINCT).append(BLANK).append(getTableAlias(from.tableClazz)).append(BLANK);
 			}
-			sql.append(BLANK);
 		}
+
 		sql.append(from.getSQL(useSQL));
 		if (where != null) {
 			sql.append(BLANK);
@@ -262,7 +307,9 @@ public class QuerySQL extends __SQL {
 	public Object[] getParams() {
 		List<Object> params = new ArrayList<>();
 		params.addAll(from.params);
-		params.addAll(where.params);
+		if (where != null) {
+			params.addAll(where.params);
+		}
 		return params.toArray();
 	}
 

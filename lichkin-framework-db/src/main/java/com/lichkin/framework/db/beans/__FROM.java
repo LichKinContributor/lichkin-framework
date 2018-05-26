@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 class __FROM extends __SQL {
 
 	/** 表映射类型 */
-	private final Class<?> tableClazz;
+	final Class<?> tableClazz;
 
 	/** 关联表 */
 	private final List<JoinTable> joinTables = new ArrayList<>();
@@ -161,15 +161,6 @@ class __FROM extends __SQL {
 			}
 		}
 		return sql;
-	}
-
-
-	/**
-	 * 获取主表别名
-	 * @return 主表别名
-	 */
-	String getMainTableAlias() {
-		return LKDBResource.getTableResource(tableClazz).getTableAlias();
 	}
 
 }
