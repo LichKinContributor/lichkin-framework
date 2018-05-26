@@ -49,6 +49,8 @@ public class QuerySQLTester extends SQLTester {
 
 				.select(R.TestBean.compId)
 
+				.select(R.TestBean.compId, "compId")
+
 				.select(columnResIds)
 
 				.selectTable(TestBean.class, TestEntity.class)

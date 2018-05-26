@@ -101,6 +101,22 @@ public class QuerySQL extends __SQL {
 	}
 
 
+	/**
+	 * 添加列
+	 * @param columnResId 列资源ID
+	 * @param columnAlias 列别名
+	 * @return 本对象
+	 */
+	public QuerySQL select(int columnResId, String columnAlias) {
+		if (!useSQL) {
+			throw new LKRuntimeException(LKErrorCodesEnum.SQL_ERROR);
+		}
+		// 不做非空判断，即无参数时就应该报错。
+		columns.add(new __COLUMN(columnResId, columnAlias));
+		return this;
+	}
+
+
 	/** 选择表所有列的表资源ID */
 	final List<Class<?>> tableClasses = new ArrayList<>();
 
@@ -262,23 +278,21 @@ public class QuerySQL extends __SQL {
 				}
 			}
 
-			if (columns.isEmpty()) {
-				if (noTableClasses) {
-					sql.append(BLANK).append(getTableAlias(from.tableClazz)).append(DOT).append(STAR);
-				}
-			} else {
+			boolean noColumns = columns.isEmpty();
+			if (!noColumns) {
 				for (int i = 0; i < columns.size(); i++) {
 					__COLUMN column = columns.get(i);
-					if (i == 0) {
-						if (!noTableClasses) {
-							sql.append(COMMA);
-						}
-					} else {
+					if ((i != 0) || !noTableClasses) {
 						sql.append(COMMA);
 					}
 					sql.append(BLANK).append(column.getSQL(useSQL));
 				}
 			}
+
+			if (noTableClasses && noColumns) {
+				sql.append(BLANK).append(getTableAlias(from.tableClazz)).append(DOT).append(STAR);
+			}
+
 			sql.append(BLANK);
 		} else {
 			if (distinct) {
@@ -287,10 +301,12 @@ public class QuerySQL extends __SQL {
 		}
 
 		sql.append(from.getSQL(useSQL));
+
 		if (where != null) {
 			sql.append(BLANK);
 			sql.append(where.getSQL(useSQL));
 		}
+
 		if (sort != null) {
 			sql.append(sort.getSQL(useSQL));
 		}
