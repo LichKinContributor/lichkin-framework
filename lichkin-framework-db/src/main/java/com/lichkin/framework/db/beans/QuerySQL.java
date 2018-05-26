@@ -107,7 +107,7 @@ public class QuerySQL extends __SQL {
 
 	/**
 	 * 添加表所有列
-	 * @param tableResIds 表资源ID
+	 * @param tableClasses 表映射类型
 	 * @return 本对象
 	 */
 	public QuerySQL selectTable(Class<?>... tableClasses) {
