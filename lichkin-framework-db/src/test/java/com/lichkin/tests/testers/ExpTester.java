@@ -5,21 +5,21 @@ import static com.lichkin.framework.defines.LKFrameworkStatics.SPLITOR;
 import com.lichkin.framework.db.beans.R;
 import com.lichkin.framework.db.beans.SQLTester;
 import com.lichkin.framework.db.beans.eq;
-import com.lichkin.framework.db.beans.eq$;
+import com.lichkin.framework.db.beans.eq_;
 import com.lichkin.framework.db.beans.gt;
-import com.lichkin.framework.db.beans.gt$;
+import com.lichkin.framework.db.beans.gt_;
 import com.lichkin.framework.db.beans.gte;
-import com.lichkin.framework.db.beans.gte$;
+import com.lichkin.framework.db.beans.gte_;
 import com.lichkin.framework.db.beans.in;
 import com.lichkin.framework.db.beans.isNotNull;
 import com.lichkin.framework.db.beans.isNull;
 import com.lichkin.framework.db.beans.like;
 import com.lichkin.framework.db.beans.lt;
-import com.lichkin.framework.db.beans.lt$;
+import com.lichkin.framework.db.beans.lt_;
 import com.lichkin.framework.db.beans.lte;
-import com.lichkin.framework.db.beans.lte$;
+import com.lichkin.framework.db.beans.lte_;
 import com.lichkin.framework.db.beans.neq;
-import com.lichkin.framework.db.beans.neq$;
+import com.lichkin.framework.db.beans.neq_;
 import com.lichkin.framework.db.beans.notIn;
 import com.lichkin.framework.db.beans.notLike;
 import com.lichkin.framework.db.enums.LikeType;
@@ -59,12 +59,12 @@ public class ExpTester extends SQLTester {
 		System.out.println();
 
 		// 两表间关联的表达式使用$结尾的表达式类
-		printSQL(new eq$(R.TestBean.compId, R.TestBean.compId));
-		printSQL(new neq$(R.TestBean.compId, R.TestBean.compId));
-		printSQL(new gt$(R.TestBean.compId, R.TestBean.compId));
-		printSQL(new gte$(R.TestBean.compId, R.TestBean.compId));
-		printSQL(new lt$(R.TestBean.compId, R.TestBean.compId));
-		printSQL(new lte$(R.TestBean.compId, R.TestBean.compId));
+		printSQL(new eq_(R.TestBean.compId, R.TestBean.compId));
+		printSQL(new neq_(R.TestBean.compId, R.TestBean.compId));
+		printSQL(new gt_(R.TestBean.compId, R.TestBean.compId));
+		printSQL(new gte_(R.TestBean.compId, R.TestBean.compId));
+		printSQL(new lt_(R.TestBean.compId, R.TestBean.compId));
+		printSQL(new lte_(R.TestBean.compId, R.TestBean.compId));
 		System.out.println();
 	}
 

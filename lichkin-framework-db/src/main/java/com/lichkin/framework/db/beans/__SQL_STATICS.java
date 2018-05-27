@@ -86,4 +86,22 @@ public interface __SQL_STATICS {
 	/** WHERE */
 	public static final String WHERE = "WHERE";
 
+	/** ORDER BY */
+	public static final String ORDER_BY = "ORDER BY";
+
+	/** ASC */
+	public static final String ASC = "ASC";
+
+	/** DESC */
+	public static final String DESC = "DESC";
+
+	/** UPDATE */
+	public static final String UPDATE = "UPDATE";
+
+	/** SET */
+	public static final String SET = "SET";
+
+	/** DELETE */
+	public static final String DELETE = "DELETE";
+
 }

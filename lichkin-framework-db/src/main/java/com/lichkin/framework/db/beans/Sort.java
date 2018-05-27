@@ -1,5 +1,6 @@
 package com.lichkin.framework.db.beans;
 
+import static com.lichkin.framework.db.beans.__SQL_STATICS.ORDER_BY;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 import static com.lichkin.framework.defines.LKStringStatics.COMMA;
 
@@ -12,9 +13,6 @@ import java.util.List;
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 public class Sort extends __SQL {
-
-	/** ORDER BY */
-	private static final String ORDER_BY = "ORDER BY";
 
 	/** 排序信息对象列表 */
 	List<Order> listOrder = new ArrayList<>();
@@ -47,11 +45,10 @@ public class Sort extends __SQL {
 	@Override
 	StringBuilder getSQL(boolean useSQL) {
 		StringBuilder sql = new StringBuilder();
+		sql.append(BLANK).append(ORDER_BY);
 		for (int i = 0; i < listOrder.size(); i++) {
 			Order order = listOrder.get(i);
-			if (i == 0) {
-				sql.append(BLANK).append(ORDER_BY);
-			} else {
+			if (i != 0) {
 				sql.append(COMMA);
 			}
 			sql.append(order.getSQL(useSQL));

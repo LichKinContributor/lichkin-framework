@@ -25,7 +25,7 @@ class ExpCompare extends Exp {
 	 * @param expressionType 表达式类型
 	 * @param rightColumnResId 右边列资源ID
 	 */
-	protected ExpCompare(int leftColumnResId, String expressionType, int rightColumnResId) {
+	ExpCompare(int leftColumnResId, String expressionType, int rightColumnResId) {
 		super(leftColumnResId, expressionType);
 		this.rightColumnResId = rightColumnResId;
 		withParam = false;
@@ -39,7 +39,7 @@ class ExpCompare extends Exp {
 	 * @param param 参数
 	 * @param withParam 是否带参数，本参数只为解决重载构造方法冲突。
 	 */
-	protected ExpCompare(int columnResId, String expressionType, Object param, boolean withParam) {
+	ExpCompare(int columnResId, String expressionType, Object param, boolean withParam) {
 		super(columnResId, expressionType);
 		this.param = param;
 		this.withParam = true;

@@ -25,7 +25,7 @@ class ExpLike extends Exp {
 	 * @param likeType LIKE表达式类型
 	 * @param param 参数
 	 */
-	protected ExpLike(boolean like, int columnResId, LikeType likeType, String param) {
+	ExpLike(boolean like, int columnResId, LikeType likeType, String param) {
 		super(columnResId, like ? LIKE : NOT_LIKE);
 		switch (likeType) {
 			case LEFT:

@@ -24,7 +24,7 @@ class ExpIn extends Exp {
 	 * @param columnResId 列资源ID
 	 * @param paramsStr 参数。使用LKFrameworkStatics.SPLITOR作为分隔符。
 	 */
-	protected ExpIn(boolean in, int columnResId, String paramsStr) {
+	ExpIn(boolean in, int columnResId, String paramsStr) {
 		super(columnResId, in ? IN : NOT_IN);
 		params = paramsStr.split(SPLITOR);
 	}

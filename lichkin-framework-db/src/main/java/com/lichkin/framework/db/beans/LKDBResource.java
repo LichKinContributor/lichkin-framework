@@ -21,7 +21,7 @@ public class LKDBResource {
 	 */
 	@Getter
 	@RequiredArgsConstructor
-	static class TableResource {
+	public static class TableResource {
 
 		/** 类名/实体名 */
 		private final String className;
@@ -44,7 +44,7 @@ public class LKDBResource {
 	 * @param clazz 表资源类
 	 * @return 表资源对象
 	 */
-	static TableResource getTableResource(Class<?> clazz) {
+	public static TableResource getTableResource(Class<?> clazz) {
 		return tables.get(clazz.getName());
 	}
 

@@ -17,7 +17,7 @@ class Exp extends __COLUMN {
 	 * @param columnResId 列资源ID
 	 * @param expressionType 表达式类型
 	 */
-	protected Exp(int columnResId, String expressionType) {
+	Exp(int columnResId, String expressionType) {
 		super(columnResId);
 		this.expressionType = expressionType;
 	}

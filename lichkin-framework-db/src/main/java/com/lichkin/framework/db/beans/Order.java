@@ -1,5 +1,7 @@
 package com.lichkin.framework.db.beans;
 
+import static com.lichkin.framework.db.beans.__SQL_STATICS.ASC;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.DESC;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 
 /**
@@ -8,14 +10,8 @@ import static com.lichkin.framework.defines.LKStringStatics.BLANK;
  */
 public class Order extends __COLUMN {
 
-	/** ASC */
-	private static final String ASC = "ASC";
-
-	/** DESC */
-	private static final String DESC = "DESC";
-
 	/** 是否正序 */
-	final boolean asc;
+	private final boolean asc;
 
 
 	/**
@@ -30,7 +26,7 @@ public class Order extends __COLUMN {
 	/**
 	 * 构造方法
 	 * @param columnResId 列资源ID
-	 * @param asc true:正序;false倒序.
+	 * @param asc true:正序;false:倒序.
 	 */
 	public Order(int columnResId, boolean asc) {
 		super(columnResId);

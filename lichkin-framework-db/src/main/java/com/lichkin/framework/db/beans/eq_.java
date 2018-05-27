@@ -1,20 +1,20 @@
 package com.lichkin.framework.db.beans;
 
-import static com.lichkin.framework.db.beans.__SQL_STATICS.GT;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.EQ;
 
 /**
- * SQL语句 -&gt; 大于
+ * SQL语句 -&gt; 等于
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public class gt$ extends ExpCompare {
+public class eq_ extends ExpCompare {
 
 	/**
 	 * 构造方法
 	 * @param leftColumnResId 左边列资源ID
 	 * @param rightColumnResId 右边列资源ID
 	 */
-	public gt$(int leftColumnResId, int rightColumnResId) {
-		super(leftColumnResId, GT, rightColumnResId);
+	public eq_(int leftColumnResId, int rightColumnResId) {
+		super(leftColumnResId, EQ, rightColumnResId);
 	}
 
 }

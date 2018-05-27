@@ -82,7 +82,7 @@ public class LKDBResourceCreater {
 					}
 				}
 
-				r.append("\n").append("\t").append("public static final class ").append(tableAlias).append(" {").append("\n");
+				r.append("\n").append("\t").append("public interface ").append(tableAlias).append(" {").append("\n");
 
 				ri.append("\n").append("\t").append("\t").append("LKDBResource.addTable(\"").append(className).append("\", \"").append(tableName).append("\", \"").append(tableAlias).append("\"").append(");");
 

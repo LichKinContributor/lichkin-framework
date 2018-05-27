@@ -31,9 +31,7 @@ import com.lichkin.framework.db.enums.LikeType;
 /**
  * SQL语句
  * @author SuZhou LichKin Information Technology Co., Ltd.
- * @deprecated 框架提供的方法暂不能实现时使用
  */
-@Deprecated
 public class SQL {
 
 	/** 是否使用SQL */
