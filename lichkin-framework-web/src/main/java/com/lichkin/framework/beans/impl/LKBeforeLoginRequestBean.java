@@ -17,7 +17,7 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class LKBeforeLoginRequestBean extends LKRequestBean implements LKRequestInterface {
 
