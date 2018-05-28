@@ -9,6 +9,20 @@ import com.lichkin.framework.db.entities.suppers.LKBaseSysInterface;
 public interface LKUserLoginInterface extends LKBaseSysInterface, LKExtendFields {
 
 	/**
+	 * 获取头像
+	 * @return 头像
+	 */
+	public String getPhoto();
+
+
+	/**
+	 * 设置头像
+	 * @param photo 头像
+	 */
+	public void setPhoto(final String photo);
+
+
+	/**
 	 * 获取用户ID
 	 * @return 用户ID
 	 */
