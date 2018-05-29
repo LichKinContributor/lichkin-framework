@@ -1,5 +1,6 @@
 package com.lichkin.framework.utils;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.URISyntaxException;
@@ -140,7 +141,7 @@ public class LKClassScanner {
 			return;
 		}
 
-		String className = fileName.replace(SEPARATOR_CHAR, DOT);
+		String className = fileName.replace(File.separatorChar, DOT);
 		int start = className.lastIndexOf(packageName);
 		if (start == -1) {
 			return;
