@@ -86,7 +86,7 @@ public class LKDBResourceCreater {
 
 				ri.append("\n").append("\t").append("\t").append("LKDBResource.addTable(\"").append(className).append("\", \"").append(tableName).append("\", \"").append(tableAlias).append("\"").append(");");
 
-				List<Field> fields = LKFieldUtils.getRealFieldList(clazz, "serialVersionUID");
+				List<Field> fields = LKFieldUtils.getRealFieldList(clazz, true, "serialVersionUID");
 
 				int columnIdx = 0;
 				for (Field field : fields) {
