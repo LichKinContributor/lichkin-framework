@@ -2,6 +2,7 @@ package com.lichkin.framework.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.JarURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -33,6 +36,9 @@ public class LKClassScanner {
 	/** 点 */
 	private static final char DOT = '.';
 
+	/** 类文件后缀名 */
+	private static final String CLASS_SUFFIX = ".class";
+
 
 	/**
 	 * 扫描com.lichkin包中的类
@@ -54,21 +60,19 @@ public class LKClassScanner {
 	 * @throws IOException IOException
 	 */
 	public static List<Class<?>> scanClasses(String packageName, boolean recursive, String... annotationClassNames) throws IOException {
-		LOGGER.info("scan classes from %s", packageName);
 		List<Class<?>> classes = new ArrayList<>();
-		Enumeration<URL> iterator = Thread.currentThread().getContextClassLoader().getResources(packageName.replace(DOT, File.separatorChar));
-		while (iterator.hasMoreElements()) {
+		for (Enumeration<URL> iterator = Thread.currentThread().getContextClassLoader().getResources(packageName.replace(DOT, File.separatorChar)); iterator.hasMoreElements();) {
 			URL url = iterator.nextElement();
 			switch (url.getProtocol()) {
 				case "file":
 					try {
-						classes.addAll(scanClassesInFilePath(Paths.get(url.toURI()), packageName, recursive, annotationClassNames));
+						scanClassesInFilePath(Paths.get(url.toURI()), classes, packageName, recursive, annotationClassNames);
 					} catch (URISyntaxException e) {
 						e.printStackTrace();// ignore this
 					}
 				break;
 				case "jar":
-				// classes.addAll(getClassInJar(url, packageName, recursive));
+					scanClassesInJar(((JarURLConnection) url.openConnection()).getJarFile(), classes, packageName, recursive, annotationClassNames);
 				break;
 			}
 		}
@@ -77,50 +81,88 @@ public class LKClassScanner {
 
 
 	/**
-	 * 在文件目录中扫描类
+	 * 在路径中扫描
 	 * @param path 路径
+	 * @param classes 类型列表
 	 * @param packageName 包名
-	 * @param annotationClassNames 注解类名称
 	 * @param recursive 是否递归扫描
-	 * @return 类列表
+	 * @param annotationClassNames 注解类名称
 	 * @throws IOException IOException
 	 */
-	public static List<Class<?>> scanClassesInFilePath(Path path, String packageName, boolean recursive, String... annotationClassNames) throws IOException {
-		List<Class<?>> classes = new ArrayList<>();
+	public static void scanClassesInFilePath(Path path, List<Class<?>> classes, String packageName, boolean recursive, String... annotationClassNames) throws IOException {
 		if (Files.isDirectory(path)) {
 			if (recursive) {
 				@SuppressWarnings("resource")
 				Stream<Path> stream = Files.list(path);
 				for (Iterator<Path> iterator = stream.iterator(); iterator.hasNext();) {
-					classes.addAll(scanClassesInFilePath(iterator.next(), packageName, recursive, annotationClassNames));
+					scanClassesInFilePath(iterator.next(), classes, packageName, recursive, annotationClassNames);
 				}
 			}
 		} else {
-			path = path.toRealPath();
-			String pathStr = path.toString();
-			if (pathStr.endsWith(".class")) {
-				int end = pathStr.lastIndexOf(".class");
-				String className = pathStr.replace(File.separatorChar, DOT);
-				int start = className.lastIndexOf(packageName);
-				if (start != -1) {
-					className = (end == -1) ? className.substring(start) : className.substring(start, end);
-					try {
-						Class<?> clazz = Class.forName(className);
-						if (ArrayUtils.isNotEmpty(annotationClassNames)) {
-							for (String annotationClassName : annotationClassNames) {
-								if (LKClassUtils.containsAnnotation(clazz, annotationClassName)) {
-									classes.add(clazz);
-									break;
-								}
-							}
-						}
-					} catch (ClassNotFoundException e) {
-						e.printStackTrace();// ignore this
+			checkToAddClass(path.toRealPath().toString(), classes, packageName, recursive, annotationClassNames);
+		}
+	}
+
+
+	/**
+	 * 在JAR包中扫描
+	 * @param jarFile JAR包
+	 * @param classes 类型列表
+	 * @param packageName 包名
+	 * @param recursive 是否递归扫描
+	 * @param annotationClassNames 注解类名称
+	 * @throws IOException IOException
+	 */
+	private static void scanClassesInJar(JarFile jarFile, List<Class<?>> classes, String packageName, boolean recursive, String... annotationClassNames) throws IOException {
+		for (Enumeration<JarEntry> entries = jarFile.entries(); entries.hasMoreElements();) {
+			JarEntry jarEntry = entries.nextElement();
+			if (jarEntry.isDirectory()) {
+				continue;
+			}
+			checkToAddClass(jarEntry.getName(), classes, packageName, recursive, annotationClassNames);
+		}
+	}
+
+
+	/**
+	 * 校验是否增加该类型
+	 * @param fileName 文件名
+	 * @param classes 类型列表
+	 * @param packageName 包名
+	 * @param recursive 是否递归扫描
+	 * @param annotationClassNames 注解类名称
+	 */
+	private static void checkToAddClass(String fileName, List<Class<?>> classes, String packageName, boolean recursive, String... annotationClassNames) {
+		int end = fileName.lastIndexOf(CLASS_SUFFIX);
+		if (end == -1) {
+			return;
+		}
+
+		String className = fileName.replace(File.separatorChar, DOT);
+		int start = className.lastIndexOf(packageName);
+		if (start == -1) {
+			return;
+		}
+
+		className = className.substring(start, end);
+
+		if (!recursive && className.contains(".")) {
+			return;
+		}
+
+		try {
+			Class<?> clazz = Class.forName(className);
+			if (ArrayUtils.isNotEmpty(annotationClassNames)) {
+				for (String annotationClassName : annotationClassNames) {
+					if (LKClassUtils.containsAnnotation(clazz, annotationClassName)) {
+						classes.add(clazz);
+						break;
 					}
 				}
 			}
+		} catch (ClassNotFoundException e) {
+			LOGGER.error(e);
 		}
-		return classes;
 	}
 
 }
