@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.lichkin.framework.db.utils.LKDBUtils;
+import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
+import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +23,7 @@ public class LKDBResource {
 	 */
 	@Getter
 	@RequiredArgsConstructor
-	public static class TableResource {
+	static class TableResource {
 
 		/** 类名/实体名 */
 		private final String className;
@@ -44,8 +46,18 @@ public class LKDBResource {
 	 * @param clazz 表资源类
 	 * @return 表资源对象
 	 */
-	public static TableResource getTableResource(Class<?> clazz) {
+	static TableResource getTableResource(Class<?> clazz) {
 		return tables.get(clazz.getName());
+	}
+
+
+	/**
+	 * 获取表名
+	 * @param clazz 表资源类
+	 * @return 表名
+	 */
+	public static String getTableName(Class<?> clazz) {
+		return getTableResource(clazz).getTableName();
 	}
 
 
@@ -85,15 +97,13 @@ public class LKDBResource {
 
 	/**
 	 * 调用com.lichkin.framework.db.beans.RInitializer的public static void init()方法进行资源初始化
-	 * @throws ClassNotFoundException ClassNotFoundException
-	 * @throws SecurityException SecurityException
-	 * @throws NoSuchMethodException NoSuchMethodException
-	 * @throws InvocationTargetException InvocationTargetException
-	 * @throws IllegalArgumentException IllegalArgumentException
-	 * @throws IllegalAccessException IllegalAccessException
 	 */
-	public static void load() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-		Class.forName("com.lichkin.framework.db.beans.RInitializer").getMethod("init").invoke(null);
+	static void load() {
+		try {
+			Class.forName("com.lichkin.framework.db.beans.RInitializer").getMethod("init").invoke(null);
+		} catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			throw new LKRuntimeException(LKErrorCodesEnum.CONFIG_ERROR, e);
+		}
 	}
 
 

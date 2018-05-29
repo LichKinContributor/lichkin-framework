@@ -1,7 +1,5 @@
 package com.lichkin.framework.db.beans;
 
-import java.lang.reflect.InvocationTargetException;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +8,7 @@ import com.lichkin.framework.json.LKJsonUtils;
 public abstract class SQLTester {
 
 	@Before
-	public void before() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+	public void before() {
 		LKDBResource.load();
 	}
 

@@ -6,7 +6,7 @@ package com.lichkin.framework.db.beans;
  */
 public class R {
 
-	public static final class TestEntity {
+	public interface TestEntity {
 
 		public static final int compId = 0x00010001;
 
@@ -18,7 +18,7 @@ public class R {
 
 	}
 
-	public static final class TestBean {
+	public interface TestBean {
 
 		public static final int compId = 0x00020001;
 
