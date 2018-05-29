@@ -1,6 +1,5 @@
 package com.lichkin.framework.utils;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.JarURLConnection;
 import java.net.URISyntaxException;
@@ -37,7 +36,7 @@ public class LKClassScanner {
 	private static final char DOT = '.';
 
 	/** 路径分隔符 */
-	private static final char SEPARATOR_CHAR = File.separatorChar;
+	private static final char SEPARATOR_CHAR = '/';
 
 	/** 类文件后缀名 */
 	private static final String CLASS_SUFFIX = ".class";
