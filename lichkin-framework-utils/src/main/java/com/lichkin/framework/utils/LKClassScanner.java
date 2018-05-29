@@ -36,6 +36,9 @@ public class LKClassScanner {
 	/** 点 */
 	private static final char DOT = '.';
 
+	/** 路径分隔符 */
+	private static final char SEPARATOR_CHAR = File.separatorChar;
+
 	/** 类文件后缀名 */
 	private static final String CLASS_SUFFIX = ".class";
 
@@ -61,7 +64,7 @@ public class LKClassScanner {
 	 */
 	public static List<Class<?>> scanClasses(String packageName, boolean recursive, String... annotationClassNames) throws IOException {
 		List<Class<?>> classes = new ArrayList<>();
-		for (Enumeration<URL> iterator = Thread.currentThread().getContextClassLoader().getResources(packageName.replace(DOT, File.separatorChar)); iterator.hasMoreElements();) {
+		for (Enumeration<URL> iterator = Thread.currentThread().getContextClassLoader().getResources(packageName.replace(DOT, SEPARATOR_CHAR)); iterator.hasMoreElements();) {
 			URL url = iterator.nextElement();
 			switch (url.getProtocol()) {
 				case "file":
@@ -138,7 +141,7 @@ public class LKClassScanner {
 			return;
 		}
 
-		String className = fileName.replace(File.separatorChar, DOT);
+		String className = fileName.replace(SEPARATOR_CHAR, DOT);
 		int start = className.lastIndexOf(packageName);
 		if (start == -1) {
 			return;
