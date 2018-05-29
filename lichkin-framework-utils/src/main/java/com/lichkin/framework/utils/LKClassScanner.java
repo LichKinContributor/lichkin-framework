@@ -102,7 +102,7 @@ public class LKClassScanner {
 				}
 			}
 		} else {
-			checkToAddClass(path.toRealPath().toString(), classes, packageName, recursive, annotationClassNames);
+			checkToAddClass(path.toRealPath().toString().replace(File.separatorChar, DOT), classes, packageName, recursive, annotationClassNames);
 		}
 	}
 
@@ -122,26 +122,25 @@ public class LKClassScanner {
 			if (jarEntry.isDirectory()) {
 				continue;
 			}
-			checkToAddClass(jarEntry.getName(), classes, packageName, recursive, annotationClassNames);
+			checkToAddClass(jarEntry.getName().replace(SEPARATOR_CHAR, DOT), classes, packageName, recursive, annotationClassNames);
 		}
 	}
 
 
 	/**
 	 * 校验是否增加该类型
-	 * @param fileName 文件名
+	 * @param className 类名
 	 * @param classes 类型列表
 	 * @param packageName 包名
 	 * @param recursive 是否递归扫描
 	 * @param annotationClassNames 注解类名称
 	 */
-	private static void checkToAddClass(String fileName, List<Class<?>> classes, String packageName, boolean recursive, String... annotationClassNames) {
-		int end = fileName.lastIndexOf(CLASS_SUFFIX);
+	private static void checkToAddClass(String className, List<Class<?>> classes, String packageName, boolean recursive, String... annotationClassNames) {
+		int end = className.lastIndexOf(CLASS_SUFFIX);
 		if (end == -1) {
 			return;
 		}
 
-		String className = fileName.replace(File.separatorChar, DOT);
 		int start = className.lastIndexOf(packageName);
 		if (start == -1) {
 			return;
