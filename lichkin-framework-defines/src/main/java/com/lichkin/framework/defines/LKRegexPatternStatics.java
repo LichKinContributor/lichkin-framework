@@ -27,4 +27,7 @@ public interface LKRegexPatternStatics {
 	/** 负整数或零 */
 	public static final String NEGATIVE_INTEGER_OR_ZERO = NEGATIVE_INTEGER + OR + "0";
 
+	/** 手机号码 */
+	public static final String CELLPHONE = "1[0-9]{10}";
+
 }
