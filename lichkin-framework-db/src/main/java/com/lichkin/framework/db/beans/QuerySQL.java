@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.lichkin.framework.defines.beans.LKPage;
 import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
 import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 
@@ -279,9 +280,9 @@ public class QuerySQL extends _SQL_WITH_WHERE {
 	 * 设置分页信息
 	 * @param page 分页信息对象
 	 */
-	public void setPage(Page page) {
-		pageNumber = page.pageNumber;
-		pageSize = page.pageSize;
+	public void setPage(LKPage page) {
+		pageNumber = page.getPageNumber();
+		pageSize = page.getPageSize();
 	}
 
 
