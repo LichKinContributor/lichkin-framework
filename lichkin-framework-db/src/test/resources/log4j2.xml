@@ -2,7 +2,7 @@
 <configuration status="OFF" monitorInterval="10">
   <appenders>
     <Console name="Console" target="SYSTEM_OUT">
-      <PatternLayout pattern="[%-5level] %m => [%c] [%C:%L@%M]%n" />
+      <PatternLayout pattern="[%-5level] %m%n" />
     </Console>
   </appenders>
   <loggers>

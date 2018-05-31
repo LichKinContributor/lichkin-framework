@@ -4,7 +4,7 @@ package com.lichkin.framework.db.beans;
  * 数据库资源初始化类
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-class RInitializer {
+class RInitializer implements LKRInitializer {
 
 	/**
 	 * 初始化数据库资源

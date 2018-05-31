@@ -31,32 +31,25 @@ class LKDBResourceCreater {
 
 	/**
 	 * 构建资源文件
-	 * @throws IOException IOException
-	 */
-	static void createRFiles() throws IOException {
-		createRFiles(false);
-	}
-
-
-	/**
-	 * 构建资源文件
+	 * @param fileName 文件名
 	 * @param test true:test目录；false:main目录。
 	 * @throws IOException IOException
 	 */
-	static void createRFiles(boolean test) throws IOException {
+	static void createRFiles(String fileName, boolean test) throws IOException {
 		String classpath = Class.class.getClass().getResource("/").getPath();
 		String projectPath = classpath.substring(0, classpath.indexOf("/target"));
 		String srcMainJava = projectPath + "/src/" + (test ? "test" : "main") + "/java";
-		createRFiles(srcMainJava);
+		createRFiles(srcMainJava, fileName);
 	}
 
 
 	/**
 	 * 构建资源文件
 	 * @param classPath 类路径
+	 * @param fileName 文件名
 	 * @throws IOException IOException
 	 */
-	static void createRFiles(String classPath) throws IOException {
+	private static void createRFiles(String classPath, String fileName) throws IOException {
 		List<Class<?>> classes = LKClassScanner.scanClasses(
 
 				"org.hibernate.annotations.Table",
@@ -71,9 +64,9 @@ class LKDBResourceCreater {
 
 		);
 
-		StringBuilder r = new StringBuilder("package com.lichkin.framework.db.beans;\n\n/**\n * 数据库资源定义类\n * @author SuZhou LichKin Information Technology Co., Ltd.\n */\npublic class R {\n");
+		StringBuilder r = new StringBuilder("package com.lichkin.framework.db.beans;\n\n/**\n * 数据库资源定义类\n * @author SuZhou LichKin Information Technology Co., Ltd.\n */\npublic class ").append(fileName).append(" {\n");
 
-		StringBuilder ri = new StringBuilder("package com.lichkin.framework.db.beans;\n\n/**\n * 数据库资源初始化类\n * @author SuZhou LichKin Information Technology Co., Ltd.\n */\nclass RInitializer {\n\n\t/**\n\t * 初始化数据库资源\n\t */\n\tpublic static void init() {");
+		StringBuilder ri = new StringBuilder("package com.lichkin.framework.db.beans;\n\n/**\n * 数据库资源初始化类\n * @author SuZhou LichKin Information Technology Co., Ltd.\n */\nclass ").append(fileName).append("Initializer implements LKRInitializer {\n\n\t/**\n\t * 初始化数据库资源\n\t */\n\tpublic static void init() {");
 
 		if (!classes.isEmpty()) {
 			int tableIdx = 0;
@@ -132,8 +125,9 @@ class LKDBResourceCreater {
 			throw new LKRuntimeException(LKErrorCodesEnum.CONFIG_ERROR);
 		}
 
-		writeFile(classPath + "/com/lichkin/framework/db/beans/R.java", r.toString());
-		writeFile(classPath + "/com/lichkin/framework/db/beans/RInitializer.java", ri.toString());
+		String prefix = classPath + "/com/lichkin/framework/db/beans/" + fileName;
+		writeFile(prefix + ".java", r.toString());
+		writeFile(prefix + "Initializer.java", ri.toString());
 	}
 
 

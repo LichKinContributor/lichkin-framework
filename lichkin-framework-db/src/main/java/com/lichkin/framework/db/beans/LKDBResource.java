@@ -1,12 +1,14 @@
 package com.lichkin.framework.db.beans;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.lichkin.framework.db.utils.LKDBUtils;
 import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
 import com.lichkin.framework.defines.exceptions.LKRuntimeException;
+import com.lichkin.framework.utils.LKClassScanner;
+import com.lichkin.framework.utils.LKClassUtils;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -96,14 +98,21 @@ public class LKDBResource {
 
 
 	/**
-	 * 调用com.lichkin.framework.db.beans.RInitializer的public static void init()方法进行资源初始化
+	 * 加载数据库资源
 	 */
 	static void load() {
 		try {
-			Class.forName("com.lichkin.framework.db.beans.RInitializer").getMethod("init").invoke(null);
-		} catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			List<Class<?>> classes = LKClassScanner.scanClasses();
+			for (Class<?> clazz : classes) {
+				if (LKClassUtils.checkImplementsInterface(clazz, LKRInitializer.class)) {
+					clazz.getMethod("init").invoke(null);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw new LKRuntimeException(LKErrorCodesEnum.CONFIG_ERROR, e);
 		}
+
 	}
 
 

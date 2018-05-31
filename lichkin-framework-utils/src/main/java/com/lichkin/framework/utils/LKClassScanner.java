@@ -64,7 +64,7 @@ public class LKClassScanner {
 	 */
 	public static List<Class<?>> scanClasses(String packageName, boolean recursive, String... annotationClassNames) throws IOException {
 		List<Class<?>> classes = new ArrayList<>();
-		for (Enumeration<URL> iterator = Thread.currentThread().getContextClassLoader().getResources(packageName.replace(DOT, SEPARATOR_CHAR)); iterator.hasMoreElements();) {
+		for (Enumeration<URL> iterator = LKClassScanner.class.getClassLoader().getResources(packageName.replace(DOT, SEPARATOR_CHAR)); iterator.hasMoreElements();) {
 			URL url = iterator.nextElement();
 			switch (url.getProtocol()) {
 				case "file":
@@ -136,6 +136,10 @@ public class LKClassScanner {
 	 * @param annotationClassNames 注解类名称
 	 */
 	private static void checkToAddClass(String className, List<Class<?>> classes, String packageName, boolean recursive, String... annotationClassNames) {
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.trace("checkToAddClass -> %s", className);
+		}
+
 		int end = className.lastIndexOf(CLASS_SUFFIX);
 		if (end == -1) {
 			return;
@@ -152,9 +156,15 @@ public class LKClassScanner {
 			return;
 		}
 
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.trace("Class -> %s", className);
+		}
+
 		try {
 			Class<?> clazz = Class.forName(className);
-			if (ArrayUtils.isNotEmpty(annotationClassNames)) {
+			if (ArrayUtils.isEmpty(annotationClassNames)) {
+				classes.add(clazz);
+			} else {
 				for (String annotationClassName : annotationClassNames) {
 					if (LKClassUtils.containsAnnotation(clazz, annotationClassName)) {
 						classes.add(clazz);

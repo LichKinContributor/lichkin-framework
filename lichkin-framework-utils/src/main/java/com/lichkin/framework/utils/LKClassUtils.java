@@ -201,7 +201,7 @@ public class LKClassUtils {
 			return false;
 		}
 
-		for (Class<?> tmpClass = clazz; !tmpClass.equals(Object.class); tmpClass = tmpClass.getSuperclass()) {
+		for (Class<?> tmpClass = clazz; (tmpClass != null) && !tmpClass.equals(Object.class); tmpClass = tmpClass.getSuperclass()) {
 			Class<?>[] iArr = tmpClass.getInterfaces();// 取类上所有接口
 			for (Class<?> i : iArr) {
 				if (i.equals(interfaceClass)) {
