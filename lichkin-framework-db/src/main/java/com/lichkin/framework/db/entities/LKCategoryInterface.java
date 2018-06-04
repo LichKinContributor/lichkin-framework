@@ -1,26 +1,12 @@
 package com.lichkin.framework.db.entities;
 
-import com.lichkin.framework.db.entities.suppers.LKBaseSysInterface;
+import com.lichkin.framework.db.entities.suppers._LKNormalInterface;
 
 /**
  * 类目接口
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public interface LKCategoryInterface extends LKBaseSysInterface {
-
-	/**
-	 * 获取父类目编号
-	 * @return 父类目编号
-	 */
-	public String getParentCode();
-
-
-	/**
-	 * 设置父类目编号
-	 * @param parentCode 父类目编号
-	 */
-	public void setParentCode(String parentCode);
-
+public interface LKCategoryInterface extends _LKNormalInterface {
 
 	/**
 	 * 获取类目编号
@@ -37,20 +23,6 @@ public interface LKCategoryInterface extends LKBaseSysInterface {
 
 
 	/**
-	 * 获取类目值
-	 * @return 类目值
-	 */
-	public String getCategoryValue();
-
-
-	/**
-	 * 设置类目值
-	 * @param categoryValue 类目值
-	 */
-	public void setCategoryValue(String categoryValue);
-
-
-	/**
 	 * 获取类目名称
 	 * @return 类目名称
 	 */
@@ -62,19 +34,5 @@ public interface LKCategoryInterface extends LKBaseSysInterface {
 	 * @param categoryName 类目名称
 	 */
 	public void setCategoryName(String categoryName);
-
-
-	/**
-	 * 获取排序号
-	 * @return 排序号
-	 */
-	public Short getOrderId();
-
-
-	/**
-	 * 设置排序号
-	 * @param orderId 排序号
-	 */
-	public void setOrderId(Short orderId);
 
 }
