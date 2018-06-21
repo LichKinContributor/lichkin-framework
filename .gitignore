@@ -6,3 +6,5 @@
 /**/gen/
 /**/.DS_Store
 /**/.factorypath
+/**/*.iml
+/**/.idea
