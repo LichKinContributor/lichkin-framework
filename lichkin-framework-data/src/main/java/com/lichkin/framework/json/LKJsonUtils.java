@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import com.lichkin.framework.LKObjectMapper;
 import com.lichkin.framework.xml.LKXmlUtils;
 
@@ -17,6 +19,14 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class LKJsonUtils extends LKObjectMapper {
+
+	/**
+	 * 初始化JSON对象
+	 * @return JSON对象
+	 */
+	private static ObjectMapper newObjectMapper() {
+		return new ObjectMapper().disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+	}
 
 	/**
 	 * JSON字符串转XML字符串
@@ -36,7 +46,7 @@ public final class LKJsonUtils extends LKObjectMapper {
 	 * @return 字符串
 	 */
 	public static String toJson(Object obj, boolean nullable, boolean isArray) {
-		return writeValueAsString(new ObjectMapper(), obj, nullable, isArray);
+		return writeValueAsString(newObjectMapper(), obj, nullable, isArray);
 	}
 
 
@@ -46,7 +56,7 @@ public final class LKJsonUtils extends LKObjectMapper {
 	 * @return 字符串
 	 */
 	public static String toJson(Object obj) {
-		return writeValueAsString(new ObjectMapper(), obj, false, false);
+		return writeValueAsString(newObjectMapper(), obj, false, false);
 	}
 
 
@@ -58,7 +68,7 @@ public final class LKJsonUtils extends LKObjectMapper {
 	 * @return 对象
 	 */
 	public static <T> T toObj(String json, Class<T> clazz) {
-		return toObj(new ObjectMapper(), json, clazz);
+		return toObj(newObjectMapper(), json, clazz);
 	}
 
 
@@ -68,7 +78,7 @@ public final class LKJsonUtils extends LKObjectMapper {
 	 * @return Map对象
 	 */
 	public static HashMap<String, String> toMap(String json) {
-		return toMap(new ObjectMapper(), json);
+		return toMap(newObjectMapper(), json);
 	}
 
 
@@ -80,7 +90,7 @@ public final class LKJsonUtils extends LKObjectMapper {
 	 * @return List对象
 	 */
 	public static <T> ArrayList<T> toList(String json, Class<T> clazz) {
-		return toList(new ObjectMapper(), json, clazz);
+		return toList(newObjectMapper(), json, clazz);
 	}
 
 
@@ -90,7 +100,7 @@ public final class LKJsonUtils extends LKObjectMapper {
 	 * @return JsonNode对象
 	 */
 	public static JsonNode toJsonNode(String json) {
-		return readTree(new ObjectMapper(), json);
+		return readTree(newObjectMapper(), json);
 	}
 
 
@@ -101,7 +111,7 @@ public final class LKJsonUtils extends LKObjectMapper {
 	 * @return JsonNode对象
 	 */
 	public static JsonNode deepGet(String json, String... keys) {
-		return deepGet(new ObjectMapper(), json, keys);
+		return deepGet(newObjectMapper(), json, keys);
 	}
 
 
@@ -114,7 +124,7 @@ public final class LKJsonUtils extends LKObjectMapper {
 	 * @return 字符串
 	 */
 	public static String toJsonWithExcludes(Object obj, boolean nullable, boolean isArray, String... excludesPropertyArray) {
-		return writeValueAsStringWithExcludes(new ObjectMapper(), obj, nullable, isArray, excludesPropertyArray);
+		return writeValueAsStringWithExcludes(newObjectMapper(), obj, nullable, isArray, excludesPropertyArray);
 	}
 
 
@@ -125,7 +135,7 @@ public final class LKJsonUtils extends LKObjectMapper {
 	 * @return 字符串
 	 */
 	public static String toJsonWithExcludes(Object obj, String... excludesPropertyArray) {
-		return writeValueAsStringWithExcludes(new ObjectMapper(), obj, false, false, excludesPropertyArray);
+		return writeValueAsStringWithExcludes(newObjectMapper(), obj, false, false, excludesPropertyArray);
 	}
 
 
@@ -138,7 +148,7 @@ public final class LKJsonUtils extends LKObjectMapper {
 	 * @return 字符串
 	 */
 	public static String toJsonWithIncludes(Object obj, boolean nullable, boolean isArray, String... includesPropertyArray) {
-		return writeValueAsStringWithIncludes(new ObjectMapper(), obj, nullable, isArray, includesPropertyArray);
+		return writeValueAsStringWithIncludes(newObjectMapper(), obj, nullable, isArray, includesPropertyArray);
 	}
 
 
@@ -149,7 +159,7 @@ public final class LKJsonUtils extends LKObjectMapper {
 	 * @return 字符串
 	 */
 	public static String toJsonWithIncludes(Object obj, String... includesPropertyArray) {
-		return writeValueAsStringWithIncludes(new ObjectMapper(), obj, false, false, includesPropertyArray);
+		return writeValueAsStringWithIncludes(newObjectMapper(), obj, false, false, includesPropertyArray);
 	}
 
 }
