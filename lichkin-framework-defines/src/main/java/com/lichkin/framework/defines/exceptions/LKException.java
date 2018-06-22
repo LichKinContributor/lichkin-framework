@@ -1,6 +1,8 @@
 package com.lichkin.framework.defines.exceptions;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import com.lichkin.framework.defines.LKFrameworkStatics;
 import com.lichkin.framework.defines.enums.LKCodeEnum;
@@ -23,6 +25,9 @@ public class LKException extends Exception {
 
 	/** 国际化类型 */
 	private Locale locale;
+
+	/** 替换参数 */
+	private Map<String, Object> params;
 
 
 	/**
@@ -66,6 +71,20 @@ public class LKException extends Exception {
 	 */
 	public LKException(LKCodeEnum errorCode) {
 		this(errorCode, LKFrameworkStatics.DEFAULT_LOCALE);
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param key 键
+	 * @param value 值
+	 */
+	public LKException withParam(String key, Object value) {
+		if (this.params == null) {
+			this.params = new HashMap<>();
+		}
+		this.params.put(key, value);
+		return this;
 	}
 
 }

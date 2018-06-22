@@ -21,7 +21,7 @@ public class LKI18NReader4DateTimeType extends LKI18NReader {
 	 * @return 配置值
 	 */
 	private static String read(LKDateTimeTypeEnum dateTimeType, Locale locale) {
-		return read(locale, "dateTimeType", dateTimeType.toString());
+		return read(locale, "dateTimeType", dateTimeType.toString(), null);
 	}
 
 
