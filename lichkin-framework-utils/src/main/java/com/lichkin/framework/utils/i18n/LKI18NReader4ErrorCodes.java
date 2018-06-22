@@ -47,6 +47,29 @@ public class LKI18NReader4ErrorCodes extends LKI18NReader {
 
 
 	/**
+	 * 读取配置值
+	 * @param locale 国际化类型
+	 * @param errorCode 错误编码
+	 * @return 配置值
+	 */
+	public static String read(Locale locale, LKCodeEnum errorCode) {
+		return read(errorCode, locale, null);
+	}
+
+
+	/**
+	 * 获取值
+	 * @param locale 国际化类型
+	 * @param key 键
+	 * @param params 替换参数
+	 * @return 值
+	 */
+	public static Object read(Locale locale, String key, Map<String, Object> params) {
+		return read(locale, "app-errorCodes", key, params);
+	}
+
+
+	/**
 	 * 获取值
 	 * @param locale 国际化类型
 	 * @param key 键
