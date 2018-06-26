@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-
 import com.lichkin.framework.LKObjectMapper;
 import com.lichkin.framework.xml.LKXmlUtils;
 
@@ -25,9 +24,10 @@ public final class LKJsonUtils extends LKObjectMapper {
 	 * 初始化JSON对象
 	 * @return JSON对象
 	 */
-	private static ObjectMapper newObjectMapper() {
+	public static ObjectMapper newObjectMapper() {
 		return new ObjectMapper().disable(SerializationFeature.FAIL_ON_EMPTY_BEANS).disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 	}
+
 
 	/**
 	 * JSON字符串转XML字符串
