@@ -1,9 +1,9 @@
 package com.lichkin.framework.beans.impl;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.NotBlank;
 
 import com.lichkin.framework.beans.LKRequestInterface;
+import com.lichkin.framework.constraints.Token;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +21,8 @@ import lombok.ToString;
 public class LKAfterLoginRequestBean extends LKRequestBean implements LKRequestInterface {
 
 	/** 登录后获取得 */
-	@Pattern(regexp = "\\w{64}")
-	@NotNull
+	@Token
+	@NotBlank
 	private String token;
 
 }

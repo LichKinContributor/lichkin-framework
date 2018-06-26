@@ -1,5 +1,7 @@
 package com.lichkin.framework.beans.impl;
 
+import javax.validation.constraints.PositiveOrZero;
+
 import com.lichkin.framework.beans.LKRequestPageInterface;
 
 import lombok.Getter;
@@ -18,9 +20,11 @@ import lombok.ToString;
 public class LKAfterLoginRequestPageBean extends LKAfterLoginRequestBean implements LKRequestPageInterface {
 
 	/** 页码 */
-	private int pageNumber;
+	@PositiveOrZero
+	private Integer pageNumber;
 
 	/** 每页数据量 */
-	private int pageSize;
+	@PositiveOrZero
+	private Integer pageSize;
 
 }

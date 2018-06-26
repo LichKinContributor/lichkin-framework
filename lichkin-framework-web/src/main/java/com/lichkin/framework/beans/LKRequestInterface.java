@@ -26,22 +26,22 @@ public interface LKRequestInterface {
 	public void setClientType(String clientType);
 
 
-	public byte getVersionX();
+	public Byte getVersionX();
 
 
-	public void setVersionX(String versionX);
+	public void setVersionX(Byte versionX);
 
 
-	public byte getVersionY();
+	public Byte getVersionY();
 
 
-	public void setVersionY(String versionY);
+	public void setVersionY(Byte versionY);
 
 
-	public short getVersionZ();
+	public Short getVersionZ();
 
 
-	public void setVersionZ(String versionZ);
+	public void setVersionZ(Short versionZ);
 
 
 	public String getToken();

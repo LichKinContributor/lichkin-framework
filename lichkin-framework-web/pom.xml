@@ -47,6 +47,10 @@
       <groupId>com.lichkin.framework</groupId>
       <artifactId>lichkin-framework-data</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.lichkin.framework</groupId>
+      <artifactId>lichkin-framework-validation</artifactId>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
     <dependency>
       <groupId>javax.validation</groupId>

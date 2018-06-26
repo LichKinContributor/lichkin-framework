@@ -1,10 +1,7 @@
 package com.lichkin.framework.beans.impl;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-
 import com.lichkin.framework.beans.LKRequestInterface;
-import com.lichkin.framework.defines.LKRegexPatternStatics;
+import com.lichkin.framework.constraints.Token;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,8 +19,7 @@ import lombok.ToString;
 public class LKBeforeLoginRequestBean extends LKRequestBean implements LKRequestInterface {
 
 	/** 登录后获取得 */
-	@Pattern(regexp = LKRegexPatternStatics.EMPTY_OR + "\\w{64}")
-	@NotNull
+	@Token
 	private String token;
 
 }

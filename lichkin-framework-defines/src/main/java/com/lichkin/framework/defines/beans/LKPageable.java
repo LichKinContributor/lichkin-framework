@@ -6,15 +6,15 @@ package com.lichkin.framework.defines.beans;
  */
 public interface LKPageable {
 
-	public int getPageNumber();
+	public Integer getPageNumber();
 
 
-	public void setPageNumber(int pageNumber);
+	public void setPageNumber(Integer pageNumber);
 
 
-	public int getPageSize();
+	public Integer getPageSize();
 
 
-	public void setPageSize(int pageSize);
+	public void setPageSize(Integer pageSize);
 
 }

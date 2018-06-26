@@ -19,7 +19,7 @@ public class LKMatcherUtils {
 	 * @param input 待匹配字符串
 	 * @return 匹配对象
 	 */
-	public static Matcher getMatcher(final String regex, final String input) {
+	public static Matcher getMatcher(final String regex, final CharSequence input) {
 		return Pattern.compile(regex).matcher(input);
 	}
 
@@ -30,7 +30,7 @@ public class LKMatcherUtils {
 	 * @param input 待匹配字符串
 	 * @return 匹配成功返回true，否则返回false。
 	 */
-	public static boolean matches(final String regex, final String input) {
+	public static boolean matches(final String regex, final CharSequence input) {
 		return getMatcher(regex, input).matches();
 	}
 
