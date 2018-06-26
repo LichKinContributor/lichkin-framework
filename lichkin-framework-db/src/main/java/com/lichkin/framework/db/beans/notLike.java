@@ -15,7 +15,19 @@ public class notLike extends ExpLike {
 	 * @param param 参数
 	 */
 	public notLike(int columnResId, LikeType likeType, String param) {
-		super(false, columnResId, likeType, param);
+		this(0, columnResId, likeType, param);
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param tableIdx 表索引
+	 * @param columnResId 列资源ID
+	 * @param likeType LIKE表达式类型
+	 * @param param 参数
+	 */
+	public notLike(int tableIdx, int columnResId, LikeType likeType, String param) {
+		super(tableIdx, false, columnResId, likeType, param);
 	}
 
 }

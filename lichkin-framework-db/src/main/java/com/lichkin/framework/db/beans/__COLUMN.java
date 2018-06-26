@@ -9,6 +9,9 @@ import static com.lichkin.framework.defines.LKStringStatics.BLANK;
  */
 class __COLUMN extends __SQL {
 
+	/** 表索引 */
+	private final int tableIdx;
+
 	/** 列资源ID */
 	private final int columnResId;
 
@@ -21,16 +24,28 @@ class __COLUMN extends __SQL {
 	 * @param columnResId 列资源ID
 	 */
 	__COLUMN(int columnResId) {
-		this(columnResId, null);
+		this(0, columnResId, null);
 	}
 
 
 	/**
 	 * 构造方法
+	 * @param tableIdx 表索引
+	 * @param columnResId 列资源ID
+	 */
+	__COLUMN(int tableIdx, int columnResId) {
+		this(tableIdx, columnResId, null);
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param tableIdx 表索引
 	 * @param columnResId 列资源ID
 	 * @param columnAlias 列别名
 	 */
-	__COLUMN(int columnResId, String columnAlias) {
+	__COLUMN(int tableIdx, int columnResId, String columnAlias) {
+		this.tableIdx = tableIdx;
 		this.columnResId = columnResId;
 		this.columnAlias = columnAlias;
 	}
@@ -38,7 +53,7 @@ class __COLUMN extends __SQL {
 
 	@Override
 	StringBuilder getSQL(boolean useSQL) {
-		StringBuilder sql = getColumnSQL(useSQL, columnResId);
+		StringBuilder sql = getColumnSQL(useSQL, columnResId, tableIdx);
 		if (columnAlias != null) {
 			sql.append(BLANK).append(AS).append(BLANK).append(columnAlias);
 		}

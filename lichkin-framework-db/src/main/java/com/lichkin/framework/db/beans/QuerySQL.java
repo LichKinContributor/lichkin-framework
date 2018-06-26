@@ -100,7 +100,18 @@ public class QuerySQL extends _SQL_WITH_WHERE {
 	 * @param columnAlias 列别名
 	 */
 	public void select(int columnResId, String columnAlias) {
-		columns.add(new __COLUMN(columnResId, columnAlias));
+		select(0, columnResId, columnAlias);
+	}
+
+
+	/**
+	 * 添加列
+	 * @param tableIdx 表索引
+	 * @param columnResId 列资源ID
+	 * @param columnAlias 列别名
+	 */
+	public void select(int tableIdx, int columnResId, String columnAlias) {
+		columns.add(new __COLUMN(tableIdx, columnResId, columnAlias));
 	}
 
 
@@ -130,6 +141,9 @@ public class QuerySQL extends _SQL_WITH_WHERE {
 		/** 关联类型 */
 		final String joinType;
 
+		/** 表索引 */
+		int tableIdx = 0;
+
 		/** 条件表达式 */
 		List<Condition> conditions = new ArrayList<>();
 
@@ -152,6 +166,16 @@ public class QuerySQL extends _SQL_WITH_WHERE {
 	 */
 	private void appendJoin(Class<?> tableClazz, String joinType, Condition condition, Condition... conditions) {
 		JoinTable joinTable = new JoinTable(tableClazz, joinType);
+		if (tableClazz.equals(this.tableClazz)) {
+			joinTable.tableIdx++;
+		}
+		for (int i = joinTables.size() - 1; i >= 0; i--) {
+			JoinTable joinTableI = joinTables.get(i);
+			if (joinTableI.tableClazz.equals(tableClazz)) {
+				joinTable.tableIdx = joinTableI.tableIdx + 1;
+				break;
+			}
+		}
 		joinTable.conditions.add(condition);
 		fromParams.addAll(condition.getParams());
 		joinTable.conditions.addAll(Arrays.asList(conditions));
@@ -337,10 +361,10 @@ public class QuerySQL extends _SQL_WITH_WHERE {
 			}
 		}
 
-		sql.append(FROM).append(BLANK).append(getTableSQL(useSQL, tableClazz));
+		sql.append(FROM).append(BLANK).append(getTableSQL(useSQL, tableClazz, 0));
 		for (JoinTable joinTable : joinTables) {
 			sql.append(BLANK).append(joinTable.joinType).append(BLANK);
-			sql.append(getTableSQL(useSQL, joinTable.tableClazz));
+			sql.append(getTableSQL(useSQL, joinTable.tableClazz, joinTable.tableIdx));
 
 			List<Condition> conditions = joinTable.conditions;
 			for (int j = 0; j < conditions.size(); j++) {

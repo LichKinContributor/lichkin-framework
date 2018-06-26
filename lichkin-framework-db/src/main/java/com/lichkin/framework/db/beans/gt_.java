@@ -14,7 +14,30 @@ public class gt_ extends ExpCompare {
 	 * @param rightColumnResId 右边列资源ID
 	 */
 	public gt_(int leftColumnResId, int rightColumnResId) {
-		super(leftColumnResId, GT, rightColumnResId);
+		this(0, leftColumnResId, 0, rightColumnResId);
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param leftTableIdx 左边表索引
+	 * @param leftColumnResId 左边列资源ID
+	 * @param rightColumnResId 右边列资源ID
+	 */
+	public gt_(int leftTableIdx, int leftColumnResId, int rightColumnResId) {
+		this(leftTableIdx, leftColumnResId, 0, rightColumnResId);
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param leftTableIdx 左边表索引
+	 * @param leftColumnResId 左边列资源ID
+	 * @param rightTableIdx 右边表索引
+	 * @param rightColumnResId 右边列资源ID
+	 */
+	public gt_(int leftTableIdx, int leftColumnResId, int rightTableIdx, int rightColumnResId) {
+		super(leftTableIdx, leftColumnResId, GT, rightTableIdx, rightColumnResId);
 	}
 
 }

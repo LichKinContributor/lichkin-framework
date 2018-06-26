@@ -20,12 +20,13 @@ class ExpIn extends Exp {
 
 	/**
 	 * 构造方法
+	 * @param tableIdx 表索引
 	 * @param in true:IN; false:NOT IN
 	 * @param columnResId 列资源ID
 	 * @param paramsStr 参数。使用LKFrameworkStatics.SPLITOR作为分隔符。
 	 */
-	ExpIn(boolean in, int columnResId, String paramsStr) {
-		super(columnResId, in ? IN : NOT_IN);
+	ExpIn(int tableIdx, boolean in, int columnResId, String paramsStr) {
+		super(tableIdx, columnResId, in ? IN : NOT_IN);
 		params = paramsStr.split(SPLITOR);
 	}
 

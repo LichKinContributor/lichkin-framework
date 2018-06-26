@@ -19,7 +19,7 @@ public class Order extends __COLUMN {
 	 * @param columnResId 列资源ID
 	 */
 	public Order(int columnResId) {
-		this(columnResId, true);
+		this(0, columnResId, true);
 	}
 
 
@@ -29,7 +29,29 @@ public class Order extends __COLUMN {
 	 * @param asc true:正序;false:倒序.
 	 */
 	public Order(int columnResId, boolean asc) {
-		super(columnResId);
+		this(0, columnResId, asc);
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param tableIdx 表索引
+	 * @param columnResId 列资源ID
+	 * @param asc true:正序;false:倒序.
+	 */
+	public Order(int tableIdx, int columnResId) {
+		this(tableIdx, columnResId, true);
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param tableIdx 表索引
+	 * @param columnResId 列资源ID
+	 * @param asc true:正序;false:倒序.
+	 */
+	public Order(int tableIdx, int columnResId, boolean asc) {
+		super(tableIdx, columnResId);
 		this.asc = asc;
 	}
 

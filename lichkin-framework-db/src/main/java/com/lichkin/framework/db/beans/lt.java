@@ -14,7 +14,18 @@ public class lt extends ExpCompare {
 	 * @param param 参数
 	 */
 	public lt(int columnResId, Object param) {
-		super(columnResId, LT, param, true);
+		this(0, columnResId, param);
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param tableIdx 表索引
+	 * @param columnResId 列资源ID
+	 * @param param 参数
+	 */
+	public lt(int tableIdx, int columnResId, Object param) {
+		super(tableIdx, columnResId, LT, param, true);
 	}
 
 }

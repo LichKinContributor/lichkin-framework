@@ -20,13 +20,14 @@ class ExpLike extends Exp {
 
 	/**
 	 * 构造方法
+	 * @param tableIdx 表索引
 	 * @param like true:LIKE; false:NOT LIKE
 	 * @param columnResId 列资源ID
 	 * @param likeType LIKE表达式类型
 	 * @param param 参数
 	 */
-	ExpLike(boolean like, int columnResId, LikeType likeType, String param) {
-		super(columnResId, like ? LIKE : NOT_LIKE);
+	ExpLike(int tableIdx, boolean like, int columnResId, LikeType likeType, String param) {
+		super(tableIdx, columnResId, like ? LIKE : NOT_LIKE);
 		switch (likeType) {
 			case LEFT:
 				this.param = PERCENT + param;

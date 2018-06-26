@@ -9,6 +9,9 @@ import static com.lichkin.framework.defines.LKStringStatics.BLANK;
  */
 class ExpCompare extends Exp {
 
+	/** 右边表索引 */
+	private int rightTableIdx;
+
 	/** 右边列资源ID */
 	private int rightColumnResId;
 
@@ -21,12 +24,15 @@ class ExpCompare extends Exp {
 
 	/**
 	 * 构造方法
+	 * @param leftTableIdx 左边表索引
 	 * @param leftColumnResId 左边列资源ID
 	 * @param expressionType 表达式类型
+	 * @param rightTableIdx 右边表索引
 	 * @param rightColumnResId 右边列资源ID
 	 */
-	ExpCompare(int leftColumnResId, String expressionType, int rightColumnResId) {
-		super(leftColumnResId, expressionType);
+	ExpCompare(int leftTableIdx, int leftColumnResId, String expressionType, int rightTableIdx, int rightColumnResId) {
+		super(leftTableIdx, leftColumnResId, expressionType);
+		this.rightTableIdx = rightTableIdx;
 		this.rightColumnResId = rightColumnResId;
 		withParam = false;
 	}
@@ -34,13 +40,14 @@ class ExpCompare extends Exp {
 
 	/**
 	 * 构造方法
+	 * @param leftTableIdx 左边表索引
 	 * @param columnResId 左边列资源ID
 	 * @param expressionType 表达式类型
 	 * @param param 参数
 	 * @param withParam 是否带参数，本参数只为解决重载构造方法冲突。
 	 */
-	ExpCompare(int columnResId, String expressionType, Object param, boolean withParam) {
-		super(columnResId, expressionType);
+	ExpCompare(int leftTableIdx, int columnResId, String expressionType, Object param, boolean withParam) {
+		super(leftTableIdx, columnResId, expressionType);
 		this.param = param;
 		this.withParam = true;
 	}
@@ -53,7 +60,7 @@ class ExpCompare extends Exp {
 			sql.append(BLANK).append(PLACEHOLDER);
 		} else {
 			sql.append(BLANK);
-			sql.append(getColumnSQL(useSQL, rightColumnResId));
+			sql.append(getColumnSQL(useSQL, rightColumnResId, rightTableIdx));
 		}
 		return sql;
 	}

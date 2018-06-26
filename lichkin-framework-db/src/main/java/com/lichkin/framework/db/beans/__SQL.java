@@ -31,9 +31,21 @@ abstract class __SQL {
 	 * @return SQL语句
 	 */
 	StringBuilder getTableSQL(boolean useSQL, Class<?> tableClazz) {
+		return getTableSQL(useSQL, tableClazz, 0);
+	}
+
+
+	/**
+	 * 获取表SQL。表名 AS 表别名。
+	 * @param useSQL true:SQL;false:HQL.
+	 * @param tableClazz 表映射类型
+	 * @param tableIdx 表索引
+	 * @return SQL语句
+	 */
+	StringBuilder getTableSQL(boolean useSQL, Class<?> tableClazz, int tableIdx) {
 		LKDBResource.TableResource tableResource = LKDBResource.getTableResource(tableClazz);
 		StringBuilder sql = new StringBuilder();
-		sql.append(useSQL ? tableResource.getTableName() : tableResource.getClassName()).append(BLANK).append(AS).append(BLANK).append(tableResource.getTableAlias());
+		sql.append(useSQL ? tableResource.getTableName() : tableResource.getClassName()).append(BLANK).append(AS).append(BLANK).append(tableResource.getTableAlias() + tableIdx);
 		return sql;
 	}
 
@@ -42,12 +54,13 @@ abstract class __SQL {
 	 * 获取列SQL。表别名.列名。
 	 * @param useSQL true:SQL;false:HQL.
 	 * @param columnResId 列资源ID
+	 * @param tableIdx 表索引
 	 * @return SQL语句
 	 */
-	StringBuilder getColumnSQL(boolean useSQL, int columnResId) {
+	StringBuilder getColumnSQL(boolean useSQL, int columnResId, int tableIdx) {
 		LKDBResource.ColumnResource columnResource = LKDBResource.getColumnResource(columnResId);
 		StringBuilder sql = new StringBuilder();
-		sql.append(columnResource.getTableAlias()).append(DOT).append(useSQL ? columnResource.getColumnName() : columnResource.getFieldName());
+		sql.append(columnResource.getTableAlias() + tableIdx).append(DOT).append(useSQL ? columnResource.getColumnName() : columnResource.getFieldName());
 		return sql;
 	}
 

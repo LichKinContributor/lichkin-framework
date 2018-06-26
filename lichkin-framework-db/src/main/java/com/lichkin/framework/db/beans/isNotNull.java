@@ -11,7 +11,17 @@ public class isNotNull extends ExpNull {
 	 * @param columnResId 列资源ID
 	 */
 	public isNotNull(int columnResId) {
-		super(false, columnResId);
+		this(0, columnResId);
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param tableIdx 表索引
+	 * @param columnResId 列资源ID
+	 */
+	public isNotNull(int tableIdx, int columnResId) {
+		super(tableIdx, false, columnResId);
 	}
 
 }

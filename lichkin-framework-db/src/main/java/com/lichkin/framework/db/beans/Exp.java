@@ -14,11 +14,12 @@ class Exp extends __COLUMN {
 
 	/**
 	 * 构造方法
+	 * @param tableIdx 表索引
 	 * @param columnResId 列资源ID
 	 * @param expressionType 表达式类型
 	 */
-	Exp(int columnResId, String expressionType) {
-		super(columnResId);
+	Exp(int tableIdx, int columnResId, String expressionType) {
+		super(tableIdx, columnResId);
 		this.expressionType = expressionType;
 	}
 
