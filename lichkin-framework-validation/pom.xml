@@ -2,15 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  <packaging>pom</packaging>
+  <packaging>jar</packaging>
 
-  <groupId>com.lichkin.framework</groupId>
-  <artifactId>lichkin-framework</artifactId>
-  <version>1.0.0.RELEASE</version>
 
-  <name>lichkin-framework</name>
-  <description>基础框架功能</description>
-  <url>http://codes.lichkin.com/framework</url>
+  <artifactId>lichkin-framework-validation</artifactId>
+
+
+  <name>lichkin-framework-validation</name>
+  <description>实现validation相关的功能。</description>
+  <url>http://codes.lichkin.com/framework-validation</url>
   <organization>
     <name>SuZhou LichKin Information Technology Co., Ltd.</name>
     <url>http://www.lichkin.com</url>
@@ -22,118 +22,32 @@
     </developer>
   </developers>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-    <com.lichkin.framework.version>1.0.0.RELEASE</com.lichkin.framework.version>
-
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-
-    <start-class>com.lichkin.LKMain</start-class>
-  </properties>
-
-  <modules>
-    <module>lichkin-framework-log</module>
-    <module>lichkin-framework-defines</module>
-    <module>lichkin-framework-utils</module>
-    <module>lichkin-framework-data</module>
-    <module>lichkin-framework-db</module>
-    <module>lichkin-framework-web</module>
-    <module>lichkin-framework-validation</module>
-  </modules>
-
-  <dependencyManagement>
-    <dependencies>
-      <!-- lichkin framework -->
-      <dependency>
-        <groupId>com.lichkin.framework</groupId>
-        <artifactId>lichkin-framework-log</artifactId>
-        <version>${com.lichkin.framework.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.lichkin.framework</groupId>
-        <artifactId>lichkin-framework-defines</artifactId>
-        <version>${com.lichkin.framework.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.lichkin.framework</groupId>
-        <artifactId>lichkin-framework-utils</artifactId>
-        <version>${com.lichkin.framework.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.lichkin.framework</groupId>
-        <artifactId>lichkin-framework-data</artifactId>
-        <version>${com.lichkin.framework.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.lichkin.framework</groupId>
-        <artifactId>lichkin-framework-db</artifactId>
-        <version>${com.lichkin.framework.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.lichkin.framework</groupId>
-        <artifactId>lichkin-framework-web</artifactId>
-        <version>${com.lichkin.framework.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.lichkin.framework</groupId>
-        <artifactId>lichkin-framework-validation</artifactId>
-        <version>${com.lichkin.framework.version}</version>
-      </dependency>
-
-      <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>3.7</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/commons-collections/commons-collections -->
-      <dependency>
-        <groupId>commons-collections</groupId>
-        <artifactId>commons-collections</artifactId>
-        <version>3.2.2</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-      <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-        <version>1.16.20</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
-      <dependency>
-        <groupId>joda-time</groupId>
-        <artifactId>joda-time</artifactId>
-        <version>2.9.9</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
-      <dependency>
-        <groupId>javax.validation</groupId>
-        <artifactId>validation-api</artifactId>
-        <version>2.0.1.Final</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
-      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-        <version>4.0.0</version>
-      </dependency>
-      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
-      <dependency>
-        <groupId>com.fasterxml.jackson.dataformat</groupId>
-        <artifactId>jackson-dataformat-xml</artifactId>
-        <version>2.9.5</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+  <parent>
+    <groupId>com.lichkin.framework</groupId>
+    <artifactId>lichkin-framework</artifactId>
+    <version>1.0.0.RELEASE</version>
+    <relativePath>../</relativePath>
+  </parent>
 
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/junit/junit -->
+    <!-- lichkin framework -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
+      <groupId>com.lichkin.framework</groupId>
+      <artifactId>lichkin-framework-log</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.lichkin.framework</groupId>
+      <artifactId>lichkin-framework-defines</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.lichkin.framework</groupId>
+      <artifactId>lichkin-framework-utils</artifactId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 
