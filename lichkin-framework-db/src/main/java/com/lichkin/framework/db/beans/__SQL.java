@@ -20,7 +20,7 @@ abstract class __SQL {
 	 * @return 表别名
 	 */
 	String getTableAlias(Class<?> tableClazz) {
-		return LKDBResource.getTableResource(tableClazz).getTableAlias();
+		return LKDBResource.getTableResource(tableClazz).getTableAlias() + 0;
 	}
 
 
