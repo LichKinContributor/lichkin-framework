@@ -32,7 +32,13 @@ public enum LKErrorCodesEnum implements LKCodeEnum {
 	DB_VALIDATE_ERROR(3),
 
 	/** SQL语句错误 */
-	SQL_ERROR(4);
+	SQL_ERROR(4),
+
+	/** 数据已存在 */
+	EXIST(5),
+
+	/** 数据不存在 */
+	INEXIST(6);
 
 	/** 编码 */
 	private final Integer code;
