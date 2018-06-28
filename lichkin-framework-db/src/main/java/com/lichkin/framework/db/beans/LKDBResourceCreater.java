@@ -71,9 +71,9 @@ class LKDBResourceCreater {
 		if (!classes.isEmpty()) {
 			int tableIdx = 0;
 			for (Class<?> clazz : classes) {
-				String tableKey = LKStringUtils.fillZero(++tableIdx, 4);
 				String className = clazz.getName();
 				String tableAlias = clazz.getSimpleName();
+				String tableKey = LKStringUtils.fillZero(tableAlias.startsWith("Sys") && tableAlias.endsWith("Entity") ? LKFieldUtils.getSerialVersionUID(clazz).intValue() : tableIdx++, 5);
 
 				String tableName = null;
 				try {
@@ -95,11 +95,11 @@ class LKDBResourceCreater {
 
 				ri.append("\n\t\tLKDBResource.addTable(\"").append(className).append("\", \"").append(tableName).append("\", \"").append(tableAlias).append("\");");
 
-				List<Field> fields = LKFieldUtils.getRealFieldList(clazz, true, "serialVersionUID");
+				List<Field> fields = LKFieldUtils.getRealFieldList(clazz, true);
 
 				int columnIdx = 0;
 				for (Field field : fields) {
-					String columnKey = tableKey + LKStringUtils.fillZero(++columnIdx, 4);
+					String columnKey = tableKey + LKStringUtils.fillZero(columnIdx++, 3);
 					String fieldName = field.getName();
 
 					r.append("\n\t\tpublic static final int ").append(fieldName).append(" = 0x").append(columnKey).append(";\n");
