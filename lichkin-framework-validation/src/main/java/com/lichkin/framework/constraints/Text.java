@@ -27,7 +27,7 @@ import com.lichkin.framework.constraints.Text.Validator;
 @Constraint(validatedBy = { Validator.class })
 public @interface Text {
 
-	public static final String REGEX = "[\\w\u4e00-\u9fa5\\~\\!\\@\\#\\$\\%\\^\\&\\*\\(\\)\\_\\+\\`\\-\\=\\{\\}\\[\\]\\:\\;\\<\\>\\?\\,\\.\\/\\|~！￥……（）——【】、；：‘’“”《》？，。]*";
+	public static final String REGEX = "[\\w\\s\u4e00-\u9fa5\\~\\!\\@\\#\\$\\%\\^\\&\\*\\(\\)\\_\\+\\`\\-\\=\\{\\}\\[\\]\\:\\;\\<\\>\\?\\,\\.\\/\\|~！￥……（）——【】、；：‘’“”《》？，。]*";
 
 
 	String message() default "{{javax.validation.constraints.Text.message}";

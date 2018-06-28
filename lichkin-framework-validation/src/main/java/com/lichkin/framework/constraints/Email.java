@@ -27,7 +27,7 @@ import com.lichkin.framework.constraints.Email.Validator;
 @Constraint(validatedBy = { Validator.class })
 public @interface Email {
 
-	public static final String REGEX = "[a-zA-Z\u4e00-\u9fa5]{1}\\w@[a-zA-Z0-9]+\\.[a-zA-Z0-9]{1}[a-zA-Z0-9\\.]*";
+	public static final String REGEX = "[a-zA-Z\u4e00-\u9fa5]{1}[_0-9a-zA-Z\u4e00-\u9fa5]+@[a-zA-Z0-9\u4e00-\u9fa5]+\\.[a-zA-Z0-9\u4e00-\u9fa5]{1}[a-zA-Z0-9\u4e00-\u9fa5\\.]*";
 
 
 	String message() default "{{javax.validation.constraints.Email.message}";
