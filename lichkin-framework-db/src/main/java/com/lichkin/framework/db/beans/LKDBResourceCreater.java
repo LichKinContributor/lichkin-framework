@@ -64,7 +64,9 @@ class LKDBResourceCreater {
 
 		);
 
-		StringBuilder r = new StringBuilder("package com.lichkin.framework.db.beans;\n\n/**\n * 数据库资源定义类\n * @author SuZhou LichKin Information Technology Co., Ltd.\n */\npublic class ").append(fileName).append(" {\n");
+		boolean sysR = fileName.startsWith("Sys") && fileName.endsWith("R");
+
+		StringBuilder r = new StringBuilder("package com.lichkin.framework.db.beans;\n\n/**\n * 数据库资源定义类\n * @author SuZhou LichKin Information Technology Co., Ltd.\n */\npublic ").append(sysR ? "interface" : "class").append(" ").append(fileName).append(" {\n");
 
 		StringBuilder ri = new StringBuilder("package com.lichkin.framework.db.beans;\n\n/**\n * 数据库资源初始化类\n * @author SuZhou LichKin Information Technology Co., Ltd.\n */\nclass ").append(fileName).append("Initializer implements LKRInitializer {\n\n\t/**\n\t * 初始化数据库资源\n\t */\n\tpublic static void init() {");
 
@@ -91,7 +93,9 @@ class LKDBResourceCreater {
 					LOGGER.error(LKErrorCodesEnum.CONFIG_ERROR, e);
 				}
 
-				r.append("\n\tpublic interface ").append(tableAlias).append(" {\n");
+				if (!sysR) {
+					r.append("\n\tpublic interface ").append(tableAlias).append(" {\n");
+				}
 
 				ri.append("\n\t\tLKDBResource.addTable(\"").append(className).append("\", \"").append(tableName).append("\", \"").append(tableAlias).append("\");");
 
@@ -102,12 +106,18 @@ class LKDBResourceCreater {
 					String columnKey = tableKey + LKStringUtils.fillZero(columnIdx++, 3);
 					String fieldName = field.getName();
 
-					r.append("\n\t\tpublic static final int ").append(fieldName).append(" = 0x").append(columnKey).append(";\n");
+					r.append("\n\t");
+					if (!sysR) {
+						r.append("\t");
+					}
+					r.append("public static final int ").append(fieldName).append(" = 0x").append(columnKey).append(";\n");
 
 					ri.append("\n\t\tLKDBResource.addColumn(\"").append(columnKey).append("\", \"").append(tableAlias).append("\", \"").append(fieldName).append("\");");
 				}
 
-				r.append("\n\t}\n");
+				if (!sysR) {
+					r.append("\n\t}\n");
+				}
 			}
 		}
 
