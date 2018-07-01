@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.lichkin.framework.db.enums.LikeType;
+import com.lichkin.framework.defines.LKFrameworkStatics;
 
 /**
  * SQL语句 -&gt; WHERE
@@ -174,7 +175,11 @@ class __WHERE extends __SQL {
 	 * @param paramsStr 参数。使用LKFrameworkStatics.SPLITOR作为分隔符。
 	 */
 	void in(Boolean and, int columnResId, String paramsStr) {
-		where(new Condition(and, new in(columnResId, paramsStr)));
+		if (paramsStr.contains(LKFrameworkStatics.SPLITOR)) {
+			where(new Condition(and, new in(columnResId, paramsStr)));
+		} else {
+			where(new Condition(and, new eq(columnResId, paramsStr)));
+		}
 	}
 
 
@@ -185,7 +190,11 @@ class __WHERE extends __SQL {
 	 * @param paramsStr 参数。使用LKFrameworkStatics.SPLITOR作为分隔符。
 	 */
 	void notIn(Boolean and, int columnResId, String paramsStr) {
-		where(new Condition(and, new notIn(columnResId, paramsStr)));
+		if (paramsStr.contains(LKFrameworkStatics.SPLITOR)) {
+			where(new Condition(and, new notIn(columnResId, paramsStr)));
+		} else {
+			where(new Condition(and, new neq(columnResId, paramsStr)));
+		}
 	}
 
 
