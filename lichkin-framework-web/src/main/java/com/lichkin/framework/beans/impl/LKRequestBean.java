@@ -7,9 +7,12 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
+import com.lichkin.framework.beans.LKRequestInterface;
 import com.lichkin.framework.constraints.AppKey;
 import com.lichkin.framework.constraints.ClientType;
 import com.lichkin.framework.constraints.Locale;
+import com.lichkin.framework.constraints.MixID;
+import com.lichkin.framework.constraints.Token;
 import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
 import com.lichkin.framework.utils.LKEnumUtils;
 
@@ -26,7 +29,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-class LKRequestBean {
+public class LKRequestBean implements LKRequestInterface {
 
 	/**
 	 * 国际化
@@ -65,7 +68,16 @@ class LKRequestBean {
 	@NotNull
 	private Short versionZ;
 
+	/** 登录后获取得 */
+	@Token
+	private String token;
 
+	/** 公司ID */
+	@MixID
+	private String compId;
+
+
+	@Override
 	public LKClientTypeEnum getClientType() {
 		return LKEnumUtils.getEnum(LKClientTypeEnum.class, clientType);
 	}

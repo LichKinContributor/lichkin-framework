@@ -49,4 +49,10 @@ public interface LKRequestInterface {
 
 	public void setToken(String token);
 
+
+	public String getCompId();
+
+
+	public void setCompId(String compId);
+
 }

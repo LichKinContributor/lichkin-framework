@@ -2,7 +2,7 @@ package com.lichkin.framework.beans.impl;
 
 import javax.validation.constraints.PositiveOrZero;
 
-import com.lichkin.framework.beans.LKRequestPageInterface;
+import com.lichkin.framework.defines.beans.LKPageable;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ import lombok.ToString;
 @Setter
 @ToString(callSuper = true)
 @NoArgsConstructor
-public class LKBeforeLoginRequestPageBean extends LKBeforeLoginRequestBean implements LKRequestPageInterface {
+public class LKRequestPageBean extends LKRequestBean implements LKPageable {
 
 	/** 页码 */
 	@PositiveOrZero
