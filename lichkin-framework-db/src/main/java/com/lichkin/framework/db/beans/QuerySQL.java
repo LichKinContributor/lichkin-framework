@@ -270,43 +270,26 @@ public class QuerySQL extends _SQL_WITH_WHERE {
 	}
 
 
-	/** 页码 */
-	private int pageNumber;
+	/** 分页信息对象 */
+	private LKPageable pageable;
 
 
 	/**
-	 * 获取页码
-	 * @return 页码
-	 * @deprecated 框架内部使用
+	 * 获取分页信息对象
+	 * @return 分页信息对象
 	 */
 	@Deprecated
-	public int getPageNumber() {
-		return pageNumber;
-	}
-
-
-	/** 每页数据量 */
-	private int pageSize;
-
-
-	/**
-	 * 获取每页数据量
-	 * @return 每页数据量
-	 * @deprecated 框架内部使用
-	 */
-	@Deprecated
-	public int getPageSize() {
-		return pageSize;
+	public LKPageable getPageable() {
+		return pageable;
 	}
 
 
 	/**
 	 * 设置分页信息
-	 * @param page 分页信息对象
+	 * @param pageable 分页信息对象
 	 */
-	public void setPage(LKPageable page) {
-		pageNumber = page.getPageNumber();
-		pageSize = page.getPageSize();
+	public void setPage(LKPageable pageable) {
+		this.pageable = pageable;
 	}
 
 
