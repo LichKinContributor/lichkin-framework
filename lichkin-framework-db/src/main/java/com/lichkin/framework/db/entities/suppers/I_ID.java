@@ -6,7 +6,7 @@ import java.io.Serializable;
  * ID接口
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public interface _LKIDInterface extends Serializable {
+public interface I_ID extends Serializable {
 
 	/**
 	 * 获取主键

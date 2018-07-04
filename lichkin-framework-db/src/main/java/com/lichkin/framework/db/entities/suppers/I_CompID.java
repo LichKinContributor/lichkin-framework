@@ -1,12 +1,10 @@
 package com.lichkin.framework.db.entities.suppers;
 
-import java.io.Serializable;
-
 /**
- * ID接口
+ * 公司ID接口
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public interface _LKCompIDInterface extends Serializable {
+public interface I_CompID {
 
 	/**
 	 * 获取公司ID

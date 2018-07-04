@@ -16,6 +16,7 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 import com.lichkin.framework.constraints.MixID.Validator;
+import com.lichkin.framework.defines.LKFrameworkStatics;
 
 /**
  * 混合主键验证注解。不验证null和""。
@@ -27,7 +28,7 @@ import com.lichkin.framework.constraints.MixID.Validator;
 @Constraint(validatedBy = { Validator.class })
 public @interface MixID {
 
-	public static final String REGEX = ID.REGEX + "|" + LongID.REGEX;
+	public static final String REGEX = LKFrameworkStatics.ROOT + "|" + ID.REGEX + "|" + LongID.REGEX;
 
 
 	String message() default "{{javax.validation.constraints.MixID.message}";
