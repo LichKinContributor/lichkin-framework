@@ -42,7 +42,6 @@ public class LKRequestBean implements LKRequestInterface {
 	/** 客户端唯一标识 */
 	@Size(max = 128)
 	@AppKey
-	@NotBlank
 	private String appKey;
 
 	/**

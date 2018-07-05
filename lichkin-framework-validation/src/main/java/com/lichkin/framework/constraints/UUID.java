@@ -27,7 +27,7 @@ import com.lichkin.framework.constraints.UUID.Validator;
 @Constraint(validatedBy = { Validator.class })
 public @interface UUID {
 
-	public static final String REGEX = "\\w{64}";
+	public static final String REGEX = "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}";
 
 
 	String message() default "{{javax.validation.constraints.UUID.message}";

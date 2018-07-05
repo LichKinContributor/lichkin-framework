@@ -27,7 +27,7 @@ import com.lichkin.framework.constraints.AppKey.Validator;
 @Constraint(validatedBy = { Validator.class })
 public @interface AppKey {
 
-	public static final String REGEX = "com\\.lichkin\\.app\\.(ios|android|javascript)\\.[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*";
+	public static final String REGEX = "com\\.lichkin\\.app\\.(ios|android)\\.[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)*";
 
 
 	String message() default "{{javax.validation.constraints.AppKey.message}";
