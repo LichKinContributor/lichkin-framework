@@ -1,4 +1,4 @@
-package com.lichkin.framework.db.entities.suppers;
+package com.lichkin.framework.defines.entities;
 
 /**
  * 公司ID接口
@@ -15,8 +15,8 @@ public interface I_CompID {
 
 	/**
 	 * 设置公司ID
-	 * @param id 公司ID
+	 * @param compId 公司ID
 	 */
-	public void setCompId(String id);
+	public void setCompId(String compId);
 
 }

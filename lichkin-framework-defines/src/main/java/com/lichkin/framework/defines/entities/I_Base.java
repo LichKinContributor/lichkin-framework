@@ -1,4 +1,4 @@
-package com.lichkin.framework.db.entities.suppers;
+package com.lichkin.framework.defines.entities;
 
 import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
 

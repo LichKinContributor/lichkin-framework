@@ -1,4 +1,4 @@
-package com.lichkin.framework.db.entities.suppers;
+package com.lichkin.framework.defines.entities;
 
 /**
  * 系统表基础接口
