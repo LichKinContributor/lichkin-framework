@@ -13,9 +13,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 import javax.validation.Payload;
 
 import com.lichkin.framework.constraints.ClientType.Validator;
+import com.lichkin.framework.constraints.ClientType.ValidatorForEnum;
+import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
 
 /**
  * 客户端类型验证注解。不验证null和""。
@@ -24,7 +28,7 @@ import com.lichkin.framework.constraints.ClientType.Validator;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = { Validator.class })
+@Constraint(validatedBy = { Validator.class, ValidatorForEnum.class })
 public @interface ClientType {
 
 	public static final String REGEX = "(ANDROID|IOS|JAVASCRIPT|WINDOWS|MAC|LINUX|UNIX){1}";
@@ -44,6 +48,18 @@ public @interface ClientType {
 		@Override
 		protected String getRegex() {
 			return REGEX;
+		}
+
+	}
+
+	class ValidatorForEnum implements ConstraintValidator<ClientType, LKClientTypeEnum> {
+
+		@Override
+		public boolean isValid(LKClientTypeEnum value, ConstraintValidatorContext context) {
+			if (value == null) {
+				return false;
+			}
+			return true;
 		}
 
 	}
