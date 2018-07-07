@@ -24,11 +24,15 @@ public class LKI18NReader4ErrorCodes extends LKI18NReader {
 	 * @return 配置值
 	 */
 	private static String read(LKCodeEnum errorCode, Locale locale, Map<String, Object> params) {
-		if (errorCode.getCode() == null) {
+		Integer code = errorCode.getCode();
+		if (code == null) {
 			return read(LKErrorCodesEnum.PARAM_ERROR, locale, params) + " [" + errorCode.toString() + "]";
 		}
-		if (errorCode.getCode() < 10000) {
+		if (code < 1000) {
 			return read(locale, "errorCodes", errorCode.toString(), params);
+		}
+		if (code < 2000) {
+			return read(locale, "app-bus-errorCodes", errorCode.toString(), params);
 		}
 		return read(locale, "app-errorCodes", errorCode.toString(), params);
 	}
