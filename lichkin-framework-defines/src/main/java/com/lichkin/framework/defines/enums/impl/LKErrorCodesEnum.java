@@ -38,7 +38,10 @@ public enum LKErrorCodesEnum implements LKCodeEnum {
 	EXIST(5),
 
 	/** 数据不存在 */
-	INEXIST(6);
+	INEXIST(6),
+
+	/** 登录信息已失效 */
+	INVALIDED_TOKEN(7);
 
 	/** 编码 */
 	private final Integer code;
