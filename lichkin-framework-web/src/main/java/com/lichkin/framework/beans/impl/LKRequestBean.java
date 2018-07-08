@@ -1,6 +1,5 @@
 package com.lichkin.framework.beans.impl;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
@@ -14,7 +13,6 @@ import com.lichkin.framework.constraints.Locale;
 import com.lichkin.framework.constraints.MixID;
 import com.lichkin.framework.constraints.Token;
 import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
-import com.lichkin.framework.utils.LKEnumUtils;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,8 +47,7 @@ public class LKRequestBean implements LKRequestInterface {
 	 * @see LKClientTypeEnum
 	 */
 	@ClientType
-	@NotBlank
-	private String clientType;
+	private LKClientTypeEnum clientType;
 
 	/** 客户端版本号（大版本号） */
 	@Positive
@@ -67,18 +64,12 @@ public class LKRequestBean implements LKRequestInterface {
 	@NotNull
 	private Short versionZ;
 
-	/** 登录后获取得 */
+	/** 令牌 */
 	@Token
 	private String token;
 
 	/** 公司ID */
 	@MixID
 	private String compId;
-
-
-	@Override
-	public LKClientTypeEnum getClientType() {
-		return LKEnumUtils.getEnum(LKClientTypeEnum.class, clientType);
-	}
 
 }

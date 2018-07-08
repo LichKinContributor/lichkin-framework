@@ -23,7 +23,7 @@ public interface LKRequestInterface {
 	public LKClientTypeEnum getClientType();
 
 
-	public void setClientType(String clientType);
+	public void setClientType(LKClientTypeEnum clientType);
 
 
 	public Byte getVersionX();
