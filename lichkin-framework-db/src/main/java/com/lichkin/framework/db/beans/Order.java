@@ -37,7 +37,6 @@ public class Order extends __COLUMN {
 	 * 构造方法
 	 * @param tableIdx 表索引
 	 * @param columnResId 列资源ID
-	 * @param asc true:正序;false:倒序.
 	 */
 	public Order(int tableIdx, int columnResId) {
 		this(tableIdx, columnResId, true);

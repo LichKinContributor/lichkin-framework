@@ -78,12 +78,13 @@ public class LKRuntimeException extends RuntimeException {
 	 * 构造方法
 	 * @param key 键
 	 * @param value 值
+	 * @return 当前对象
 	 */
 	public LKRuntimeException withParam(String key, Object value) {
-		if (this.params == null) {
-			this.params = new HashMap<>();
+		if (params == null) {
+			params = new HashMap<>();
 		}
-		this.params.put(key, value);
+		params.put(key, value);
 		return this;
 	}
 
