@@ -7,13 +7,15 @@ import java.lang.annotation.Target;
 
 /**
  * <pre>
- * 在控制器方法上配置该注解，使得该方法拥有不需要登录就可以访问的权限。
- * 在控制器类上配置该注解，使得该类中的所有方法拥有不需要登录就可以访问的权限。
+ * 在控制器上配置该注解，使得该类表示API数据请求时，不需要验证compId，可以使用defaultValue来设置如果无此参数时的默认值。
  * </pre>
  *
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-@Target({ ElementType.METHOD, ElementType.TYPE })
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface LKWithoutLogin {
+public @interface WithoutCompId {
+
+	String defaultValue() default "";
+
 }
