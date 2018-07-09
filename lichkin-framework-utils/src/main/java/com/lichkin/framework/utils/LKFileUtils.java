@@ -24,7 +24,7 @@ public class LKFileUtils {
 		if (!file.exists()) {
 			file.mkdirs();
 		}
-		return dirPath + LKDateTimeUtils.now(LKDateTimeTypeEnum.TIMESTAMP_MIN) + extName;
+		return dirPath + LKDateTimeUtils.now(LKDateTimeTypeEnum.TIMESTAMP_MIN) + LKRandomUtils.create(10) + extName;
 	}
 
 }
