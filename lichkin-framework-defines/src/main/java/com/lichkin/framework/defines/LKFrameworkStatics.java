@@ -36,7 +36,7 @@ public class LKFrameworkStatics {
 	public static final String WEB_MAPPING_API = "/API";
 
 	/** 系统默认配置值：页面请求映射。 */
-	public static final String WEB_MAPPING_PAGES = ".html";
+	public static final String WEB_MAPPING_PAGES = ".dhtml";
 
 	/** 多字段分隔符 */
 	public static final String SPLITOR_FIELDS = "@#@";
