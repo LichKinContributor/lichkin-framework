@@ -8,18 +8,13 @@ import com.lichkin.framework.defines.enums.LKEnum;
  */
 public enum LKClientTypeEnum implements LKEnum {
 
+	/** 安卓手机客户端 */
 	ANDROID,
 
+	/** 苹果手机客户端 */
 	IOS,
 
-	JAVASCRIPT,
-
-	WINDOWS,
-
-	MAC,
-
-	LINUX,
-
-	UNIX;
+	/** 网页脚本 */
+	JAVASCRIPT;
 
 }
