@@ -7,15 +7,12 @@ import java.lang.annotation.Target;
 
 /**
  * <pre>
- * 在控制器上配置该注解，使得该类表示API数据请求时，不需要验证compId，可以使用defaultValue来设置如果无此参数时的默认值。
+ * 在控制器类上配置该注解，使得该API属于登录前操作。
  * </pre>
  *
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface WithoutCompId {
-
-	String defaultValue() default "";
-
+public @interface BeforeLoginApi {
 }
