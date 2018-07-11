@@ -3,6 +3,8 @@ package com.lichkin.framework.utils;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import org.joda.time.DateTime;
+
 import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
 import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 
@@ -21,37 +23,147 @@ public class LKBeanUtils {
 	 * @return 目标对象
 	 */
 	public static <B> B copyProperties(Object source, B target, String... excludeFieldNames) {
-		if ((source != null) && (target != null)) {
-			Class<?> sourceClass = source.getClass();
-			List<Field> sourceFields = LKFieldUtils.getRealFieldList(sourceClass, true, excludeFieldNames);
-			Class<?> targetClass = target.getClass();
-			List<Field> targetFields = LKFieldUtils.getRealFieldList(targetClass, true, excludeFieldNames);
-			for (Field targetField : targetFields) {
-				String targetFieldName = targetField.getName();
-				for (Field sourceField : sourceFields) {
-					if (sourceField.getName().equals(targetFieldName)) {
-						try {
-							if (!targetField.isAccessible()) {
-								targetField.setAccessible(true);
-							}
-							if (!sourceField.isAccessible()) {
-								sourceField.setAccessible(true);
-							}
-							Object value = sourceField.get(source);
-							if (sourceField.getType().isEnum() && targetField.getType().equals(String.class)) {
-								targetField.set(target, value == null ? null : value.toString());
-							} else if (sourceField.getType().equals(String.class) && targetField.getType().isEnum()) {
-								targetField.set(target, value == null ? null : LKEnumUtils.getEnum(targetField.getType(), (String) value));
-							} else {
-								targetField.set(target, value);
-							}
-						} catch (IllegalArgumentException | IllegalAccessException e) {
-							e.printStackTrace();// ignore this
+		if ((source == null) || (target == null)) {
+			return target;
+		}
+
+		List<Field> sourceFields = LKFieldUtils.getRealFieldList(source.getClass(), true, excludeFieldNames);
+		List<Field> targetFields = LKFieldUtils.getRealFieldList(target.getClass(), true, excludeFieldNames);
+
+		try {
+			for (Field sourceField : sourceFields) {
+				// 获取名称
+				String sourceName = sourceField.getName();
+
+				for (Field targetField : targetFields) {
+					// 获取名称
+					String targetName = targetField.getName();
+
+					// 不是同一字段跳过
+					if (!sourceName.equals(targetName)) {
+						continue;
+					}
+
+					// 开启访问权限
+					if (!sourceField.isAccessible()) {
+						sourceField.setAccessible(true);
+					}
+					if (!targetField.isAccessible()) {
+						targetField.setAccessible(true);
+					}
+
+					// 获取值
+					Object sourceValue = sourceField.get(source);
+
+					// 空值直接设置
+					if (sourceValue == null) {
+						targetField.set(target, null);
+						continue;
+					}
+
+					// 获取类型
+					Class<?> sourceType = sourceField.getType();
+					Class<?> targetType = targetField.getType();
+
+					// 同样类型直接设置
+					if (sourceType.equals(targetType)) {
+						targetField.set(target, sourceValue);
+						continue;
+					}
+
+					// 目标类型为字符串
+					if (targetType.equals(String.class)) {
+						if (sourceType.equals(java.util.Date.class)) {
+							targetField.set(target, LKDateTimeUtils.toString((java.util.Date) sourceValue, LKFieldUtils.getDateToStringAnnotationValue(targetField)));
+							continue;
 						}
+						if (sourceType.equals(java.sql.Date.class)) {
+							targetField.set(target, LKDateTimeUtils.toString((java.sql.Date) sourceValue, LKFieldUtils.getDateToStringAnnotationValue(targetField)));
+							continue;
+						}
+						if (sourceType.equals(DateTime.class)) {
+							targetField.set(target, LKDateTimeUtils.toString((DateTime) sourceValue, LKFieldUtils.getDateToStringAnnotationValue(targetField)));
+							continue;
+						}
+						if (sourceType.isEnum()) {
+							targetField.set(target, sourceValue.toString());
+							continue;
+						}
+						targetField.set(target, String.valueOf(sourceValue));
+						continue;
+					}
+
+					// 目标类型为枚举且源类型为字符串
+					if (targetType.isEnum() && sourceType.equals(String.class)) {
+						targetField.set(target, LKEnumUtils.getEnum(targetType, (String) sourceValue));
+						continue;
+					}
+
+					// 目标类型为日期类型
+					if (targetType.equals(java.util.Date.class)) {
+						// 源类型为字符
+						if (sourceType.equals(String.class)) {
+							targetField.set(target, LKDateTimeUtils.toDate((String) sourceValue, LKFieldUtils.getStringToDateAnnotationValue(targetField)));
+							continue;
+						}
+						// 源类型为日期类型
+						if (sourceType.equals(java.sql.Date.class)) {
+							targetField.set(target, LKDateTimeUtils.toDate(LKDateTimeUtils.toString((java.sql.Date) sourceValue, LKFieldUtils.getDateToDateAnnotationFromValue(targetField)), LKFieldUtils.getDateToDateAnnotationToValue(targetField)));
+							continue;
+						}
+						// 源类型为日期类型
+						if (sourceType.equals(DateTime.class)) {
+							targetField.set(target, LKDateTimeUtils.toDate(LKDateTimeUtils.toString((DateTime) sourceValue, LKFieldUtils.getDateToDateAnnotationFromValue(targetField)), LKFieldUtils.getDateToDateAnnotationToValue(targetField)));
+							continue;
+						}
+						continue;
+					}
+
+					// 目标类型为日期类型
+					if (targetType.equals(java.sql.Date.class)) {
+						// 源类型为字符
+						if (sourceType.equals(String.class)) {
+							targetField.set(target, LKDateTimeUtils.toSqlDate((String) sourceValue, LKFieldUtils.getStringToDateAnnotationValue(targetField)));
+							continue;
+						}
+						// 源类型为日期类型
+						if (sourceType.equals(java.util.Date.class)) {
+							targetField.set(target, LKDateTimeUtils.toSqlDate(LKDateTimeUtils.toString((java.util.Date) sourceValue, LKFieldUtils.getDateToDateAnnotationFromValue(targetField)), LKFieldUtils.getDateToDateAnnotationToValue(targetField)));
+							continue;
+						}
+						// 源类型为日期类型
+						if (sourceType.equals(DateTime.class)) {
+							targetField.set(target, LKDateTimeUtils.toSqlDate(LKDateTimeUtils.toString((DateTime) sourceValue, LKFieldUtils.getDateToDateAnnotationFromValue(targetField)), LKFieldUtils.getDateToDateAnnotationToValue(targetField)));
+							continue;
+						}
+						continue;
+					}
+
+					// 目标类型为日期类型
+					if (targetType.equals(DateTime.class)) {
+						// 源类型为字符
+						if (sourceType.equals(String.class)) {
+							targetField.set(target, LKDateTimeUtils.toDateTime((String) sourceValue, LKFieldUtils.getStringToDateAnnotationValue(targetField)));
+							continue;
+						}
+						// 源类型为日期类型
+						if (sourceType.equals(java.util.Date.class)) {
+							targetField.set(target, LKDateTimeUtils.toDateTime(LKDateTimeUtils.toString((java.util.Date) sourceValue, LKFieldUtils.getDateToDateAnnotationFromValue(targetField)), LKFieldUtils.getDateToDateAnnotationToValue(targetField)));
+							continue;
+						}
+						// 源类型为日期类型
+						if (sourceType.equals(java.sql.Date.class)) {
+							targetField.set(target, LKDateTimeUtils.toDateTime(LKDateTimeUtils.toString((java.sql.Date) sourceValue, LKFieldUtils.getDateToDateAnnotationFromValue(targetField)), LKFieldUtils.getDateToDateAnnotationToValue(targetField)));
+							continue;
+						}
+						continue;
 					}
 				}
 			}
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();// ignore this
 		}
+
 		return target;
 	}
 

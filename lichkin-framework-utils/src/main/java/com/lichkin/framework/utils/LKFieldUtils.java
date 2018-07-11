@@ -8,6 +8,11 @@ import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import com.lichkin.framework.defines.annotations.DateToDate;
+import com.lichkin.framework.defines.annotations.DateToString;
+import com.lichkin.framework.defines.annotations.StringToDate;
+import com.lichkin.framework.defines.enums.impl.LKDateTimeTypeEnum;
+
 /**
  * Field工具类
  * @author SuZhou LichKin Information Technology Co., Ltd.
@@ -122,6 +127,50 @@ public class LKFieldUtils {
 		} catch (Exception e) {
 		}
 		return null;
+	}
+
+
+	/**
+	 * 获取注解值
+	 * @param field 字段
+	 * @return 注解值
+	 */
+	public static LKDateTimeTypeEnum getDateToStringAnnotationValue(Field field) {
+		DateToString annotation = field.getAnnotation(DateToString.class);
+		return annotation == null ? LKDateTimeTypeEnum.TIMESTAMP_MIN : annotation.value();
+	}
+
+
+	/**
+	 * 获取注解值
+	 * @param field 字段
+	 * @return 注解值
+	 */
+	public static LKDateTimeTypeEnum getStringToDateAnnotationValue(Field field) {
+		StringToDate annotation = field.getAnnotation(StringToDate.class);
+		return annotation == null ? LKDateTimeTypeEnum.TIMESTAMP_MIN : annotation.value();
+	}
+
+
+	/**
+	 * 获取注解值
+	 * @param field 字段
+	 * @return 注解值
+	 */
+	public static LKDateTimeTypeEnum getDateToDateAnnotationFromValue(Field field) {
+		DateToDate annotation = field.getAnnotation(DateToDate.class);
+		return annotation == null ? LKDateTimeTypeEnum.TIMESTAMP_MIN : annotation.fromValue();
+	}
+
+
+	/**
+	 * 获取注解值
+	 * @param field 字段
+	 * @return 注解值
+	 */
+	public static LKDateTimeTypeEnum getDateToDateAnnotationToValue(Field field) {
+		DateToDate annotation = field.getAnnotation(DateToDate.class);
+		return annotation == null ? LKDateTimeTypeEnum.TIMESTAMP_MIN : annotation.toValue();
 	}
 
 }
