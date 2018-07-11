@@ -3,6 +3,7 @@ package com.lichkin.framework.utils;
 import java.util.Random;
 
 import com.lichkin.framework.defines.enums.LKPairEnum;
+import com.lichkin.framework.defines.enums.impl.LKDateTimeTypeEnum;
 import com.lichkin.framework.defines.enums.impl.LKRangeTypeEnum;
 
 import lombok.AccessLevel;
@@ -60,6 +61,15 @@ public class LKRandomUtils {
 	 */
 	public static int randomInRange(int min, int max) {
 		return new Random().nextInt((max + 1) - min) + min;
+	}
+
+
+	/**
+	 * 创建17位时间戳+47位随机数
+	 * @return 64位字符串
+	 */
+	public static String create64() {
+		return LKDateTimeUtils.now(LKDateTimeTypeEnum.TIMESTAMP_MIN) + create(47, LKRangeTypeEnum.NUMBER_AND_LETTER_FULL);
 	}
 
 }
