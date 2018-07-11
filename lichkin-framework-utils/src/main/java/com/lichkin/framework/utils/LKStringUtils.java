@@ -223,4 +223,25 @@ public class LKStringUtils {
 		return fillZero(String.valueOf(number), digit, true);
 	}
 
+
+	/**
+	 * 获取索引值
+	 * @param str 字符串
+	 * @param of 查找的字符串
+	 * @param num 第几次出现（从0开始）
+	 * @return 索引值
+	 */
+	public static int indexOf(String str, String of, int num) {
+		int indexOf = str.indexOf(of);
+		if ((num < 1) || (indexOf < 0)) {
+			return indexOf;
+		}
+		indexOf++;
+		int nextIndexOf = indexOf(str.substring(indexOf), of, --num);
+		if (nextIndexOf < 0) {
+			return nextIndexOf;
+		}
+		return nextIndexOf + indexOf;
+	}
+
 }
