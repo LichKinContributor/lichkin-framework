@@ -12,6 +12,8 @@ import com.lichkin.framework.constraints.ClientType;
 import com.lichkin.framework.constraints.Locale;
 import com.lichkin.framework.constraints.MixID;
 import com.lichkin.framework.constraints.Token;
+import com.lichkin.framework.defines.entities.I_Comp;
+import com.lichkin.framework.defines.entities.I_Login;
 import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
 
 import lombok.Getter;
@@ -68,8 +70,20 @@ public class LKRequestBean implements LKRequestInterface {
 	@Token
 	private String token;
 
+	/** 公司 */
+	@Null
+	private I_Comp comp;
+
 	/** 公司ID */
 	@MixID
 	private String compId;
+
+	/** 公司ID */
+	@Null
+	private I_Login login;
+
+	/** 公司ID */
+	@Null
+	private String loginId;
 
 }

@@ -1,5 +1,7 @@
 package com.lichkin.framework.beans;
 
+import com.lichkin.framework.defines.entities.I_Comp;
+import com.lichkin.framework.defines.entities.I_Login;
 import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
 
 /**
@@ -50,9 +52,27 @@ public interface LKRequestInterface {
 	public void setToken(String token);
 
 
+	public I_Comp getComp();
+
+
+	public void setComp(I_Comp comp);
+
+
 	public String getCompId();
 
 
 	public void setCompId(String compId);
+
+
+	public String getLoginId();
+
+
+	public void setLoginId(String loginId);
+
+
+	public I_Login getLogin();
+
+
+	public void setLogin(I_Login login);
 
 }
