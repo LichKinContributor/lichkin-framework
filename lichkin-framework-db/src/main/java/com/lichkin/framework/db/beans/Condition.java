@@ -74,6 +74,98 @@ public class Condition extends __SQL {
 
 
 	/**
+	 * 构造方法
+	 * @param expression 表达式
+	 */
+	public Condition(Exp expression) {
+		this(null, expression);
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param condition1 条件表达式
+	 * @param condition2 条件表达式
+	 * @param conditions 条件表达式
+	 */
+	public Condition(Condition condition1, Condition condition2, Condition... conditions) {
+		and = null;
+		this.conditions.add(condition1);
+		this.conditions.add(condition2);
+		this.conditions.addAll(Arrays.asList(conditions));
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param and true:AND;false:OR;null:无条件。
+	 * @param leftColumnResId 左边列资源ID
+	 * @param rightColumnResId 右边列资源ID
+	 */
+	public Condition(Boolean and, int leftColumnResId, int rightColumnResId) {
+		this(and, new eq_(leftColumnResId, rightColumnResId));
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param and true:AND;false:OR;null:无条件。
+	 * @param leftTableIdx 左边表索引
+	 * @param leftColumnResId 左边列资源ID
+	 * @param rightColumnResId 右边列资源ID
+	 */
+	public Condition(Boolean and, int leftTableIdx, int leftColumnResId, int rightColumnResId) {
+		this(and, new eq_(leftTableIdx, leftColumnResId, rightColumnResId));
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param and true:AND;false:OR;null:无条件。
+	 * @param leftTableIdx 左边表索引
+	 * @param leftColumnResId 左边列资源ID
+	 * @param rightTableIdx 右边表索引
+	 * @param rightColumnResId 右边列资源ID
+	 */
+	public Condition(Boolean and, int leftTableIdx, int leftColumnResId, int rightTableIdx, int rightColumnResId) {
+		this(and, new eq_(leftTableIdx, leftColumnResId, rightTableIdx, rightColumnResId));
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param leftColumnResId 左边列资源ID
+	 * @param rightColumnResId 右边列资源ID
+	 */
+	public Condition(int leftColumnResId, int rightColumnResId) {
+		this(null, new eq_(leftColumnResId, rightColumnResId));
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param leftTableIdx 左边表索引
+	 * @param leftColumnResId 左边列资源ID
+	 * @param rightColumnResId 右边列资源ID
+	 */
+	public Condition(int leftTableIdx, int leftColumnResId, int rightColumnResId) {
+		this(null, new eq_(leftTableIdx, leftColumnResId, rightColumnResId));
+	}
+
+
+	/**
+	 * 构造方法
+	 * @param leftTableIdx 左边表索引
+	 * @param leftColumnResId 左边列资源ID
+	 * @param rightTableIdx 右边表索引
+	 * @param rightColumnResId 右边列资源ID
+	 */
+	public Condition(int leftTableIdx, int leftColumnResId, int rightTableIdx, int rightColumnResId) {
+		this(null, new eq_(leftTableIdx, leftColumnResId, rightTableIdx, rightColumnResId));
+	}
+
+
+	/**
 	 * 获取不包含条件的SQL语句
 	 * @param useSQL true:SQL;false:HQL.
 	 * @return SQL语句
