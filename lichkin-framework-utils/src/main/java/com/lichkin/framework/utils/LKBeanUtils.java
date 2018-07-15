@@ -5,6 +5,13 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import com.lichkin.framework.defines.annotations.DefaultBooleanValue;
+import com.lichkin.framework.defines.annotations.DefaultByteValue;
+import com.lichkin.framework.defines.annotations.DefaultDoubleValue;
+import com.lichkin.framework.defines.annotations.DefaultFloatValue;
+import com.lichkin.framework.defines.annotations.DefaultIntegerValue;
+import com.lichkin.framework.defines.annotations.DefaultLongValue;
+import com.lichkin.framework.defines.annotations.DefaultShortValue;
 import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
 import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 
@@ -57,6 +64,43 @@ public class LKBeanUtils {
 
 					// 空值直接设置
 					if (sourceValue == null) {
+						Class<?> targetType = targetField.getType();
+						if (targetType.equals(Byte.class)) {
+							DefaultByteValue annotation = targetType.getAnnotation(DefaultByteValue.class);
+							if (annotation != null) {
+								sourceValue = annotation.value();
+							}
+						} else if (targetType.equals(Short.class)) {
+							DefaultShortValue annotation = targetType.getAnnotation(DefaultShortValue.class);
+							if (annotation != null) {
+								sourceValue = annotation.value();
+							}
+						} else if (targetType.equals(Integer.class)) {
+							DefaultIntegerValue annotation = targetType.getAnnotation(DefaultIntegerValue.class);
+							if (annotation != null) {
+								sourceValue = annotation.value();
+							}
+						} else if (targetType.equals(Long.class)) {
+							DefaultLongValue annotation = targetType.getAnnotation(DefaultLongValue.class);
+							if (annotation != null) {
+								sourceValue = annotation.value();
+							}
+						} else if (targetType.equals(Boolean.class)) {
+							DefaultBooleanValue annotation = targetType.getAnnotation(DefaultBooleanValue.class);
+							if (annotation != null) {
+								sourceValue = annotation.value();
+							}
+						} else if (targetType.equals(Float.class)) {
+							DefaultFloatValue annotation = targetType.getAnnotation(DefaultFloatValue.class);
+							if (annotation != null) {
+								sourceValue = annotation.value();
+							}
+						} else if (targetType.equals(Double.class)) {
+							DefaultDoubleValue annotation = targetType.getAnnotation(DefaultDoubleValue.class);
+							if (annotation != null) {
+								sourceValue = annotation.value();
+							}
+						}
 						targetField.set(target, null);
 						continue;
 					}
