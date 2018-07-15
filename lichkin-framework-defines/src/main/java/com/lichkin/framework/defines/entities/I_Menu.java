@@ -65,20 +65,6 @@ public interface I_Menu extends I_ID {
 
 
 	/**
-	 * 获取排序号
-	 * @return 排序号
-	 */
-	public Short getOrderId();
-
-
-	/**
-	 * 设置排序号
-	 * @param orderId 排序号
-	 */
-	public void setOrderId(Short orderId);
-
-
-	/**
 	 * 获取图标
 	 * @return 图标
 	 */
