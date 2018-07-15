@@ -7,6 +7,20 @@ package com.lichkin.framework.defines.entities;
 public interface I_UserLogin extends I_Login {
 
 	/**
+	 * 获取用户ID
+	 * @return 用户ID
+	 */
+	public String getUserId();
+
+
+	/**
+	 * 设置用户ID
+	 * @param userId 用户ID
+	 */
+	public void setUserId(String userId);
+
+
+	/**
 	 * 获取登录名
 	 * @return 登录名
 	 */
@@ -32,6 +46,20 @@ public interface I_UserLogin extends I_Login {
 	 * @param cellphone 手机号码
 	 */
 	public void setCellphone(String cellphone);
+
+
+	/**
+	 * 获取邮箱
+	 * @return 邮箱
+	 */
+	public String getEmail();
+
+
+	/**
+	 * 设置邮箱
+	 * @param email 邮箱
+	 */
+	public void setEmail(String email);
 
 
 	/**

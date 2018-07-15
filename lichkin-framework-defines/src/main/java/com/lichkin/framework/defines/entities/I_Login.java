@@ -21,34 +21,6 @@ public interface I_Login extends I_ID {
 
 
 	/**
-	 * 获取用户ID
-	 * @return 用户ID
-	 */
-	public String getUserId();
-
-
-	/**
-	 * 设置用户ID
-	 * @param userId 用户ID
-	 */
-	public void setUserId(String userId);
-
-
-	/**
-	 * 获取邮箱
-	 * @return 邮箱
-	 */
-	public String getEmail();
-
-
-	/**
-	 * 设置邮箱
-	 * @param email 邮箱
-	 */
-	public void setEmail(String email);
-
-
-	/**
 	 * 获取密码
 	 * @return 密码
 	 */

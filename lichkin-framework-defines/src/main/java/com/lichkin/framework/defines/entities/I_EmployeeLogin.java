@@ -7,6 +7,34 @@ package com.lichkin.framework.defines.entities;
 public interface I_EmployeeLogin extends I_Login {
 
 	/**
+	 * 获取用户ID
+	 * @return 用户ID
+	 */
+	public String getUserId();
+
+
+	/**
+	 * 设置用户ID
+	 * @param userId 用户ID
+	 */
+	public void setUserId(String userId);
+
+
+	/**
+	 * 获取登录名
+	 * @return 登录名
+	 */
+	public String getLoginName();
+
+
+	/**
+	 * 设置登录名
+	 * @param loginName 登录名
+	 */
+	public void setLoginName(String loginName);
+
+
+	/**
 	 * 获取手机号码
 	 * @return 手机号码
 	 */
@@ -18,6 +46,20 @@ public interface I_EmployeeLogin extends I_Login {
 	 * @param cellphone 手机号码
 	 */
 	public void setCellphone(String cellphone);
+
+
+	/**
+	 * 获取邮箱
+	 * @return 邮箱
+	 */
+	public String getEmail();
+
+
+	/**
+	 * 设置邮箱
+	 * @param email 邮箱
+	 */
+	public void setEmail(String email);
 
 
 	/**

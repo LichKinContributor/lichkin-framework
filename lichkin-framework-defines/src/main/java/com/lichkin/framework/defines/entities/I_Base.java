@@ -35,18 +35,4 @@ public interface I_Base {
 	 */
 	public void setInsertTime(final String insertTime);
 
-
-	/**
-	 * 获取更新操作时间
-	 * @return 更新操作时间
-	 */
-	public String getUpdateTime();
-
-
-	/**
-	 * 设置更新操作时间
-	 * @param updateTime 更新操作时间
-	 */
-	public void setUpdateTime(final String updateTime);
-
 }
