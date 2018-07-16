@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 
 import com.lichkin.framework.defines.annotations.DateToString;
@@ -344,6 +345,65 @@ public class LKBeanUtils {
 			return copyProperties(setDefaultValue, source, targetClass.newInstance(), excludeFieldNames);
 		} catch (InstantiationException | IllegalAccessException e) {
 			throw new LKRuntimeException(LKErrorCodesEnum.INTERNAL_SERVER_ERROR, e);
+		}
+	}
+
+
+	/**
+	 * 从源对象列表读取内容进行拼接后设置到目标对象中
+	 * @param listSource 源对象列表
+	 * @param target 目标对象
+	 * @param sourceFiledNames 源对象取值字段名
+	 * @param targetFiledNames 目标对象设置值字段名
+	 * @param splitors 拼接操作分隔符
+	 */
+	public static void setStringValues(List<?> listSource, Object target, String[] sourceFiledNames, String[] targetFiledNames, String[] splitors) {
+		Class<?> targetClass = target.getClass();
+		List<Field> targetFields = LKFieldUtils.getRealFieldListWithIncludes(targetClass, true, targetFiledNames);
+
+		try {
+			if (CollectionUtils.isEmpty(listSource)) {
+				for (Field targetFiled : targetFields) {
+					if (!targetFiled.isAccessible()) {
+						targetFiled.setAccessible(true);
+					}
+					targetFiled.set(target, "");
+				}
+			} else {
+				Object source0 = listSource.get(0);
+				Class<?> sourceClass = source0.getClass();
+				List<Field> sourceFields = LKFieldUtils.getRealFieldListWithIncludes(sourceClass, true, sourceFiledNames);
+
+				StringBuilder[] sbs = new StringBuilder[targetFiledNames.length];
+				int size = listSource.size() - 1;
+				for (int i = 0; i <= size; i++) {
+					Object source = listSource.get(i);
+					for (int j = 0; j < sourceFields.size(); j++) {
+						Field sourceField = sourceFields.get(j);
+						if (!sourceField.isAccessible()) {
+							sourceField.setAccessible(true);
+						}
+						StringBuilder sb = sbs[j];
+						if (sb == null) {
+							sb = sbs[j] = new StringBuilder();
+						}
+						sb.append(sourceField.get(source));
+						if (i != size) {
+							sb.append(splitors[j]);
+						}
+					}
+				}
+
+				for (int i = 0; i < targetFields.size(); i++) {
+					Field targetFiled = targetFields.get(i);
+					if (!targetFiled.isAccessible()) {
+						targetFiled.setAccessible(true);
+					}
+					targetFiled.set(target, sbs[i].toString());
+				}
+			}
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			e.printStackTrace();// ignore this
 		}
 	}
 
