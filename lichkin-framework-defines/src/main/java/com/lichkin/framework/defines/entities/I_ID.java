@@ -1,12 +1,10 @@
 package com.lichkin.framework.defines.entities;
 
-import java.io.Serializable;
-
 /**
  * ID接口
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public interface I_ID extends Serializable {
+public interface I_ID {
 
 	/**
 	 * 获取主键
