@@ -18,6 +18,19 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface DefaultStringValue {
 
+	/** 调用方法取默认值前缀 */
+	public static final String START = "!!!";
+
+	/** 调用方法取默认值分隔符 */
+	public static final String SPLITOR = "#";
+
+	/** 令牌默认值 */
+	public static final String TOKEN = START + "com.lichkin.framework.utils.LKRandomUtils" + SPLITOR + "create64";
+
+	/** GMT开始时间 */
+	public static final String GMT_START = "19700101000000000";
+
+
 	String value() default "";
 
 }
