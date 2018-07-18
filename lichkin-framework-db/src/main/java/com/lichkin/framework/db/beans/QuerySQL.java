@@ -1,5 +1,6 @@
 package com.lichkin.framework.db.beans;
 
+import static com.lichkin.framework.db.beans.__SQL_STATICS.AND;
 import static com.lichkin.framework.db.beans.__SQL_STATICS.DISTINCT;
 import static com.lichkin.framework.db.beans.__SQL_STATICS.FROM;
 import static com.lichkin.framework.db.beans.__SQL_STATICS.FULL_JOIN;
@@ -7,6 +8,7 @@ import static com.lichkin.framework.db.beans.__SQL_STATICS.INNER_JOIN;
 import static com.lichkin.framework.db.beans.__SQL_STATICS.JOIN;
 import static com.lichkin.framework.db.beans.__SQL_STATICS.LEFT_JOIN;
 import static com.lichkin.framework.db.beans.__SQL_STATICS.ON;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.OR;
 import static com.lichkin.framework.db.beans.__SQL_STATICS.RIGHT_JOIN;
 import static com.lichkin.framework.db.beans.__SQL_STATICS.SELECT;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
@@ -300,12 +302,12 @@ public class QuerySQL extends _SQL_WITH_WHERE {
 		boolean noTableClasses = tableClasses.isEmpty();
 		boolean noColumns = columns.isEmpty();
 
-		if (useSQL) {
-			sql.append(SELECT);
-			if (distinct) {
-				sql.append(BLANK).append(DISTINCT);
-			}
+		sql.append(SELECT);
+		if (distinct) {
+			sql.append(BLANK).append(DISTINCT);
+		}
 
+		if (useSQL) {
 			if (!noTableClasses) {
 				for (int i = 0; i < tableClasses.size(); i++) {
 					Class<?> tableClazz = tableClasses.get(i);
@@ -335,13 +337,10 @@ public class QuerySQL extends _SQL_WITH_WHERE {
 
 			sql.append(BLANK);
 		} else {
-			if (!noColumns || !noTableClasses) {
-				// TODO 暂不支持HQL返回Bean的形式
+			if (!noColumns) {
 				throw new LKRuntimeException(LKErrorCodesEnum.SQL_ERROR);
 			}
-			if (distinct) {
-				sql.append(SELECT).append(BLANK).append(DISTINCT).append(BLANK).append(getTableAlias(tableClazz)).append(BLANK);
-			}
+			sql.append(BLANK).append(getTableAlias(tableClazz)).append(BLANK);
 		}
 
 		sql.append(FROM).append(BLANK).append(getTableSQL(useSQL, tableClazz, 0));
@@ -356,7 +355,11 @@ public class QuerySQL extends _SQL_WITH_WHERE {
 					sql.append(BLANK).append(ON);
 					sql.append(BLANK).append(condition.getSQLWithoutCondition(useSQL));
 				} else {
-					sql.append(BLANK).append(condition.getSQL(useSQL));
+					if (Boolean.FALSE.equals(condition.and)) {
+						sql.append(OR).append(BLANK).append(condition.getSQLWithoutCondition(useSQL));
+					} else {
+						sql.append(AND).append(BLANK).append(condition.getSQLWithoutCondition(useSQL));
+					}
 				}
 			}
 		}
