@@ -36,7 +36,7 @@ public class LKBeanUtils {
 	 * @return 目标对象
 	 */
 	public static <B> B copyProperties(Object source, B target, String... excludeFieldNames) {
-		return copyProperties(true, source, target, excludeFieldNames);
+		return copyProperties(true, false, source, target, excludeFieldNames);
 	}
 
 
@@ -44,12 +44,13 @@ public class LKBeanUtils {
 	 * 复制属性
 	 * @param <B> 返回值类型泛型
 	 * @param setDefaultValue true:设置默认值;false:不设置默认值.
+	 * @param ignoreNull true:忽略null值设置;false:不忽略null值设置.
 	 * @param source 源对象
 	 * @param target 目标对象
 	 * @param excludeFieldNames 排除字段名
 	 * @return 目标对象
 	 */
-	public static <B> B copyProperties(boolean setDefaultValue, Object source, B target, String... excludeFieldNames) {
+	public static <B> B copyProperties(boolean setDefaultValue, boolean ignoreNull, Object source, B target, String... excludeFieldNames) {
 		if ((source == null) || (target == null)) {
 			return target;
 		}
@@ -88,6 +89,10 @@ public class LKBeanUtils {
 					if (sourceValue == null) {
 						if (setDefaultValue) {
 							setDefaultValue(target, targetField);
+						} else {
+							if (!ignoreNull) {
+								targetField.set(target, null);
+							}
 						}
 						continue out;
 					}
@@ -222,6 +227,10 @@ public class LKBeanUtils {
 
 				if (setDefaultValue) {
 					setDefaultValue(target, targetField);
+				} else {
+					if (!ignoreNull) {
+						targetField.set(target, null);
+					}
 				}
 			}
 		} catch (IllegalArgumentException | IllegalAccessException e) {
@@ -327,7 +336,7 @@ public class LKBeanUtils {
 	 * @return 目标对象
 	 */
 	public static <B> B newInstance(final Object source, final Class<B> targetClass, final String... excludeFieldNames) {
-		return newInstance(true, source, targetClass, excludeFieldNames);
+		return newInstance(true, false, source, targetClass, excludeFieldNames);
 	}
 
 
@@ -335,14 +344,15 @@ public class LKBeanUtils {
 	 * 创建对象
 	 * @param <B> 目标对象类型泛型
 	 * @param setDefaultValue true:设置默认值;false:不设置默认值.
+	 * @param ignoreNull true:忽略null值设置;false:不忽略null值设置.
 	 * @param source 源对象
 	 * @param targetClass 目标对象类型
 	 * @param excludeFieldNames 排除字段名
 	 * @return 目标对象
 	 */
-	public static <B> B newInstance(boolean setDefaultValue, final Object source, final Class<B> targetClass, final String... excludeFieldNames) {
+	public static <B> B newInstance(boolean setDefaultValue, boolean ignoreNull, final Object source, final Class<B> targetClass, final String... excludeFieldNames) {
 		try {
-			return copyProperties(setDefaultValue, source, targetClass.newInstance(), excludeFieldNames);
+			return copyProperties(setDefaultValue, ignoreNull, source, targetClass.newInstance(), excludeFieldNames);
 		} catch (InstantiationException | IllegalAccessException e) {
 			throw new LKRuntimeException(LKErrorCodesEnum.INTERNAL_SERVER_ERROR, e);
 		}
