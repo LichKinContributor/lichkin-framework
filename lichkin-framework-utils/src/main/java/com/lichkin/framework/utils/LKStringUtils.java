@@ -6,10 +6,14 @@ import static com.lichkin.framework.defines.LKStringStatics.UNDERLINE;
 
 import org.apache.commons.lang3.StringUtils;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * 字符串工具类
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LKStringUtils {
 
 	/**

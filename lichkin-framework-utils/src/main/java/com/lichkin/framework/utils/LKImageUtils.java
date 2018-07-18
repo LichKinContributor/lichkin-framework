@@ -14,12 +14,15 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.lichkin.framework.utils.security.base64.LKBase64Decoder;
 
+import lombok.AccessLevel;
 import lombok.Cleanup;
+import lombok.NoArgsConstructor;
 
 /**
  * 图片处理工具类
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LKImageUtils {
 
 	/**

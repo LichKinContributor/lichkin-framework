@@ -21,10 +21,14 @@ import com.lichkin.framework.defines.enums.impl.LKDateTimeTypeEnum;
 import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
 import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * Bean工具类
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LKBeanUtils {
 
 	/**

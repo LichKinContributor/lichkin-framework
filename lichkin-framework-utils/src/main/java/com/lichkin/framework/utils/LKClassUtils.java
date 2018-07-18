@@ -8,10 +8,14 @@ import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * Class工具类
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LKClassUtils {
 
 	/**

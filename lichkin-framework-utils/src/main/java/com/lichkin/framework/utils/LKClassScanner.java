@@ -21,10 +21,14 @@ import org.apache.commons.lang3.ArrayUtils;
 import com.lichkin.framework.log.LKLog;
 import com.lichkin.framework.log.LKLogFactory;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * 类扫描工具类
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LKClassScanner {
 
 	/** 日志对象 */

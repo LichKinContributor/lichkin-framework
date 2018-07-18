@@ -6,10 +6,14 @@ import org.joda.time.DateTime;
 
 import com.lichkin.framework.defines.enums.impl.LKDateTimeTypeEnum;
 
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
 /**
  * 文件工具类
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LKFileUtils {
 
 	/**
