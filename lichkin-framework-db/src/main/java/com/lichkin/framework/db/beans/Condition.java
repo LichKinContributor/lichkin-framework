@@ -23,7 +23,7 @@ public class Condition extends __SQL {
 	private final List<Condition> conditions = new ArrayList<>();
 
 	/** true:AND;false:OR;null:无条件。 */
-	private final Boolean and;
+	final Boolean and;
 
 	/** 表达式 */
 	private Exp expression;

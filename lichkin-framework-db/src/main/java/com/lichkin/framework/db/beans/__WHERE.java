@@ -1,5 +1,7 @@
 package com.lichkin.framework.db.beans;
 
+import static com.lichkin.framework.db.beans.__SQL_STATICS.AND;
+import static com.lichkin.framework.db.beans.__SQL_STATICS.OR;
 import static com.lichkin.framework.db.beans.__SQL_STATICS.WHERE;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
 
@@ -251,7 +253,11 @@ class __WHERE extends __SQL {
 			if (i == 0) {
 				sql.append(WHERE).append(BLANK).append(condition.getSQLWithoutCondition(useSQL));
 			} else {
-				sql.append(condition.getSQL(useSQL));
+				if (Boolean.FALSE.equals(condition.and)) {
+					sql.append(OR).append(BLANK).append(condition.getSQLWithoutCondition(useSQL));
+				} else {
+					sql.append(AND).append(BLANK).append(condition.getSQLWithoutCondition(useSQL));
+				}
 			}
 		}
 		return sql;
