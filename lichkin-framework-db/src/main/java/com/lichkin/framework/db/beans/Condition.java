@@ -98,42 +98,6 @@ public class Condition extends __SQL {
 
 	/**
 	 * 构造方法
-	 * @param and true:AND;false:OR;null:无条件。
-	 * @param leftColumnResId 左边列资源ID
-	 * @param rightColumnResId 右边列资源ID
-	 */
-	public Condition(Boolean and, int leftColumnResId, int rightColumnResId) {
-		this(and, new eq_(leftColumnResId, rightColumnResId));
-	}
-
-
-	/**
-	 * 构造方法
-	 * @param and true:AND;false:OR;null:无条件。
-	 * @param leftTableIdx 左边表索引
-	 * @param leftColumnResId 左边列资源ID
-	 * @param rightColumnResId 右边列资源ID
-	 */
-	public Condition(Boolean and, int leftTableIdx, int leftColumnResId, int rightColumnResId) {
-		this(and, new eq_(leftTableIdx, leftColumnResId, rightColumnResId));
-	}
-
-
-	/**
-	 * 构造方法
-	 * @param and true:AND;false:OR;null:无条件。
-	 * @param leftTableIdx 左边表索引
-	 * @param leftColumnResId 左边列资源ID
-	 * @param rightTableIdx 右边表索引
-	 * @param rightColumnResId 右边列资源ID
-	 */
-	public Condition(Boolean and, int leftTableIdx, int leftColumnResId, int rightTableIdx, int rightColumnResId) {
-		this(and, new eq_(leftTableIdx, leftColumnResId, rightTableIdx, rightColumnResId));
-	}
-
-
-	/**
-	 * 构造方法
 	 * @param leftColumnResId 左边列资源ID
 	 * @param rightColumnResId 右边列资源ID
 	 */
