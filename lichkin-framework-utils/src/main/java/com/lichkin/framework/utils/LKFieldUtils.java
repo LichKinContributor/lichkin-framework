@@ -41,24 +41,19 @@ public class LKFieldUtils {
 	/**
 	 * 获取真实的Field列表。即子类定义了与父类相同的Field时，只返回子类定义的Field。
 	 * @param clazz 类型
-	 * @param excludeStatics 是否排除static修饰的字段
 	 * @param includeFieldNames 不排除字段名
 	 * @return Field列表
 	 */
-	public static List<Field> getRealFieldListWithIncludes(final Class<?> clazz, boolean excludeStatics, String... includeFieldNames) {
+	public static List<Field> getRealFieldListOnlyIncludes(final Class<?> clazz, String... includeFieldNames) {
 		List<Field> listFields = getRealFieldList(clazz);
-		if (excludeStatics) {
-			out: for (int i = listFields.size() - 1; i >= 0; i--) {
-				Field field = listFields.get(i);
-				for (String includeFieldName : includeFieldNames) {
-					if (includeFieldName.equals(field.getName())) {
-						continue out;
-					}
-				}
-				if (Modifier.isStatic(field.getModifiers())) {
-					listFields.remove(i);
+		out: for (int i = listFields.size() - 1; i >= 0; i--) {
+			Field field = listFields.get(i);
+			for (String includeFieldName : includeFieldNames) {
+				if (includeFieldName.equals(field.getName())) {
+					continue out;
 				}
 			}
+			listFields.remove(field);
 		}
 		return listFields;
 	}

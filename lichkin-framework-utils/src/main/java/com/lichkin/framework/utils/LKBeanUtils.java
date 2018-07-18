@@ -40,21 +40,27 @@ public class LKBeanUtils {
 	 * @return 目标对象
 	 */
 	public static <B> B copyProperties(Object source, B target, String... excludeFieldNames) {
-		return copyProperties(true, false, source, target, excludeFieldNames);
+		return copyProperties(null, source, target, excludeFieldNames);
 	}
 
 
 	/**
 	 * 复制属性
 	 * @param <B> 返回值类型泛型
-	 * @param setDefaultValue true:设置默认值;false:不设置默认值.
-	 * @param ignoreNull true:忽略null值设置;false:不忽略null值设置.
+	 * @param type
+	 *
+	 *            <pre>
+	 * null:source字段为null或没有对应到target的字段都将设置为null;
+	 * true:source字段为null或没有对应到target的字段都将设置为defaultValue;
+	 * false:source字段为null时，设置为null。没有对应到target的字段不处理.
+	 *            </pre>
+	 *
 	 * @param source 源对象
 	 * @param target 目标对象
 	 * @param excludeFieldNames 排除字段名
 	 * @return 目标对象
 	 */
-	public static <B> B copyProperties(boolean setDefaultValue, boolean ignoreNull, Object source, B target, String... excludeFieldNames) {
+	public static <B> B copyProperties(Boolean type, Object source, B target, String... excludeFieldNames) {
 		if ((source == null) || (target == null)) {
 			return target;
 		}
@@ -91,12 +97,10 @@ public class LKBeanUtils {
 
 					// 空值直接设置
 					if (sourceValue == null) {
-						if (setDefaultValue) {
+						if (Boolean.TRUE.equals(type)) {
 							setDefaultValue(target, targetField);
 						} else {
-							if (!ignoreNull) {
-								targetField.set(target, null);
-							}
+							targetField.set(target, null);
 						}
 						continue out;
 					}
@@ -229,12 +233,8 @@ public class LKBeanUtils {
 					}
 				}
 
-				if (setDefaultValue) {
+				if (Boolean.TRUE.equals(type)) {
 					setDefaultValue(target, targetField);
-				} else {
-					if (!ignoreNull) {
-						targetField.set(target, null);
-					}
 				}
 			}
 		} catch (IllegalArgumentException | IllegalAccessException e) {
@@ -340,23 +340,29 @@ public class LKBeanUtils {
 	 * @return 目标对象
 	 */
 	public static <B> B newInstance(final Object source, final Class<B> targetClass, final String... excludeFieldNames) {
-		return newInstance(true, false, source, targetClass, excludeFieldNames);
+		return newInstance(null, source, targetClass, excludeFieldNames);
 	}
 
 
 	/**
 	 * 创建对象
 	 * @param <B> 目标对象类型泛型
-	 * @param setDefaultValue true:设置默认值;false:不设置默认值.
-	 * @param ignoreNull true:忽略null值设置;false:不忽略null值设置.
+	 * @param type
+	 *
+	 *            <pre>
+	 * null:source字段为null或没有对应到target的字段都将设置为null;
+	 * true:source字段为null或没有对应到target的字段都将设置为defaultValue;
+	 * false:source字段为null时，设置为null。没有对应到target的字段不处理.
+	 *            </pre>
+	 *
 	 * @param source 源对象
 	 * @param targetClass 目标对象类型
 	 * @param excludeFieldNames 排除字段名
 	 * @return 目标对象
 	 */
-	public static <B> B newInstance(boolean setDefaultValue, boolean ignoreNull, final Object source, final Class<B> targetClass, final String... excludeFieldNames) {
+	public static <B> B newInstance(Boolean type, final Object source, final Class<B> targetClass, final String... excludeFieldNames) {
 		try {
-			return copyProperties(setDefaultValue, ignoreNull, source, targetClass.newInstance(), excludeFieldNames);
+			return copyProperties(type, source, targetClass.newInstance(), excludeFieldNames);
 		} catch (InstantiationException | IllegalAccessException e) {
 			throw new LKRuntimeException(LKErrorCodesEnum.INTERNAL_SERVER_ERROR, e);
 		}
@@ -373,7 +379,7 @@ public class LKBeanUtils {
 	 */
 	public static void setStringValues(List<?> listSource, Object target, String[] sourceFiledNames, String[] targetFiledNames, String[] splitors) {
 		Class<?> targetClass = target.getClass();
-		List<Field> targetFields = LKFieldUtils.getRealFieldListWithIncludes(targetClass, true, targetFiledNames);
+		List<Field> targetFields = LKFieldUtils.getRealFieldListOnlyIncludes(targetClass, targetFiledNames);
 
 		try {
 			if (CollectionUtils.isEmpty(listSource)) {
@@ -386,7 +392,7 @@ public class LKBeanUtils {
 			} else {
 				Object source0 = listSource.get(0);
 				Class<?> sourceClass = source0.getClass();
-				List<Field> sourceFields = LKFieldUtils.getRealFieldListWithIncludes(sourceClass, true, sourceFiledNames);
+				List<Field> sourceFields = LKFieldUtils.getRealFieldListOnlyIncludes(sourceClass, sourceFiledNames);
 
 				StringBuilder[] sbs = new StringBuilder[targetFiledNames.length];
 				int size = listSource.size() - 1;
