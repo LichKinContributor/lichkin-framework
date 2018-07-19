@@ -46,16 +46,17 @@ public class LKFieldUtils {
 	 */
 	public static List<Field> getRealFieldListOnlyIncludes(final Class<?> clazz, String... includeFieldNames) {
 		List<Field> listFields = getRealFieldList(clazz);
-		out: for (int i = listFields.size() - 1; i >= 0; i--) {
-			Field field = listFields.get(i);
-			for (String includeFieldName : includeFieldNames) {
+		List<Field> listResult = new ArrayList<>(includeFieldNames.length);
+		out: for (String includeFieldName : includeFieldNames) {
+			for (Field field : listFields) {
 				if (includeFieldName.equals(field.getName())) {
+					listResult.add(field);
 					continue out;
 				}
 			}
-			listFields.remove(field);
+			listResult.add(null);
 		}
-		return listFields;
+		return listResult;
 	}
 
 
