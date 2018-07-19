@@ -356,9 +356,9 @@ public class QuerySQL extends _SQL_WITH_WHERE {
 					sql.append(BLANK).append(condition.getSQLWithoutCondition(useSQL));
 				} else {
 					if (Boolean.FALSE.equals(condition.and)) {
-						sql.append(OR).append(BLANK).append(condition.getSQLWithoutCondition(useSQL));
+						sql.append(BLANK).append(OR).append(BLANK).append(condition.getSQLWithoutCondition(useSQL));
 					} else {
-						sql.append(AND).append(BLANK).append(condition.getSQLWithoutCondition(useSQL));
+						sql.append(BLANK).append(AND).append(BLANK).append(condition.getSQLWithoutCondition(useSQL));
 					}
 				}
 			}
