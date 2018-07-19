@@ -13,9 +13,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 import javax.validation.Payload;
 
 import com.lichkin.framework.constraints.UsingStatus.Validator;
+import com.lichkin.framework.constraints.UsingStatus.ValidatorForEnum;
+import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
 
 /**
  * 在用状态验证注解。不验证null和""。
@@ -24,7 +28,7 @@ import com.lichkin.framework.constraints.UsingStatus.Validator;
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
 @Retention(RUNTIME)
 @Documented
-@Constraint(validatedBy = { Validator.class })
+@Constraint(validatedBy = { Validator.class, ValidatorForEnum.class })
 public @interface UsingStatus {
 
 	public static final String REGEX = "(DEPRECATED|STAND_BY|USING|DISABLE|LOCKED){1}";
@@ -44,6 +48,18 @@ public @interface UsingStatus {
 		@Override
 		protected String getRegex() {
 			return REGEX;
+		}
+
+	}
+
+	class ValidatorForEnum implements ConstraintValidator<UsingStatus, LKUsingStatusEnum> {
+
+		@Override
+		public boolean isValid(LKUsingStatusEnum value, ConstraintValidatorContext context) {
+			if (value == null) {
+				return false;
+			}
+			return true;
 		}
 
 	}
