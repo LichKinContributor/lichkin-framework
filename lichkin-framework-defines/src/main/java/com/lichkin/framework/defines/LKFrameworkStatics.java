@@ -29,9 +29,6 @@ public class LKFrameworkStatics {
 	/** 系统默认配置值：是否启用页面调试功能。 */
 	public static boolean WEB_ADMIN_DEBUG = false;
 
-	/** 系统默认配置值：数据请求映射。 */
-	public static final String WEB_MAPPING_DATAS = ".do";
-
 	/** 系统默认配置值：API数据请求映射。 */
 	public static final String WEB_MAPPING_API = "/API";
 
