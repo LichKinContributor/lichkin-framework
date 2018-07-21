@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import com.lichkin.framework.defines.LKFrameworkStatics;
+import com.lichkin.framework.defines.LKConfigStatics;
 import com.lichkin.framework.defines.enums.LKCodeEnum;
 import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
 
@@ -49,7 +49,7 @@ public class LKException extends Exception {
 	 * @param cause 异常对象
 	 */
 	public LKException(LKCodeEnum errorCode, Throwable cause) {
-		this(errorCode, LKFrameworkStatics.DEFAULT_LOCALE, cause);
+		this(errorCode, LKConfigStatics.DEFAULT_LOCALE, cause);
 	}
 
 
@@ -70,7 +70,7 @@ public class LKException extends Exception {
 	 * @param errorCode 错误编码
 	 */
 	public LKException(LKCodeEnum errorCode) {
-		this(errorCode, LKFrameworkStatics.DEFAULT_LOCALE);
+		this(errorCode, LKConfigStatics.DEFAULT_LOCALE);
 	}
 
 

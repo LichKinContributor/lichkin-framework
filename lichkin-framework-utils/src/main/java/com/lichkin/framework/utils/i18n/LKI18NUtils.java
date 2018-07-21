@@ -6,7 +6,7 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import com.lichkin.framework.defines.LKFrameworkStatics;
+import com.lichkin.framework.defines.LKConfigStatics;
 import com.lichkin.framework.defines.exceptions.LKFrameworkException;
 
 import lombok.AccessLevel;
@@ -25,7 +25,7 @@ public class LKI18NUtils {
 	 * @return 国际化类型
 	 */
 	public static Locale getLocale(String locale) {
-		return getLocale(locale, LKFrameworkStatics.DEFAULT_LOCALE);
+		return getLocale(locale, LKConfigStatics.DEFAULT_LOCALE);
 	}
 
 

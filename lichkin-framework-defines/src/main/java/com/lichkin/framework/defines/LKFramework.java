@@ -13,6 +13,6 @@ public abstract class LKFramework {
 	protected final LKLog logger = LKLogFactory.getLog(getClass());
 
 	/** 系统编码 */
-	protected String $systemTag = LKFrameworkStatics.SYSTEM_TAG;
+	protected String $systemTag = LKConfigStatics.SYSTEM_TAG;
 
 }
