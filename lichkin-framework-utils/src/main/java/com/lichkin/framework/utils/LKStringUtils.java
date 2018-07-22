@@ -22,8 +22,8 @@ public class LKStringUtils {
 	 * @return 标准路径
 	 */
 	public static String toStandardPath(String path) {
-		if (StringUtils.isBlank(path)) {
-			return SEPARATOR;
+		if (StringUtils.isBlank(path) || "".equals(path) || SEPARATOR.equals(path)) {
+			return "";
 		}
 		path = path.replaceAll("\\\\", SEPARATOR);
 		if (!path.startsWith(SEPARATOR)) {
