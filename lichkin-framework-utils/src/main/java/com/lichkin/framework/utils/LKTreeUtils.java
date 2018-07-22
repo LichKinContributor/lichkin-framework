@@ -27,12 +27,13 @@ public class LKTreeUtils {
 	 * 转换为统一列表对象
 	 * @param list 列表对象
 	 * @param idFieldName 主键字段名，该字段值不能为null。
+	 * @param nameFieldName 名字字段名，该字段值不能为null。
 	 * @param codeFieldName 编码字段名，该字段值不能为null，且是Code规则码。
 	 * @param parentCodeFieldName 上级编码字段名，该字段值不能为null，且是Code规则码。
 	 * @return 列表对象
 	 */
 	@SuppressWarnings("unchecked")
-	private static List<LKTreeBean> toList(List<?> list, String idFieldName, String codeFieldName, String parentCodeFieldName) {
+	private static List<LKTreeBean> toList(List<?> list, String idFieldName, String nameFieldName, String codeFieldName, String parentCodeFieldName) {
 		if (CollectionUtils.isEmpty(list)) {
 			return Collections.emptyList();
 		}
@@ -46,6 +47,7 @@ public class LKTreeUtils {
 
 		List<Field> listField = LKFieldUtils.getRealFieldList(clazz, false);
 		Field idField = null;
+		Field nameField = null;
 		Field codeField = null;
 		Field parentCodeField = null;
 		for (Field field : listField) {
@@ -56,6 +58,8 @@ public class LKTreeUtils {
 			String fieldName = field.getName();
 			if (fieldName.equals(idFieldName)) {
 				idField = field;
+			} else if (fieldName.equals(nameFieldName)) {
+				nameField = field;
 			} else if (fieldName.equals(codeFieldName)) {
 				codeField = field;
 			} else if (fieldName.equals(parentCodeFieldName)) {
@@ -65,6 +69,9 @@ public class LKTreeUtils {
 
 		if (idField == null) {
 			throw new LKRuntimeException(LKErrorCodesEnum.CONFIG_ERROR, new LKFrameworkException("can not find id filed by param idFieldName."));
+		}
+		if (nameField == null) {
+			throw new LKRuntimeException(LKErrorCodesEnum.CONFIG_ERROR, new LKFrameworkException("can not find name filed by param nameFieldName."));
 		}
 		if (codeField == null) {
 			throw new LKRuntimeException(LKErrorCodesEnum.CONFIG_ERROR, new LKFrameworkException("can not find code filed by param codeFieldName."));
@@ -77,7 +84,7 @@ public class LKTreeUtils {
 
 		try {
 			for (Object obj : list) {
-				LKTreeBean bean = new LKTreeBean(idField.get(obj).toString(), codeField.get(obj).toString(), parentCodeField.get(obj).toString());
+				LKTreeBean bean = new LKTreeBean(idField.get(obj).toString(), nameField.get(obj).toString(), codeField.get(obj).toString(), parentCodeField.get(obj).toString());
 				for (Field field : listField) {
 					bean.addParam(field.getName(), field.get(obj));
 				}
@@ -128,12 +135,13 @@ public class LKTreeUtils {
 	 * 转换为树形结构
 	 * @param list 列表对象
 	 * @param idFieldName 主键字段名，该字段值不能为null。
+	 * @param nameFieldName 名字字段名，该字段值不能为null。
 	 * @param codeFieldName 编码字段名，该字段值不能为null，且是Code规则码。
 	 * @param parentCodeFieldName 上级编码字段名，该字段值不能为null，且是Code规则码。
 	 * @return 树形结构
 	 */
-	public static List<LKTreeBean> toTree(List<?> list, String idFieldName, String codeFieldName, String parentCodeFieldName) {
-		return toTree(toList(list, idFieldName, codeFieldName, parentCodeFieldName));
+	public static List<LKTreeBean> toTree(List<?> list, String idFieldName, String nameFieldName, String codeFieldName, String parentCodeFieldName) {
+		return toTree(toList(list, idFieldName, nameFieldName, codeFieldName, parentCodeFieldName));
 	}
 
 }
