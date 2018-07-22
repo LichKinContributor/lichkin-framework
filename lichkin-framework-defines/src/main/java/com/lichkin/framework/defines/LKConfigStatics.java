@@ -26,6 +26,9 @@ public class LKConfigStatics {
 	/** 系统默认配置值：是否启用页面调试功能。 */
 	public static boolean WEB_DEBUG = false;
 
+	/** 系统默认配置值：JS/CSS使用压缩 */
+	public static boolean WEB_COMPRESS = true;
+
 	/** 系统默认配置值：是否启用页面调试功能。 */
 	public static boolean WEB_ADMIN_DEBUG = false;
 
