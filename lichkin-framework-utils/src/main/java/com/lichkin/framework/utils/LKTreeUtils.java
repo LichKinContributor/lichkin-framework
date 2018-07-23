@@ -107,7 +107,7 @@ public class LKTreeUtils {
 		List<LKTreeBean> listRoot = new ArrayList<>();
 		Collections.sort(list, (o1, o2) -> o1.getCode().compareTo(o2.getCode()));
 		for (LKTreeBean bean : list) {
-			if (bean.getCode().equals(LKFrameworkStatics.ROOT)) {
+			if (bean.getParentCode().equals(LKFrameworkStatics.ROOT)) {
 				listRoot.add(bean);
 				addChild(bean, list);
 			}
