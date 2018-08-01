@@ -12,6 +12,12 @@ public class LKFrameworkStatics {
 	/** 系统默认配置值：API数据请求映射（仅应用于客户端请求）。 */
 	public static final String WEB_MAPPING_API_APP = WEB_MAPPING_API + "/App";
 
+	/** 系统默认配置值：API数据请求映射（用户客户端）。 */
+	public static final String WEB_MAPPING_API_APP_USER = WEB_MAPPING_API_APP + "/User";
+
+	/** 系统默认配置值：API数据请求映射（用户员工客户端）。 */
+	public static final String WEB_MAPPING_API_APP_USEREMPLOYEE = WEB_MAPPING_API_APP_USER + "Employee";
+
 	/** 系统默认配置值：API数据请求映射（仅应用于页面请求）。 */
 	public static final String WEB_MAPPING_API_WEB = WEB_MAPPING_API + "/Web";
 
