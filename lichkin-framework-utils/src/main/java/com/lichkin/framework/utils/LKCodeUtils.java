@@ -2,6 +2,13 @@ package com.lichkin.framework.utils;
 
 import static com.lichkin.framework.defines.LKFrameworkStatics.ROOT;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import lombok.AccessLevel;
@@ -135,6 +142,60 @@ public class LKCodeUtils {
 			menuCode = nextCode(menuCode);
 		}
 		return menuCode;
+	}
+
+
+	/**
+	 * 获取当前编码的所有上级编码
+	 * @param currentCode 编码
+	 * @param withRoot 是否包含ROOT编码
+	 * @return 所有上级编码
+	 */
+	public static List<String> parentsCode(String currentCode, boolean withRoot) {
+		if (StringUtils.isBlank(currentCode)) {
+			currentCode = ROOT;
+		}
+
+		int level = LKCodeUtils.currentLevel(currentCode);
+		String realCode = LKCodeUtils.realCode(currentCode);
+		List<String> list = new ArrayList<>();
+		if (withRoot) {
+			list.add(ROOT);
+		}
+		for (int i = 1; i < level; i++) {
+			String parentCode = realCode.substring(0, realCode.length() - (i * (LENGHT + 1)));
+			list.add(LKCodeUtils.fillCode(parentCode));
+		}
+		return list;
+	}
+
+
+	/**
+	 * 获取当前编码的所有上级编码
+	 * @param codeList 编码List
+	 * @param withRoot 是否包含ROOT编码
+	 * @return 所有上级编码
+	 */
+	public static List<String> parentsCode(List<String> codeList, boolean withRoot) {
+		if (CollectionUtils.isEmpty(codeList)) {
+			return Collections.emptyList();
+		}
+
+		Map<String, String> map = new HashMap<>();
+		for (String currentCode : codeList) {
+			if (!map.containsKey(currentCode)) {
+				List<String> parentsCodeList = LKCodeUtils.parentsCode(currentCode, false);
+				for (String parentCode : parentsCodeList) {
+					map.put(parentCode, null);
+				}
+			}
+		}
+
+		List<String> list = new ArrayList<>(map.keySet());
+		if (withRoot) {
+			list.add(ROOT);
+		}
+		return list;
 	}
 
 }
