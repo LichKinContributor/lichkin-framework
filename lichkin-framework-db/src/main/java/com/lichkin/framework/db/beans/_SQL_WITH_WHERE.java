@@ -1,5 +1,7 @@
 package com.lichkin.framework.db.beans;
 
+import java.util.List;
+
 import com.lichkin.framework.db.enums.LikeType;
 
 /**
@@ -316,6 +318,48 @@ abstract class _SQL_WITH_WHERE extends _SQL {
 
 
 	/**
+	 * 添加表达式（IN）
+	 * @param and true:AND;false:OR;null:无条件。
+	 * @param columnResId 列资源ID
+	 * @param paramsList 参数
+	 */
+	public void in(Boolean and, int columnResId, List<String> paramsList) {
+		checkWhere().in(and, columnResId, paramsList);
+	}
+
+
+	/**
+	 * 添加表达式（IN）
+	 * @param columnResId 列资源ID
+	 * @param paramsList 参数
+	 */
+	public void in(int columnResId, List<String> paramsList) {
+		in(true, columnResId, paramsList);
+	}
+
+
+	/**
+	 * 添加表达式（IN）
+	 * @param and true:AND;false:OR;null:无条件。
+	 * @param columnResId 列资源ID
+	 * @param paramsArr 参数
+	 */
+	public void in(Boolean and, int columnResId, String[] paramsArr) {
+		checkWhere().in(and, columnResId, paramsArr);
+	}
+
+
+	/**
+	 * 添加表达式（IN）
+	 * @param columnResId 列资源ID
+	 * @param paramsArr 参数
+	 */
+	public void in(int columnResId, String[] paramsArr) {
+		in(true, columnResId, paramsArr);
+	}
+
+
+	/**
 	 * 添加表达式（NOT IN）
 	 * @param and true:AND;false:OR;null:无条件。
 	 * @param columnResId 列资源ID
@@ -333,6 +377,48 @@ abstract class _SQL_WITH_WHERE extends _SQL {
 	 */
 	public void notIn(int columnResId, String paramsStr) {
 		notIn(true, columnResId, paramsStr);
+	}
+
+
+	/**
+	 * 添加表达式（NOT IN）
+	 * @param and true:AND;false:OR;null:无条件。
+	 * @param columnResId 列资源ID
+	 * @param paramsList 参数
+	 */
+	public void notIn(Boolean and, int columnResId, List<String> paramsList) {
+		checkWhere().notIn(and, columnResId, paramsList);
+	}
+
+
+	/**
+	 * 添加表达式（NOT IN）
+	 * @param columnResId 列资源ID
+	 * @param paramsList 参数
+	 */
+	public void notIn(int columnResId, List<String> paramsList) {
+		notIn(true, columnResId, paramsList);
+	}
+
+
+	/**
+	 * 添加表达式（NOT IN）
+	 * @param and true:AND;false:OR;null:无条件。
+	 * @param columnResId 列资源ID
+	 * @param paramsArr 参数
+	 */
+	public void notIn(Boolean and, int columnResId, String[] paramsArr) {
+		checkWhere().notIn(and, columnResId, paramsArr);
+	}
+
+
+	/**
+	 * 添加表达式（NOT IN）
+	 * @param columnResId 列资源ID
+	 * @param paramsArr 参数
+	 */
+	public void notIn(int columnResId, String[] paramsArr) {
+		notIn(true, columnResId, paramsArr);
 	}
 
 

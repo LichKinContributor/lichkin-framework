@@ -186,6 +186,36 @@ class __WHERE extends __SQL {
 
 
 	/**
+	 * 添加表达式（IN）
+	 * @param and true:AND;false:OR;null:无条件。
+	 * @param columnResId 列资源ID
+	 * @param paramsList 参数
+	 */
+	void in(Boolean and, int columnResId, List<String> paramsList) {
+		if (paramsList.size() != 1) {
+			where(new Condition(and, new in(columnResId, paramsList)));
+		} else {
+			where(new Condition(and, new eq(columnResId, paramsList.get(0))));
+		}
+	}
+
+
+	/**
+	 * 添加表达式（IN）
+	 * @param and true:AND;false:OR;null:无条件。
+	 * @param columnResId 列资源ID
+	 * @param paramsArr 参数
+	 */
+	void in(Boolean and, int columnResId, String[] paramsArr) {
+		if (paramsArr.length != 1) {
+			where(new Condition(and, new in(columnResId, paramsArr)));
+		} else {
+			where(new Condition(and, new eq(columnResId, paramsArr[0])));
+		}
+	}
+
+
+	/**
 	 * 添加表达式（NOT IN）
 	 * @param and true:AND;false:OR;null:无条件。
 	 * @param columnResId 列资源ID
@@ -196,6 +226,36 @@ class __WHERE extends __SQL {
 			where(new Condition(and, new notIn(columnResId, paramsStr)));
 		} else {
 			where(new Condition(and, new neq(columnResId, paramsStr)));
+		}
+	}
+
+
+	/**
+	 * 添加表达式（NOT IN）
+	 * @param and true:AND;false:OR;null:无条件。
+	 * @param columnResId 列资源ID
+	 * @param paramsList 参数
+	 */
+	void notIn(Boolean and, int columnResId, List<String> paramsList) {
+		if (paramsList.size() != 1) {
+			where(new Condition(and, new notIn(columnResId, paramsList)));
+		} else {
+			where(new Condition(and, new neq(columnResId, paramsList.get(0))));
+		}
+	}
+
+
+	/**
+	 * 添加表达式（NOT IN）
+	 * @param and true:AND;false:OR;null:无条件。
+	 * @param columnResId 列资源ID
+	 * @param paramsArr 参数
+	 */
+	void notIn(Boolean and, int columnResId, String[] paramsArr) {
+		if (paramsArr.length != 1) {
+			where(new Condition(and, new notIn(columnResId, paramsArr)));
+		} else {
+			where(new Condition(and, new neq(columnResId, paramsArr[0])));
 		}
 	}
 
