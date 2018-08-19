@@ -1,7 +1,5 @@
 package com.lichkin.framework.utils;
 
-import static com.lichkin.framework.defines.LKFrameworkStatics.ROOT;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,6 +18,8 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LKCodeUtils {
+
+	private static final String ROOT = "ROOT";
 
 	/** 编码长度 */
 	private static int LENGHT = 7;

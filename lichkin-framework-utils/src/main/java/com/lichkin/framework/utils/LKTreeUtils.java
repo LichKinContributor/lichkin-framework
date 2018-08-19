@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.lichkin.framework.defines.LKFrameworkStatics;
 import com.lichkin.framework.defines.beans.impl.LKTreeBean;
 import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
 import com.lichkin.framework.defines.exceptions.LKFrameworkException;
@@ -22,6 +21,9 @@ import lombok.NoArgsConstructor;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LKTreeUtils {
+
+	private static final String ROOT = "ROOT";
+
 
 	/**
 	 * 转换为统一列表对象
@@ -107,7 +109,7 @@ public class LKTreeUtils {
 		List<LKTreeBean> listRoot = new ArrayList<>();
 		Collections.sort(list, (o1, o2) -> o1.getCode().compareTo(o2.getCode()));
 		for (LKTreeBean bean : list) {
-			if (bean.getParentCode().equals(LKFrameworkStatics.ROOT)) {
+			if (bean.getParentCode().equals(ROOT)) {
 				listRoot.add(bean);
 				addChild(bean, list);
 			}

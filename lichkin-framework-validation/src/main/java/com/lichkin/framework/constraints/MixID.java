@@ -28,7 +28,7 @@ import com.lichkin.framework.defines.LKFrameworkStatics;
 @Constraint(validatedBy = { Validator.class })
 public @interface MixID {
 
-	public static final String REGEX = LKFrameworkStatics.ROOT + "|" + ID.REGEX + "|" + LongID.REGEX;
+	public static final String REGEX = LKFrameworkStatics.LichKin + "|" + ID.REGEX + "|" + LongID.REGEX;
 
 
 	String message() default "{{javax.validation.constraints.MixID.message}";

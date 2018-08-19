@@ -51,7 +51,7 @@ public class LKFrameworkStatics {
 	/** 自定义业务错误编码最小值 */
 	public static final int MIN_BUS_ERROR_CODE = 10000;
 
-	/** 业务通用顶层编码 */
-	public static final String ROOT = "ROOT";
+	/** 顶级权限定义 */
+	public static final String LichKin = "LichKin";
 
 }
