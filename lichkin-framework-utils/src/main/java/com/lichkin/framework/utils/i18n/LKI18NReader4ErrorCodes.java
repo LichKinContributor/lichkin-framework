@@ -34,6 +34,9 @@ public class LKI18NReader4ErrorCodes extends LKI18NReader {
 		if (code < 200000) {
 			return read(locale, "app-bus-errorCodes", errorCode.toString(), params);
 		}
+		if (code < 300000) {
+			return read(locale, "app-activiti-errorCodes", errorCode.toString(), params);
+		}
 		return read(locale, "app-errorCodes", errorCode.toString(), params);
 	}
 
