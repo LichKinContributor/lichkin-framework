@@ -54,4 +54,15 @@ public class LKHtmlUtils {
 		return src;
 	}
 
+
+	/**
+	 * 替换IMG标签中的SRC值
+	 * @param html HTML文本
+	 * @param fileServerRootUrl 文件服务器URL根路径
+	 * @return 替换后的HTML文本
+	 */
+	public static String replaceImgTag_src(String html, String fileServerRootUrl) {
+		return html.replaceAll("<img src=\"/", "<img src=\"" + fileServerRootUrl + "/");
+	}
+
 }
