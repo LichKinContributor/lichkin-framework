@@ -5,9 +5,7 @@ import javax.validation.constraints.PositiveOrZero;
 import com.lichkin.framework.defines.beans.LKPageable;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * 带分页的接口请求基本对象类
@@ -15,8 +13,6 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString(callSuper = true)
-@NoArgsConstructor
 public class LKRequestPageBean extends LKRequestBean implements LKPageable {
 
 	/** 页码 */

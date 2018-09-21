@@ -17,9 +17,7 @@ import com.lichkin.framework.defines.entities.I_Login;
 import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * 接口请求基本对象类
@@ -27,8 +25,6 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
 public class LKRequestBean implements LKRequestInterface {
 
 	/**
@@ -78,11 +74,11 @@ public class LKRequestBean implements LKRequestInterface {
 	@MixID
 	private String compId;
 
-	/** 公司ID */
+	/** 登录信息 */
 	@Null
 	private I_Login login;
 
-	/** 公司ID */
+	/** 登录ID */
 	@Null
 	private String loginId;
 

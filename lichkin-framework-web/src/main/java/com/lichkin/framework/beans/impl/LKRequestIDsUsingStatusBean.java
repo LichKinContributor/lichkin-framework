@@ -1,13 +1,15 @@
 package com.lichkin.framework.beans.impl;
 
+import javax.validation.constraints.NotBlank;
+
+import com.lichkin.framework.constraints.MixIDs;
 import com.lichkin.framework.constraints.UsingStatus;
+import com.lichkin.framework.defines.entities.I_ID;
 import com.lichkin.framework.defines.entities.I_UsingStatus;
 import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * 接口请求基本对象类
@@ -15,10 +17,14 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString(callSuper = true)
-@NoArgsConstructor
-public class LKRequestIDsUsingStatusBean extends LKRequestIDsBean implements I_UsingStatus {
+public class LKRequestIDsUsingStatusBean extends LKRequestBean implements I_ID, I_UsingStatus {
 
+	/** 单个或多个ID */
+	@MixIDs
+	@NotBlank
+	private String id;
+
+	/** 在用状态 */
 	@UsingStatus
 	private LKUsingStatusEnum usingStatus;
 
