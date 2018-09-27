@@ -140,6 +140,10 @@ public class LKClassScanner {
 	 * @param annotationClassNames 注解类名称
 	 */
 	private static void checkToAddClass(String className, List<Class<?>> classes, String packageName, boolean recursive, String... annotationClassNames) {
+		if (!className.endsWith(CLASS_SUFFIX)) {
+			return;
+		}
+
 		if (LOGGER.isTraceEnabled()) {
 			LOGGER.trace("checkToAddClass -> %s", className);
 		}
