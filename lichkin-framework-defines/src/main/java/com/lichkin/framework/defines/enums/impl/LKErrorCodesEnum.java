@@ -44,7 +44,19 @@ public enum LKErrorCodesEnum implements LKCodeEnum {
 	INVALIDED_TOKEN(7),
 
 	/** 公司信息有误 */
-	INVALIDED_COMP_ID(8);
+	INVALIDED_COMP_ID(8),
+
+	/** 登录信息有误 */
+	INVALIDED_USER_LOGIN(9),
+
+	/** 账号不存在 */
+	ACCOUNT_INEXIST(10),
+
+	/** 公司不存在 */
+	COMP_INEXIST(11),
+
+	/** 部门不存在 */
+	DEPT_INEXIST(11);
 
 	/** 编码 */
 	private final Integer code;
