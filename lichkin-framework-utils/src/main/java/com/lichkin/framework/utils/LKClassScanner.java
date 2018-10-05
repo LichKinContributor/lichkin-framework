@@ -54,19 +54,32 @@ public class LKClassScanner {
 	 * @throws IOException IOException
 	 */
 	public static List<Class<?>> scanClasses(String... annotationClassNames) throws IOException {
-		return scanClasses(PACKAGE_NAME, true, annotationClassNames);
+		return scanClasses(true, annotationClassNames);
+	}
+
+
+	/**
+	 * 扫描com.lichkin包中的类
+	 * @param inJar 扫描JAR包
+	 * @param annotationClassNames 注解类名称
+	 * @return 类列表
+	 * @throws IOException IOException
+	 */
+	public static List<Class<?>> scanClasses(boolean inJar, String... annotationClassNames) throws IOException {
+		return scanClasses(PACKAGE_NAME, inJar, true, annotationClassNames);
 	}
 
 
 	/**
 	 * 扫描类
 	 * @param packageName 包名
+	 * @param inJar 扫描JAR包
 	 * @param recursive 是否递归扫描
 	 * @param annotationClassNames 注解类名称
 	 * @return 类列表
 	 * @throws IOException IOException
 	 */
-	public static List<Class<?>> scanClasses(String packageName, boolean recursive, String... annotationClassNames) throws IOException {
+	public static List<Class<?>> scanClasses(String packageName, boolean inJar, boolean recursive, String... annotationClassNames) throws IOException {
 		List<Class<?>> classes = new ArrayList<>();
 		for (Enumeration<URL> iterator = LKClassScanner.class.getClassLoader().getResources(packageName.replace(DOT, SEPARATOR_CHAR)); iterator.hasMoreElements();) {
 			URL url = iterator.nextElement();
@@ -79,11 +92,27 @@ public class LKClassScanner {
 					}
 				break;
 				case "jar":
+					if (!inJar) {
+						break;
+					}
 					scanClassesInJar(((JarURLConnection) url.openConnection()).getJarFile(), classes, packageName, recursive, annotationClassNames);
 				break;
 			}
 		}
 		return classes;
+	}
+
+
+	/**
+	 * 扫描类
+	 * @param packageName 包名
+	 * @param recursive 是否递归扫描
+	 * @param annotationClassNames 注解类名称
+	 * @return 类列表
+	 * @throws IOException IOException
+	 */
+	public static List<Class<?>> scanClasses(String packageName, boolean recursive, String... annotationClassNames) throws IOException {
+		return scanClasses(packageName, true, recursive, annotationClassNames);
 	}
 
 

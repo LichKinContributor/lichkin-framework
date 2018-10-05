@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.lichkin.framework.db.utils.LKDBUtils;
@@ -18,6 +20,9 @@ import com.lichkin.framework.utils.LKFieldUtils;
 import com.lichkin.framework.utils.LKStringUtils;
 
 import lombok.Cleanup;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /**
  * 数据库资源文件构建器
@@ -37,9 +42,20 @@ class LKDBResourceCreater {
 	 */
 	static void createRFiles(String fileName, boolean test) throws IOException {
 		String classpath = Class.class.getClass().getResource("/").getPath();
-		String projectPath = classpath.substring(0, classpath.indexOf("/target"));
-		String srcMainJava = projectPath + "/src/" + (test ? "test" : "main") + "/java";
-		createRFiles(srcMainJava, fileName);
+		String path = classpath.substring(0, classpath.indexOf("/target")) + "/src/" + (test ? "test" : "main") + "/java";
+		createRFiles(path, "Sys" + fileName + "R");
+	}
+
+
+	@Getter
+	@Setter
+	@RequiredArgsConstructor
+	static class RI {
+
+		private final String content;
+
+		private final int value;
+
 	}
 
 
@@ -50,7 +66,7 @@ class LKDBResourceCreater {
 	 * @throws IOException IOException
 	 */
 	private static void createRFiles(String classPath, String fileName) throws IOException {
-		List<Class<?>> classes = LKClassScanner.scanClasses(
+		List<Class<?>> classes = LKClassScanner.scanClasses(false,
 
 				"org.hibernate.annotations.Table",
 
@@ -64,18 +80,22 @@ class LKDBResourceCreater {
 
 		);
 
-		boolean sysR = fileName.startsWith("Sys") && fileName.endsWith("R");
+		List<RI> listRI = new ArrayList<>();
 
-		StringBuilder r = new StringBuilder("package com.lichkin.framework.db.beans;\n\n/**\n * 数据库资源定义类\n * @author SuZhou LichKin Information Technology Co., Ltd.\n */\npublic ").append(sysR ? "interface" : "class").append(" ").append(fileName).append(" {\n");
-
-		StringBuilder ri = new StringBuilder("package com.lichkin.framework.db.beans;\n\n/**\n * 数据库资源初始化类\n * @author SuZhou LichKin Information Technology Co., Ltd.\n */\nclass ").append(fileName).append("Initializer implements LKRInitializer {\n\n\t/**\n\t * 初始化数据库资源\n\t */\n\tpublic static void init() {");
+		StringBuilder RIContent = new StringBuilder("package com.lichkin.framework.db.beans;\n\n/**\n * 数据库资源初始化类\n * @author SuZhou LichKin Information Technology Co., Ltd.\n */\nclass ").append(fileName).append("Initializer implements LKRInitializer {\n\n\t/**\n\t * 初始化数据库资源\n\t */\n\tpublic static void init() {");
 
 		if (!classes.isEmpty()) {
-			int tableIdx = 0;
+			File file = new File(classPath);
+			if (!file.exists() || !file.isDirectory()) {
+				throw new LKRuntimeException(LKErrorCodesEnum.CONFIG_ERROR);
+			}
+
 			for (Class<?> clazz : classes) {
 				String className = clazz.getName();
 				String tableAlias = clazz.getSimpleName();
-				String tableKey = LKStringUtils.fillZero(tableAlias.startsWith("Sys") && tableAlias.endsWith("Entity") ? LKFieldUtils.getSerialVersionUID(clazz).intValue() : tableIdx++, 5);
+				int intValue = LKFieldUtils.getSerialVersionUID(clazz).intValue();
+				String tableKey = LKStringUtils.fillZero(intValue, 5);
+				String RFileName = tableAlias.replace("Entity", "R");
 
 				String tableName = null;
 				try {
@@ -93,51 +113,35 @@ class LKDBResourceCreater {
 					LOGGER.error(LKErrorCodesEnum.CONFIG_ERROR, e);
 				}
 
-				if (!sysR) {
-					r.append("\n\tpublic interface ").append(tableAlias).append(" {\n");
-				}
-
-				ri.append("\n\t\tLKDBResource.addTable(\"").append(className).append("\", \"").append(tableName).append("\", \"").append(tableAlias).append("\");");
-
-				List<Field> fields = LKFieldUtils.getRealFieldList(clazz, true);
+				StringBuilder r = new StringBuilder("package com.lichkin.framework.db.beans;\n\n/**\n * 数据库资源定义类\n * @author SuZhou LichKin Information Technology Co., Ltd.\n */\npublic ").append("interface").append(" ").append(RFileName).append(" {\n");
+				StringBuilder ri = new StringBuilder("\n\t\tLKDBResource.addTable(\"").append(className).append("\", \"").append(tableName).append("\", \"").append(tableAlias).append("\");");
 
 				int columnIdx = 0;
+				List<Field> fields = LKFieldUtils.getRealFieldList(clazz, true);
 				for (Field field : fields) {
 					String columnKey = tableKey + LKStringUtils.fillZero(columnIdx++, 3);
 					String fieldName = field.getName();
 
-					r.append("\n\t");
-					if (!sysR) {
-						r.append("\t");
-					}
-					r.append("public static final int ").append(fieldName).append(" = 0x").append(columnKey).append(";\n");
+					r.append("\n\t").append("public static final int ").append(fieldName).append(" = 0x").append(columnKey).append(";\n");
 
 					ri.append("\n\t\tLKDBResource.addColumn(\"").append(columnKey).append("\", \"").append(tableAlias).append("\", \"").append(fieldName).append("\");");
 				}
 
-				if (!sysR) {
-					r.append("\n\t}\n");
-				}
+				r.append("\n}");
+
+				listRI.add(new RI(ri.toString(), intValue));
+
+				writeFile(classPath + "/com/lichkin/framework/db/beans/" + RFileName + ".java", r.toString());
 			}
 		}
 
-		r.append("\n}");
-
-		ri.append("\n\t}\n\n}");
-
-		if (LOGGER.isTraceEnabled()) {
-			LOGGER.trace("\n" + r.toString() + "\n");
-			LOGGER.trace("\n" + ri.toString() + "\n");
+		Collections.sort(listRI, (o1, o2) -> o1.getValue() - o2.getValue());
+		for (RI ri : listRI) {
+			RIContent.append(ri.getContent());
 		}
+		RIContent.append("\n\t}\n\n}");
 
-		File file = new File(classPath);
-		if (!file.exists() || !file.isDirectory()) {
-			throw new LKRuntimeException(LKErrorCodesEnum.CONFIG_ERROR);
-		}
-
-		String prefix = classPath + "/com/lichkin/framework/db/beans/" + fileName;
-		writeFile(prefix + ".java", r.toString());
-		writeFile(prefix + "Initializer.java", ri.toString());
+		writeFile(classPath + "/com/lichkin/framework/db/beans/" + fileName + "Initializer.java", RIContent.toString());
 	}
 
 
