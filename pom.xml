@@ -41,6 +41,7 @@
     <module>lichkin-framework-db</module>
     <module>lichkin-framework-web</module>
     <module>lichkin-framework-validation</module>
+    <module>lichkin-framework-tools</module>
   </modules>
 
   <dependencyManagement>
