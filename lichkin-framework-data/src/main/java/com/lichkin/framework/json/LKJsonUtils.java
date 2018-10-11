@@ -1,5 +1,6 @@
 package com.lichkin.framework.json;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,6 +27,21 @@ public final class LKJsonUtils extends LKObjectMapper {
 	 */
 	public static ObjectMapper newObjectMapper() {
 		return new ObjectMapper().disable(SerializationFeature.FAIL_ON_EMPTY_BEANS).disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+	}
+
+
+	/**
+	 * 判断字符串是否为JSON字符串
+	 * @param json 字符串
+	 * @return 是JSON字符串返回true，否则返回false。
+	 */
+	public static boolean isJson(String json) {
+		try {
+			newObjectMapper().readTree(json);
+			return true;
+		} catch (IOException e) {
+			return false;
+		}
 	}
 
 
