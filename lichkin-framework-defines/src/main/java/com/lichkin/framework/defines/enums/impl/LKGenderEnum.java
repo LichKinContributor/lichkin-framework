@@ -14,6 +14,9 @@ public enum LKGenderEnum implements LKEnum {
 	/** 男 */
 	MALE,
 
+	/** 其它 */
+	OTHER,
+
 	/** 外星人 */
 	ALIEN,
 
