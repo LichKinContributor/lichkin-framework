@@ -1,5 +1,6 @@
 package com.lichkin.framework.db.beans;
 
+import static com.lichkin.framework.db.beans.__SQL_STATICS.AS;
 import static com.lichkin.framework.db.beans.__SQL_STATICS.DELETE;
 import static com.lichkin.framework.db.beans.__SQL_STATICS.FROM;
 import static com.lichkin.framework.defines.LKStringStatics.BLANK;
@@ -19,17 +20,7 @@ public class DeleteSQL extends _SQL_WITH_WHERE {
 	 * @param tableClazz 表映射类型
 	 */
 	public DeleteSQL(Class<?> tableClazz) {
-		this(true, tableClazz);
-	}
-
-
-	/**
-	 * 构造方法
-	 * @param useSQL true:SQL;false:HQL.
-	 * @param tableClazz 表映射类型
-	 */
-	public DeleteSQL(boolean useSQL, Class<?> tableClazz) {
-		super(useSQL);
+		super(true);
 		this.tableClazz = tableClazz;
 	}
 
@@ -37,9 +28,10 @@ public class DeleteSQL extends _SQL_WITH_WHERE {
 	@Override
 	StringBuilder getSQL(boolean useSQL) {
 		StringBuilder sql = new StringBuilder();
-		sql.append(DELETE).append(BLANK).append(FROM).append(BLANK).append(getTableSQL(useSQL, tableClazz));
+		String[] tableSQLs = getTableSQL(useSQL, tableClazz).toString().split(BLANK + AS + BLANK);
+		sql.append(DELETE).append(BLANK).append(FROM).append(BLANK).append(tableSQLs[0].trim());
 		if (where != null) {
-			sql.append(where.getSQL(useSQL));
+			sql.append(where.getSQL(useSQL).toString().replaceAll(tableSQLs[1].trim() + ".", ""));
 		}
 		return sql;
 	}
