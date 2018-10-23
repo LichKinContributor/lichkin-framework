@@ -106,6 +106,29 @@ public class LKCodeUtils {
 
 
 	/**
+	 * 上一个编码
+	 * @param currentCode 当前编码
+	 * @return 编码
+	 */
+	public static String prevCode(String currentCode) {
+		int current = 0;
+		int level = 0;
+		for (int i = strs.length - 1; i >= 0; i--) {
+			final int x = Integer.parseInt(currentCode.substring((i * (LENGHT + 1)) + 1, (i + 1) * (LENGHT + 1)));
+			if (x != 0) {
+				current = x - 1;
+				level = i;
+				break;
+			}
+		}
+		if (current == 0) {
+			return null;
+		}
+		return fillCode(currentCode.substring(0, (level * (LENGHT + 1)) + 1) + LKStringUtils.fillZero(current, LENGHT));
+	}
+
+
+	/**
 	 * 创建编码
 	 * @param parentCode 上级编码
 	 * @return 编码
