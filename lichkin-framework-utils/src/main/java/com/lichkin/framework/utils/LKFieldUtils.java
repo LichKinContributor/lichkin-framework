@@ -1,11 +1,14 @@
 package com.lichkin.framework.utils;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 
 import lombok.AccessLevel;
@@ -75,18 +78,24 @@ public class LKFieldUtils {
 					Collections.addAll(listFields, currentFields);
 					continue;
 				}
+				Field[] tempFields = new Field[] {};
 				out: for (Field currentField : currentFields) {
 					for (Field field : listFields) {
 						if (field.getName().equals(currentField.getName()) && field.getType().equals(currentField.getType())) {
 							continue out;
 						}
 					}
-					listFields.add(currentField);
+					tempFields = ArrayUtils.add(tempFields, currentField);
 				}
+				Collections.reverse(listFields);
+				ArrayUtils.reverse(tempFields);
+				Collections.addAll(listFields, tempFields);
+				Collections.reverse(listFields);
 			}
 		} else {
 			for (Class<?> currentClass = clazz; currentClass != null; currentClass = currentClass.getSuperclass()) {
 				final Field[] currentFields = currentClass.getDeclaredFields();
+				Field[] tempFields = new Field[] {};
 				out: for (Field currentField : currentFields) {
 					for (String excludeFieldName : excludeFieldNames) {
 						if (excludeFieldName.equals(currentField.getName())) {
@@ -98,8 +107,12 @@ public class LKFieldUtils {
 							continue out;
 						}
 					}
-					listFields.add(currentField);
+					tempFields = ArrayUtils.add(tempFields, currentField);
 				}
+				Collections.reverse(listFields);
+				ArrayUtils.reverse(tempFields);
+				Collections.addAll(listFields, tempFields);
+				Collections.reverse(listFields);
 			}
 		}
 		return listFields;
@@ -122,6 +135,28 @@ public class LKFieldUtils {
 		} catch (Exception e) {
 		}
 		return null;
+	}
+
+
+	/**
+	 * 获取带注解的字段
+	 * @param clazz 类型
+	 * @param annotationClass 注解类型
+	 * @param excludeFieldNames 排除字段名
+	 * @return Field列表
+	 */
+	public static List<Field> getFieldListWithAnnotation(final Class<?> clazz, Class<? extends Annotation> annotationClass, String... excludeFieldNames) {
+		List<Field> listFields = getRealFieldList(clazz, excludeFieldNames);
+		if (CollectionUtils.isEmpty(listFields)) {
+			return Collections.emptyList();
+		}
+		for (Iterator<Field> it = listFields.iterator(); it.hasNext();) {
+			Field field = it.next();
+			if (!field.isAnnotationPresent(annotationClass)) {
+				it.remove();
+			}
+		}
+		return listFields;
 	}
 
 }
