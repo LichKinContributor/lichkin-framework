@@ -37,4 +37,27 @@ public class LKListUtils {
 		}
 	}
 
+
+	/**
+	 * 将源中的数据添加到目标中
+	 * @param <T> 类型
+	 * @param distinct 去重
+	 * @param listSource 源
+	 * @param listTarget 目标
+	 */
+	public static <T> void addAll(boolean distinct, List<T> listSource, List<T> listTarget) {
+		if (distinct) {
+			out: for (T source : listTarget) {
+				for (T target : listTarget) {
+					if ((source != null) && (target != null) && source.equals(target)) {
+						continue out;
+					}
+				}
+				listTarget.add(source);
+			}
+		} else {
+			listTarget.addAll(listSource);
+		}
+	}
+
 }
