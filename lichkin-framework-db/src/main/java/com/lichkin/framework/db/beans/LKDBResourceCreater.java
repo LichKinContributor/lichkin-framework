@@ -164,7 +164,7 @@ class LKDBResourceCreater {
 		FileOutputStream fos = new FileOutputStream(rFile);
 		@Cleanup
 		BufferedOutputStream bos = new BufferedOutputStream(fos);
-		bos.write(text.getBytes());
+		bos.write(text.getBytes("UTF-8"));
 		bos.flush();
 	}
 
