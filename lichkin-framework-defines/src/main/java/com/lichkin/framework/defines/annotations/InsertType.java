@@ -33,9 +33,6 @@ public enum InsertType {
 	/** 需要入参。新增时：转换参数；还原时：保留原值； */
 	CHANGE_RETAIN,
 
-	/** 需要入参。新增时：转换参数；还原时：入参与原值不同抛异常； */
-	CHANGE_ERROR,
-
 	/** 需要入参。新增时：转换参数；还原时：特殊处理； */
 	CHANGE_HANDLE,
 
@@ -44,9 +41,6 @@ public enum InsertType {
 	 */
 	/** 不需要入参。新增时：特殊处理；还原时：保留原值； */
 	HANDLE_RETAIN,
-
-	/** 不需要入参。新增时：特殊处理；还原时：入参与原值不同抛异常； */
-	HANDLE_ERROR,
 
 	/** 不需要入参。新增时：特殊处理；还原时：特殊处理； */
 	HANDLE_HANDLE,
