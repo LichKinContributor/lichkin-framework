@@ -71,4 +71,11 @@ public @interface ClassGenerator {
 	 */
 	String[] pageResultColumns() default {};
 
+
+	/**
+	 * 查询单个数据操作出参额外字段数组
+	 * @return 出参额外字段数组
+	 */
+	String[] oneResultColumns() default {};
+
 }
