@@ -5,4 +5,6 @@ package com.lichkin.framework.defines.entities;
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
 public interface I_User extends I_ID {
+
+	String getUserName();
 }
