@@ -4,8 +4,12 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import lombok.AccessLevel;
 import lombok.Cleanup;
@@ -58,6 +62,30 @@ public class LKListUtils {
 		} else {
 			listTarget.addAll(listSource);
 		}
+	}
+
+
+	/**
+	 * 去重
+	 * @param listMain 主列表
+	 * @param comparator 去重逻辑
+	 * @param listAddedes 补充列表
+	 * @return 去重后的列表
+	 */
+	@SafeVarargs
+	public static <T> List<T> distinct(List<T> listMain, Comparator<? super T> comparator, List<T>... listAddedes) {
+		Set<T> set = new TreeSet<>(comparator);
+		if (listMain != null) {
+			set.addAll(listMain);
+		}
+		if (listAddedes != null) {
+			for (List<T> listAdded : listAddedes) {
+				if (listAdded != null) {
+					set.addAll(listAdded);
+				}
+			}
+		}
+		return new ArrayList<>(set);
 	}
 
 }
