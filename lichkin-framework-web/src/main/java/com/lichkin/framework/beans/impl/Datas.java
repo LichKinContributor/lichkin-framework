@@ -14,6 +14,7 @@ import com.lichkin.framework.constraints.MixID;
 import com.lichkin.framework.constraints.Token;
 import com.lichkin.framework.defines.entities.I_Comp;
 import com.lichkin.framework.defines.entities.I_Login;
+import com.lichkin.framework.defines.entities.I_User;
 import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
 
 import lombok.Getter;
@@ -81,5 +82,13 @@ public class Datas implements LKRequestInterface {
 	/** 登录ID */
 	@Null
 	private String loginId;
+
+	/** 用户信息 */
+	@Null
+	private I_User user;
+
+	/** 用户ID */
+	@Null
+	private String userId;
 
 }
