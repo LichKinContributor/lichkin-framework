@@ -22,6 +22,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class LKListUtils {
 
+	/**
+	 * 深度拷贝列表
+	 * @param <T> 列表内类型泛型
+	 * @param list 源列表
+	 * @return 新列表
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> deepCopy(List<T> list) {
 		try {
@@ -44,7 +50,7 @@ public class LKListUtils {
 
 	/**
 	 * 将源中的数据添加到目标中
-	 * @param <T> 类型
+	 * @param <T> 列表内类型泛型
 	 * @param distinct 去重
 	 * @param listSource 源
 	 * @param listTarget 目标
@@ -66,7 +72,8 @@ public class LKListUtils {
 
 
 	/**
-	 * 去重
+	 * 多个列表合并时去重
+	 * @param <T> 列表内类型泛型
 	 * @param listMain 主列表
 	 * @param comparator 去重逻辑
 	 * @param listAddedes 补充列表
