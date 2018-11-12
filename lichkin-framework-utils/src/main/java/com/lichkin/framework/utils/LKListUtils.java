@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.lichkin.framework.defines.func.BeanConverter;
+
 import lombok.AccessLevel;
 import lombok.Cleanup;
 import lombok.NoArgsConstructor;
@@ -93,6 +95,32 @@ public class LKListUtils {
 			}
 		}
 		return new ArrayList<>(set);
+	}
+
+
+	/**
+	 * 将源列表数据转换为目标列表数据
+	 * @param <Source> 源对象泛型
+	 * @param <Target> 目标对象泛型
+	 * @param listSource 源列表数据
+	 * @param converter 转换器
+	 * @return 目标列表数据
+	 */
+	public static <Source, Target> List<Target> convert(List<Source> listSource, BeanConverter<Source, Target> converter) {
+		if (listSource == null) {
+			return null;
+		}
+
+		if (listSource.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		List<Target> listTarget = new ArrayList<>(listSource.size());
+		for (Source source : listSource) {
+			listTarget.add(converter.convert(source));
+		}
+
+		return listTarget;
 	}
 
 }
