@@ -41,6 +41,13 @@ public class Datas implements LKRequestInterface {
 	@AppKey
 	private String appKey;
 
+
+	@Override
+	public String getAppKey() {
+		return appKey.replaceAll(AppKey.PREFIX, "");
+	}
+
+
 	/**
 	 * 客户端类型
 	 * @see LKClientTypeEnum
