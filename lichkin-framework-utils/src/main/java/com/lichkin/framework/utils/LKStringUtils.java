@@ -4,6 +4,9 @@ import static com.lichkin.framework.defines.LKStringStatics.EMPTY;
 import static com.lichkin.framework.defines.LKStringStatics.SEPARATOR;
 import static com.lichkin.framework.defines.LKStringStatics.UNDERLINE;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.apache.commons.lang3.StringUtils;
 
 import lombok.AccessLevel;
@@ -246,6 +249,21 @@ public class LKStringUtils {
 			return nextIndexOf;
 		}
 		return nextIndexOf + indexOf;
+	}
+
+
+	/**
+	 * 按照EL表达式形式替换值
+	 * @param str 原字符串
+	 * @param replaceParams 待替换的参数
+	 * @return 替换后的字符串
+	 */
+	public static String replaceEL(String str, Map<String, Object> replaceParams) {
+		String replaced = str;
+		for (Entry<String, Object> entry : replaceParams.entrySet()) {
+			replaced = replaced.replace("${" + entry.getKey() + "}", String.valueOf(entry.getValue()));
+		}
+		return replaced;
 	}
 
 }
