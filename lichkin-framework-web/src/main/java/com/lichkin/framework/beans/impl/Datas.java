@@ -72,7 +72,7 @@ public class Datas implements LKRequestInterface {
 	private I_Comp comp;
 
 	/** 公司ID */
-	@MixID
+	@Null
 	private String compId;
 
 	/** 登录信息 */
@@ -90,5 +90,9 @@ public class Datas implements LKRequestInterface {
 	/** 用户ID */
 	@Null
 	private String userId;
+
+	/** 公司令牌 */
+	@MixID
+	private String compToken;
 
 }
