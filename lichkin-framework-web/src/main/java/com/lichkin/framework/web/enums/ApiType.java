@@ -19,7 +19,7 @@ public enum ApiType {
 	 * ROOT查询接口
 	 *
 	 * <pre>
-	 * 开放接口，框架内部将入参中的compId强制设置为ROOT。（谨慎使用）TODO 接口地址必须为查询定义。
+	 * 开放接口，框架内部将入参中的compId强制设置为ROOT。（谨慎使用）
 	 * </pre>
 	 */
 	ROOT_QUERY,
@@ -48,9 +48,18 @@ public enum ApiType {
 	 *
 	 * <pre>
 	 * token不能为空，且使用token查询登录信息不能为空。
-	 * compId不能为空，且使用compId查询公司信息不能为空。
+	 * compToken不能为空，且使用compToken查询公司信息不能为空。
 	 * </pre>
 	 */
-	COMPANY_BUSINESS;
+	COMPANY_BUSINESS,
+
+	/**
+	 * 公司查询接口
+	 *
+	 * <pre>
+	 * compToken不能为空，且使用compToken查询公司信息不能为空。
+	 * </pre>
+	 */
+	COMPANY_QUERY;
 
 }
