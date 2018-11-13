@@ -70,6 +70,9 @@ public class LKImageUtils {
 		double w = 0, h = 0;
 		File sourceFile = new File(sourcefilePath);
 		File targetFile = new File(targetfilePath);
+		if (!sourceFile.exists() || targetFile.exists()) {
+			return;
+		}
 		try {
 			BufferedImage srcImage = ImageIO.read(sourceFile);
 			int imageWidth = srcImage.getWidth(null);
