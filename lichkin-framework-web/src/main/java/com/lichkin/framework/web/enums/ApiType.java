@@ -60,6 +60,15 @@ public enum ApiType {
 	 * compToken不能为空，且使用compToken查询公司信息不能为空。
 	 * </pre>
 	 */
-	COMPANY_QUERY;
+	COMPANY_QUERY,
+
+	/**
+	 * 公司/ROOT查询接口
+	 *
+	 * <pre>
+	 * compToken不能为空，如compToken为ROOT权限时，使用ROOT公司信息；其它情况时使用compToken查询公司信息不能为空。
+	 * </pre>
+	 */
+	COMPANY_ROOT_QUERY;
 
 }
