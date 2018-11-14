@@ -30,6 +30,12 @@ public interface I_Comp extends I_ID {
 	public void setCompKey(String compKey);
 
 
+	public String getToken();
+
+
+	public void setToken(String token);
+
+
 	public String getEmail();
 
 
