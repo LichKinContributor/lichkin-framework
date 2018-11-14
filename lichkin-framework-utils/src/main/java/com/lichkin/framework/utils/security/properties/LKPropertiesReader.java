@@ -39,6 +39,7 @@ public class LKPropertiesReader {
 			InputStream br = new FileInputStream(fileName);
 			Properties properties = new Properties();
 			properties.load(br);
+			cache.put(fileName, properties);
 			return properties;
 		} catch (IOException e) {
 			e.printStackTrace();
