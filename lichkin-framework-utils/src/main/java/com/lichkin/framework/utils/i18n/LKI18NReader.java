@@ -62,6 +62,10 @@ public class LKI18NReader {
 					} else {
 						props.put(key, value);
 					}
+				} else {
+					if (params != null) {
+						value = replaceParams(value, params);
+					}
 				}
 			}
 		}
