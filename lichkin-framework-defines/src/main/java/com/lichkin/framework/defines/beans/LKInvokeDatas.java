@@ -1,4 +1,4 @@
-package com.lichkin.framework.beans;
+package com.lichkin.framework.defines.beans;
 
 import com.lichkin.framework.defines.entities.I_Comp;
 import com.lichkin.framework.defines.entities.I_Login;
@@ -6,10 +6,10 @@ import com.lichkin.framework.defines.entities.I_User;
 import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
 
 /**
- * 接口请求基本对象类
+ * 方法调用内置对象类
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public interface LKRequestInterface {
+public interface LKInvokeDatas {
 
 	public String getLocale();
 

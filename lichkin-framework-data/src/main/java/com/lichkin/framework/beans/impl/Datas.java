@@ -1,17 +1,18 @@
 package com.lichkin.framework.beans.impl;
 
+import java.util.Locale;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 
-import com.lichkin.framework.beans.LKRequestInterface;
 import com.lichkin.framework.constraints.AppKey;
 import com.lichkin.framework.constraints.ClientType;
-import com.lichkin.framework.constraints.Locale;
 import com.lichkin.framework.constraints.MixID;
 import com.lichkin.framework.constraints.Token;
+import com.lichkin.framework.defines.beans.LKInvokeDatas;
 import com.lichkin.framework.defines.entities.I_Comp;
 import com.lichkin.framework.defines.entities.I_Login;
 import com.lichkin.framework.defines.entities.I_User;
@@ -26,13 +27,12 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Datas implements LKRequestInterface {
+public class Datas implements LKInvokeDatas {
 
 	/**
 	 * 国际化
 	 * @see Locale
 	 */
-	@Locale
 	@Null // 意思就是这个值客户端发送请求时是不能够使用的
 	private String locale;
 
