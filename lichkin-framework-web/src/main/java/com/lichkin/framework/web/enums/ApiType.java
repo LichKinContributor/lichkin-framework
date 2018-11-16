@@ -59,6 +59,19 @@ public enum ApiType {
 	COMPANY_BUSINESS,
 
 	/**
+	 * 部门业务接口
+	 *
+	 * <pre>
+	 * token不能为空，且使用token查询登录信息不能为空。
+	 * compToken不能为空，且使用compToken查询公司信息不能为空。
+	 * 管理员：不能使用
+	 * 用户：代表是员工，将按照员工处理。
+	 * 员工：登录信息为用户；用户信息为员工。注：登录ID将设置为员工ID。
+	 * </pre>
+	 */
+	DEPT_BUSINESS,
+
+	/**
 	 * 公司查询接口
 	 *
 	 * <pre>
