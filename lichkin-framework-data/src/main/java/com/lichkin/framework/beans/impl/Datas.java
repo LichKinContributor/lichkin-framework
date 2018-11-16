@@ -14,6 +14,7 @@ import com.lichkin.framework.constraints.MixID;
 import com.lichkin.framework.constraints.Token;
 import com.lichkin.framework.defines.beans.LKInvokeDatas;
 import com.lichkin.framework.defines.entities.I_Comp;
+import com.lichkin.framework.defines.entities.I_Dept;
 import com.lichkin.framework.defines.entities.I_Login;
 import com.lichkin.framework.defines.entities.I_User;
 import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
@@ -81,6 +82,14 @@ public class Datas implements LKInvokeDatas {
 	/** 公司ID */
 	@Null
 	private String compId;
+
+	/** 部门 */
+	@Null
+	private I_Dept dept;
+
+	/** 部门ID */
+	@Null
+	private String deptId;
 
 	/** 登录信息 */
 	@Null
