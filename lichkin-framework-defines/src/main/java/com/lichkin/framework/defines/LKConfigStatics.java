@@ -2,8 +2,6 @@ package com.lichkin.framework.defines;
 
 import java.util.Locale;
 
-import com.lichkin.framework.defines.enums.LKPlatform;
-
 /**
  * 配置类静态常量，基于代码配置，减少配置文件配置。
  * @author SuZhou LichKin Information Technology Co., Ltd.
@@ -36,8 +34,5 @@ public class LKConfigStatics {
 
 	/** 系统默认配置值：是否启用页面调试功能。 */
 	public static boolean WEB_ADMIN_DEBUG = false;
-
-	/** 系统默认配置值：平台。 */
-	public static LKPlatform PLATFORM = LKPlatform.ADMIN;
 
 }
