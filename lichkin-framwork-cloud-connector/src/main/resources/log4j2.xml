@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="OFF" monitorInterval="10">
+  <appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="[%-5level] %d => %m%n" />
+    </Console>
+    <RollingFile name="RollingFileDebug" fileName="/lichkin-logs/${main:log_tag}.debug.log" filePattern="/lichkin-logs/${main:log_tag}/${date:yyyy}/${date:yyyy-MM}/${date:yyyy-MM-dd}/%d{yyyy-MM-dd-HH}-debug-%i.log.gz">
+      <PatternLayout pattern="[%-5level] %d => %m%n" />
+      <Filters>
+        <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY" />
+      </Filters>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="100MB" />
+        <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+      </Policies>
+      <DefaultRolloverStrategy max="100" />
+    </RollingFile>
+    <RollingFile name="RollingFileError" fileName="/lichkin-logs/${main:log_tag}.error.log" filePattern="/lichkin-logs/${main:log_tag}-error/${date:yyyy}/${date:yyyy-MM}/${date:yyyy-MM-dd}/%d{yyyy-MM-dd-HH-mm}-error-%i.log.gz">
+      <PatternLayout pattern="[%-5level] %d => %m%n" />
+      <Filters>
+        <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY" />
+      </Filters>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="10MB" />
+        <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+      </Policies>
+      <DefaultRolloverStrategy max="100" />
+    </RollingFile>
+  </appenders>
+  <loggers>
+    <root level="${main:log_level_system}">
+      <appender-ref ref="Console" />
+      <appender-ref ref="RollingFileDebug" />
+      <appender-ref ref="RollingFileError" />
+    </root>
+    <logger name="org" level="${main:log_level_org}" />
+    <logger name="net" level="${main:log_level_net}" />
+  </loggers>
+</configuration>
