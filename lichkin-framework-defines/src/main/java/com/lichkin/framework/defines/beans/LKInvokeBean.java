@@ -1,16 +1,14 @@
 package com.lichkin.framework.defines.beans;
 
-import com.lichkin.framework.beans.impl.Datas;
-
 /**
  * 方法调用基本对象类
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public interface LKInvokeBean {
+public interface LKInvokeBean<D extends LKInvokeDatas> {
 
-	Datas getDatas();
+	D getDatas();
 
 
-	void setDatas(Datas datas);
+	void setDatas(D datas);
 
 }

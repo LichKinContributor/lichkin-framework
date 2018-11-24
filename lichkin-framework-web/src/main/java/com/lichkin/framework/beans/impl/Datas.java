@@ -1,9 +1,6 @@
 package com.lichkin.framework.beans.impl;
 
-import java.util.Locale;
-
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
@@ -13,10 +10,6 @@ import com.lichkin.framework.constraints.ClientType;
 import com.lichkin.framework.constraints.MixID;
 import com.lichkin.framework.constraints.Token;
 import com.lichkin.framework.defines.beans.LKInvokeDatas;
-import com.lichkin.framework.defines.entities.I_Comp;
-import com.lichkin.framework.defines.entities.I_Dept;
-import com.lichkin.framework.defines.entities.I_Login;
-import com.lichkin.framework.defines.entities.I_User;
 import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
 
 import lombok.Getter;
@@ -29,13 +22,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Datas implements LKInvokeDatas {
-
-	/**
-	 * 国际化
-	 * @see Locale
-	 */
-	@Null // 意思就是这个值客户端发送请求时是不能够使用的
-	private String locale;
 
 	/** 客户端唯一标识 */
 	@Size(max = 128)
@@ -74,38 +60,6 @@ public class Datas implements LKInvokeDatas {
 	/** 令牌 */
 	@Token
 	private String token;
-
-	/** 公司 */
-	@Null
-	private I_Comp comp;
-
-	/** 公司ID */
-	@Null
-	private String compId;
-
-	/** 部门 */
-	@Null
-	private I_Dept dept;
-
-	/** 部门ID */
-	@Null
-	private String deptId;
-
-	/** 登录信息 */
-	@Null
-	private I_Login login;
-
-	/** 登录ID */
-	@Null
-	private String loginId;
-
-	/** 用户信息 */
-	@Null
-	private I_User user;
-
-	/** 用户ID */
-	@Null
-	private String userId;
 
 	/** 公司令牌 */
 	@MixID

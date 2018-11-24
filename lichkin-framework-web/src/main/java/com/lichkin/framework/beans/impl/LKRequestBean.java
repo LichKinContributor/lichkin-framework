@@ -11,7 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class LKRequestBean implements LKInvokeBean {
+public class LKRequestBean implements LKInvokeBean<Datas> {
 
 	/** 统一请求参数 */
 	private Datas datas;

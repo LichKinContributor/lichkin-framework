@@ -1,8 +1,5 @@
 package com.lichkin.framework.defines.beans;
 
-import com.lichkin.framework.defines.entities.I_Comp;
-import com.lichkin.framework.defines.entities.I_Login;
-import com.lichkin.framework.defines.entities.I_User;
 import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
 
 /**
@@ -11,10 +8,7 @@ import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
  */
 public interface LKInvokeDatas {
 
-	public String getLocale();
-
-
-	public void setLocale(String locale);
+	public static final String KEY_APP_KEY = "KEY_APP_KEY";
 
 
 	public String getAppKey();
@@ -23,10 +17,16 @@ public interface LKInvokeDatas {
 	public void setAppKey(String appKey);
 
 
+	public static final String KEY_CLIENT_TYPE = "KEY_CLIENT_TYPE";
+
+
 	public LKClientTypeEnum getClientType();
 
 
 	public void setClientType(LKClientTypeEnum clientType);
+
+
+	public static final String KEY_VERSION_X = "KEY_VERSION_X";
 
 
 	public Byte getVersionX();
@@ -35,10 +35,16 @@ public interface LKInvokeDatas {
 	public void setVersionX(Byte versionX);
 
 
+	public static final String KEY_VERSION_Y = "KEY_VERSION_Y";
+
+
 	public Byte getVersionY();
 
 
 	public void setVersionY(Byte versionY);
+
+
+	public static final String KEY_VERSION_Z = "KEY_VERSION_Z";
 
 
 	public Short getVersionZ();
@@ -47,46 +53,16 @@ public interface LKInvokeDatas {
 	public void setVersionZ(Short versionZ);
 
 
+	public static final String KEY_TOKEN = "KEY_TOKEN";
+
+
 	public String getToken();
 
 
 	public void setToken(String token);
 
 
-	public I_Comp getComp();
-
-
-	public void setComp(I_Comp comp);
-
-
-	public String getCompId();
-
-
-	public void setCompId(String compId);
-
-
-	public I_Login getLogin();
-
-
-	public void setLogin(I_Login login);
-
-
-	public String getLoginId();
-
-
-	public void setLoginId(String loginId);
-
-
-	public I_User getUser();
-
-
-	public void setUser(I_User user);
-
-
-	public String getUserId();
-
-
-	public void setUserId(String userId);
+	public static final String KEY_COMP_TOKEN = "KEY_COMP_TOKEN";
 
 
 	public String getCompToken();
