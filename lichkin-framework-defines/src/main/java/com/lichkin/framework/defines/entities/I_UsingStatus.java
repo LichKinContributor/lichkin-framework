@@ -6,7 +6,7 @@ import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
  * 基础表接口
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public interface I_UsingStatus extends I_ID {
+public interface I_UsingStatus {
 
 	/**
 	 * 获取在用状态

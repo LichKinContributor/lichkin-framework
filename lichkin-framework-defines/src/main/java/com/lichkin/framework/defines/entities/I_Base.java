@@ -4,7 +4,7 @@ package com.lichkin.framework.defines.entities;
  * 基础表接口
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public interface I_Base extends I_UsingStatus {
+public interface I_Base extends I_UsingStatus_ID {
 
 	/**
 	 * 获取新增操作时间
