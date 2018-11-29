@@ -34,6 +34,7 @@ public class LichKinUserLogin implements I_User, I_Login {
 		email = lichKin.getEmail();
 		token = lichKin.getToken();
 		photo = lichKin.getPhoto();
+		pwd = null;
 	}
 
 
@@ -64,9 +65,22 @@ public class LichKinUserLogin implements I_User, I_Login {
 	/** 照片（Base64） */
 	private final String photo;
 
+	/** 密码 */
+	private final String pwd;
+
 
 	@Override
 	public void setId(String id) {
+	}
+
+
+	@Override
+	public void setPwd(String pwd) {
+	}
+
+
+	@Override
+	public void setPhoto(String photo) {
 	}
 
 }
