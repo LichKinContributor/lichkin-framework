@@ -27,7 +27,7 @@ import com.lichkin.framework.constraints.Date.Validator;
 @Constraint(validatedBy = { Validator.class })
 public @interface Date {
 
-	public static final String REGEX = Year.REGEX + Month.REGEX + Day.REGEX;
+	public static final String REGEX = Year.REGEX + "-" + Month.REGEX + "-" + Day.REGEX;
 
 
 	String message() default "{{javax.validation.constraints.Date.message}";
