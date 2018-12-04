@@ -135,48 +135,52 @@ public final class LKJsonUtils extends LKObjectMapper {
 	/**
 	 * 对象转字符串
 	 * @param obj 待转换对象
+	 * @param ignoreFieldAnnotationClasses 忽略字段标注的注解类型
 	 * @param nullable 是否允许空值
 	 * @param isArray 是否为数组，当obj为null且nullable指定了不能为空时决定返回形式的区别。
 	 * @param excludesPropertyArray 排除的字段名
 	 * @return 字符串
 	 */
-	public static String toJsonWithExcludes(Object obj, boolean nullable, boolean isArray, String... excludesPropertyArray) {
-		return writeValueAsStringWithExcludes(newObjectMapper(), obj, nullable, isArray, excludesPropertyArray);
+	public static String toJsonWithExcludes(Object obj, Class<?>[] ignoreFieldAnnotationClasses, boolean nullable, boolean isArray, String... excludesPropertyArray) {
+		return writeValueAsStringWithExcludes(newObjectMapper(), obj, ignoreFieldAnnotationClasses, nullable, isArray, excludesPropertyArray);
 	}
 
 
 	/**
 	 * 对象转字符串
 	 * @param obj 待转换对象
+	 * @param ignoreFieldAnnotationClasses 忽略字段标注的注解类型
 	 * @param excludesPropertyArray 排除的字段名
 	 * @return 字符串
 	 */
-	public static String toJsonWithExcludes(Object obj, String... excludesPropertyArray) {
-		return writeValueAsStringWithExcludes(newObjectMapper(), obj, false, false, excludesPropertyArray);
+	public static String toJsonWithExcludes(Object obj, Class<?>[] ignoreFieldAnnotationClasses, String... excludesPropertyArray) {
+		return writeValueAsStringWithExcludes(newObjectMapper(), obj, ignoreFieldAnnotationClasses, false, false, excludesPropertyArray);
 	}
 
 
 	/**
 	 * 对象转字符串
 	 * @param obj 待转换对象
+	 * @param ignoreFieldAnnotationClasses 忽略字段标注的注解类型
 	 * @param nullable 是否允许空值
 	 * @param isArray 是否为数组，当obj为null且nullable指定了不能为空时决定返回形式的区别。
 	 * @param includesPropertyArray 包含的字段名
 	 * @return 字符串
 	 */
-	public static String toJsonWithIncludes(Object obj, boolean nullable, boolean isArray, String... includesPropertyArray) {
-		return writeValueAsStringWithIncludes(newObjectMapper(), obj, nullable, isArray, includesPropertyArray);
+	public static String toJsonWithIncludes(Object obj, Class<?>[] ignoreFieldAnnotationClasses, boolean nullable, boolean isArray, String... includesPropertyArray) {
+		return writeValueAsStringWithIncludes(newObjectMapper(), obj, ignoreFieldAnnotationClasses, nullable, isArray, includesPropertyArray);
 	}
 
 
 	/**
 	 * 对象转字符串
 	 * @param obj 待转换对象
+	 * @param ignoreFieldAnnotationClasses 忽略字段标注的注解类型
 	 * @param includesPropertyArray 包含的字段名
 	 * @return 字符串
 	 */
-	public static String toJsonWithIncludes(Object obj, String... includesPropertyArray) {
-		return writeValueAsStringWithIncludes(newObjectMapper(), obj, false, false, includesPropertyArray);
+	public static String toJsonWithIncludes(Object obj, Class<?>[] ignoreFieldAnnotationClasses, String... includesPropertyArray) {
+		return writeValueAsStringWithIncludes(newObjectMapper(), obj, ignoreFieldAnnotationClasses, false, false, includesPropertyArray);
 	}
 
 }

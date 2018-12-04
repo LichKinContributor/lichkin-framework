@@ -108,48 +108,52 @@ public final class LKXmlUtils extends LKObjectMapper {
 	/**
 	 * 对象转字符串
 	 * @param obj 待转换对象
+	 * @param ignoreFieldAnnotationClasses 忽略字段标注的注解类型
 	 * @param nullable 是否允许空值
 	 * @param isArray 是否为数组，当obj为null且nullable指定了不能为空时决定返回形式的区别。
 	 * @param excludesPropertyArray 排除的字段名
 	 * @return 字符串
 	 */
-	public static String toXmlWithExcludes(Object obj, boolean nullable, boolean isArray, String... excludesPropertyArray) {
-		return writeValueAsStringWithExcludes(new XmlMapper(), obj, nullable, isArray, excludesPropertyArray);
+	public static String toXmlWithExcludes(Object obj, Class<?>[] ignoreFieldAnnotationClasses, boolean nullable, boolean isArray, String... excludesPropertyArray) {
+		return writeValueAsStringWithExcludes(new XmlMapper(), obj, ignoreFieldAnnotationClasses, nullable, isArray, excludesPropertyArray);
 	}
 
 
 	/**
 	 * 对象转字符串
 	 * @param obj 待转换对象
+	 * @param ignoreFieldAnnotationClasses 忽略字段标注的注解类型
 	 * @param excludesPropertyArray 排除的字段名
 	 * @return 字符串
 	 */
-	public static String toXmlWithExcludes(Object obj, String... excludesPropertyArray) {
-		return writeValueAsStringWithExcludes(new XmlMapper(), obj, false, false, excludesPropertyArray);
+	public static String toXmlWithExcludes(Object obj, Class<?>[] ignoreFieldAnnotationClasses, String... excludesPropertyArray) {
+		return writeValueAsStringWithExcludes(new XmlMapper(), obj, ignoreFieldAnnotationClasses, false, false, excludesPropertyArray);
 	}
 
 
 	/**
 	 * 对象转字符串
 	 * @param obj 待转换对象
+	 * @param ignoreFieldAnnotationClasses 忽略字段标注的注解类型
 	 * @param nullable 是否允许空值
 	 * @param isArray 是否为数组，当obj为null且nullable指定了不能为空时决定返回形式的区别。
 	 * @param includesPropertyArray 包含的字段名
 	 * @return 字符串
 	 */
-	public static String toXmlWithIncludes(Object obj, boolean nullable, boolean isArray, String... includesPropertyArray) {
-		return writeValueAsStringWithIncludes(new XmlMapper(), obj, nullable, isArray, includesPropertyArray);
+	public static String toXmlWithIncludes(Object obj, Class<?>[] ignoreFieldAnnotationClasses, boolean nullable, boolean isArray, String... includesPropertyArray) {
+		return writeValueAsStringWithIncludes(new XmlMapper(), obj, ignoreFieldAnnotationClasses, nullable, isArray, includesPropertyArray);
 	}
 
 
 	/**
 	 * 对象转字符串
 	 * @param obj 待转换对象
+	 * @param ignoreFieldAnnotationClasses 忽略字段标注的注解类型
 	 * @param includesPropertyArray 包含的字段名
 	 * @return 字符串
 	 */
-	public static String toXmlWithIncludes(Object obj, String... includesPropertyArray) {
-		return writeValueAsStringWithIncludes(new XmlMapper(), obj, false, false, includesPropertyArray);
+	public static String toXmlWithIncludes(Object obj, Class<?>[] ignoreFieldAnnotationClasses, String... includesPropertyArray) {
+		return writeValueAsStringWithIncludes(new XmlMapper(), obj, ignoreFieldAnnotationClasses, false, false, includesPropertyArray);
 	}
 
 }

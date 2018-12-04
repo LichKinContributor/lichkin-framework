@@ -1,8 +1,11 @@
 package com.lichkin.framework;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -14,6 +17,8 @@ import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.lichkin.framework.log.LKLog;
 import com.lichkin.framework.log.LKLogFactory;
+import com.lichkin.framework.utils.LKFieldUtils;
+import com.lichkin.framework.utils.LKListUtils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -212,15 +217,38 @@ public class LKObjectMapper {
 
 
 	/**
+	 * 计算属性数组
+	 * @param obj 对象
+	 * @param ignoreFieldAnnotationClasses 忽略字段标注的注解类型
+	 * @param propertyArray 属性数组
+	 * @return 属性数组
+	 */
+	private static String[] calcPropertyArray(Object obj, Class<?>[] ignoreFieldAnnotationClasses, String... propertyArray) {
+		if (ArrayUtils.isNotEmpty(ignoreFieldAnnotationClasses)) {
+			List<String> ignoreFields = LKListUtils.convert(LKFieldUtils.getFieldListWithAnnotations(obj.getClass(), ignoreFieldAnnotationClasses), source -> source.getName());
+			if (CollectionUtils.isNotEmpty(ignoreFields)) {
+				if (ArrayUtils.isNotEmpty(propertyArray)) {
+					ignoreFields.addAll(Arrays.asList(propertyArray));
+				}
+				propertyArray = ignoreFields.toArray(propertyArray);
+			}
+		}
+		return propertyArray;
+	}
+
+
+	/**
 	 * 对象转字符串
 	 * @param mapper 对象映射对象
 	 * @param obj 待转换对象
+	 * @param ignoreFieldAnnotationClasses 忽略字段标注的注解类型
 	 * @param nullable 是否允许空值
 	 * @param isArray 是否为数组，当obj为null且nullable指定了不能为空时决定返回形式的区别。
 	 * @param excludesPropertyArray 排除的字段名
 	 * @return 字符串
 	 */
-	protected static String writeValueAsStringWithExcludes(ObjectMapper mapper, Object obj, boolean nullable, boolean isArray, String... excludesPropertyArray) {
+	protected static String writeValueAsStringWithExcludes(ObjectMapper mapper, Object obj, Class<?>[] ignoreFieldAnnotationClasses, boolean nullable, boolean isArray, String... excludesPropertyArray) {
+		excludesPropertyArray = calcPropertyArray(obj, ignoreFieldAnnotationClasses, excludesPropertyArray);
 		if (ArrayUtils.isNotEmpty(excludesPropertyArray)) {
 			mapper.setFilterProvider(new SimpleFilterProvider().addFilter(JSON_FILTER_ID, SimpleBeanPropertyFilter.serializeAllExcept(excludesPropertyArray)));
 			mapper.addMixIn(obj.getClass(), LKJsonFilter.class);
@@ -233,12 +261,14 @@ public class LKObjectMapper {
 	 * 对象转字符串
 	 * @param mapper 对象映射对象
 	 * @param obj 待转换对象
+	 * @param ignoreFieldAnnotationClasses 忽略字段标注的注解类型
 	 * @param nullable 是否允许空值
 	 * @param isArray 是否为数组，当obj为null且nullable指定了不能为空时决定返回形式的区别。
 	 * @param includesPropertyArray 包含的字段名
 	 * @return 字符串
 	 */
-	protected static String writeValueAsStringWithIncludes(ObjectMapper mapper, Object obj, boolean nullable, boolean isArray, String... includesPropertyArray) {
+	protected static String writeValueAsStringWithIncludes(ObjectMapper mapper, Object obj, Class<?>[] ignoreFieldAnnotationClasses, boolean nullable, boolean isArray, String... includesPropertyArray) {
+		includesPropertyArray = calcPropertyArray(obj, ignoreFieldAnnotationClasses, includesPropertyArray);
 		if (ArrayUtils.isNotEmpty(includesPropertyArray)) {
 			mapper.setFilterProvider(new SimpleFilterProvider().addFilter(JSON_FILTER_ID, SimpleBeanPropertyFilter.filterOutAllExcept(includesPropertyArray)));
 			mapper.addMixIn(obj.getClass(), LKJsonFilter.class);
