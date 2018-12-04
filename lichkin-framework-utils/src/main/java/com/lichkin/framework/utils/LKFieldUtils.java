@@ -159,4 +159,32 @@ public class LKFieldUtils {
 		return listFields;
 	}
 
+
+	/**
+	 * 获取带注解的字段
+	 * @param clazz 类型
+	 * @param annotationClasses 注解类型
+	 * @return Field列表
+	 */
+	@SuppressWarnings("unchecked")
+	public static List<Field> getFieldListWithAnnotations(final Class<?> clazz, Class<?>[] annotationClasses) {
+		if (ArrayUtils.isEmpty(annotationClasses)) {
+			return Collections.emptyList();
+		}
+		List<Field> listFields = getRealFieldList(clazz);
+		if (CollectionUtils.isEmpty(listFields)) {
+			return Collections.emptyList();
+		}
+		out: for (Iterator<Field> it = listFields.iterator(); it.hasNext();) {
+			Field field = it.next();
+			for (Class<?> annotationClass : annotationClasses) {
+				if (field.isAnnotationPresent((Class<? extends Annotation>) annotationClass)) {
+					break out;
+				}
+			}
+			it.remove();
+		}
+		return listFields;
+	}
+
 }
