@@ -1,21 +1,13 @@
 package com.lichkin.framework.defines.beans;
 
+import com.lichkin.framework.defines.entities.I_AppKey;
 import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
 
 /**
  * 方法调用内置对象类
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public interface LKInvokeDatas {
-
-	public static final String KEY_APP_KEY = "KEY_APP_KEY";
-
-
-	public String getAppKey();
-
-
-	public void setAppKey(String appKey);
-
+public interface LKInvokeDatas extends I_AppKey {
 
 	public static final String KEY_CLIENT_TYPE = "KEY_CLIENT_TYPE";
 
