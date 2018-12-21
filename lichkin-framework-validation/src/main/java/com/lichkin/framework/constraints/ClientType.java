@@ -31,7 +31,7 @@ import com.lichkin.framework.defines.enums.impl.LKClientTypeEnum;
 @Constraint(validatedBy = { Validator.class, ValidatorForEnum.class })
 public @interface ClientType {
 
-	public static final String REGEX = "(ANDROID|IOS|JAVASCRIPT){1}";
+	public static final String REGEX = "(ANDROID|IOS|JAVASCRIPT|APP){1}";
 
 
 	String message() default "{{javax.validation.constraints.ClientType.message}";

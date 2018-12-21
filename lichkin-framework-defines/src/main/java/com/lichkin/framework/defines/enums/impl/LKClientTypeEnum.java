@@ -15,6 +15,11 @@ public enum LKClientTypeEnum implements LKEnum {
 	IOS,
 
 	/** 网页脚本 */
-	JAVASCRIPT;
+	JAVASCRIPT,
+
+	/** 客户端 */
+	APP,
+
+	;
 
 }
