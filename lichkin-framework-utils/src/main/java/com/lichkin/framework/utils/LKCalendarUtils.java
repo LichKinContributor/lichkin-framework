@@ -178,6 +178,12 @@ public class LKCalendarUtils {
 	 */
 	public static String getFirstDayOfMonth(int year, int month) {
 		Calendar c = Calendar.getInstance();
+		if (year == -1) {
+			year = c.get(Calendar.YEAR);
+		}
+		if (month == -1) {
+			month = c.get(Calendar.MONTH) + 1;
+		}
 		c.set(year, month - 1, 1);
 		c.set(Calendar.HOUR, 0);
 		c.set(Calendar.MINUTE, 0);
@@ -194,12 +200,36 @@ public class LKCalendarUtils {
 	 */
 	public static String getLastDayOfMonth(int year, int month) {
 		Calendar c = Calendar.getInstance();
+		if (year == -1) {
+			year = c.get(Calendar.YEAR);
+		}
+		if (month == -1) {
+			month = c.get(Calendar.MONTH) + 1;
+		}
 		c.set(year, month - 1, 1);
 		c.roll(Calendar.DATE, -1);
 		c.set(Calendar.HOUR, 0);
 		c.set(Calendar.MINUTE, 0);
 		c.set(Calendar.SECOND, 0);
 		return LKDateTimeUtils.toString(c.getTime(), Locale.ENGLISH, LKDateTimeTypeEnum.DATE_ONLY);
+	}
+
+
+	/**
+	 * 获取当月的第一天
+	 * @return 月的第一天
+	 */
+	public static String getFirstDayOfMonth() {
+		return getFirstDayOfMonth(-1, -1);
+	}
+
+
+	/**
+	 * 获取当月的最后一天
+	 * @return 月的最后一天
+	 */
+	public static String getLastDayOfMonth() {
+		return getLastDayOfMonth(-1, -1);
 	}
 
 }
