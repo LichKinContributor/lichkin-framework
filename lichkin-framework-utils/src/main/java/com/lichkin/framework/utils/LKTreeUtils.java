@@ -3,6 +3,7 @@ package com.lichkin.framework.utils;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -107,7 +108,12 @@ public class LKTreeUtils {
 	 */
 	private static List<LKTreeBean> toTree(List<LKTreeBean> list) {
 		List<LKTreeBean> listRoot = new ArrayList<>();
-		Collections.sort(list, (o1, o2) -> o1.getCode().compareTo(o2.getCode()));
+		Collections.sort(list, new Comparator<LKTreeBean>() {
+			@Override
+			public int compare(LKTreeBean o1, LKTreeBean o2) {
+				return o1.getCode().compareTo(o2.getCode());
+			}
+		});
 		for (LKTreeBean bean : list) {
 			if (bean.getParentCode().equals(ROOT)) {
 				listRoot.add(bean);

@@ -21,7 +21,7 @@ public class LKUrlUtils {
 	 * @param fileSaveSubPath 文件服务器保存子路径
 	 * @return URL 相对地址
 	 */
-	public static String analysisBase64ImageUrl(boolean newThread, String base64OrUrl, String fileServerRootUrl, String fileSaveRootPath, String fileSaveSubPath) {
+	public static String analysisBase64ImageUrl(boolean newThread, final String base64OrUrl, String fileServerRootUrl, String fileSaveRootPath, String fileSaveSubPath) {
 		// 空值直接返回空值
 		if (StringUtils.isBlank(base64OrUrl)) {
 			return null;
@@ -38,11 +38,16 @@ public class LKUrlUtils {
 		}
 
 		// 其它情况视为BASE64编码，转文件存储路径并创建图片。
-		String filePath = LKFileUtils.createFilePath(fileSaveRootPath + fileSaveSubPath, ".jpeg");
+		final String filePath = LKFileUtils.createFilePath(fileSaveRootPath + fileSaveSubPath, ".jpeg");
 
 		if (newThread) {
 			// 开启线程执行文件的创建
-			new Thread(() -> LKImageUtils.base64ToImage(base64OrUrl, filePath)).start();
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					LKImageUtils.base64ToImage(base64OrUrl, filePath);
+				}
+			}).start();
 		} else {
 			// 不开启线程执行文件的创建
 			LKImageUtils.base64ToImage(base64OrUrl, filePath);
