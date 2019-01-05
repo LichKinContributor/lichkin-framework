@@ -1,5 +1,6 @@
 package com.lichkin.framework;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.lichkin.framework.defines.func.BeanConverter;
 import com.lichkin.framework.log.LKLog;
 import com.lichkin.framework.log.LKLogFactory;
 import com.lichkin.framework.utils.LKFieldUtils;
@@ -225,7 +227,12 @@ public class LKObjectMapper {
 	 */
 	private static String[] calcPropertyArray(Object obj, Class<?>[] ignoreFieldAnnotationClasses, String... propertyArray) {
 		if (ArrayUtils.isNotEmpty(ignoreFieldAnnotationClasses)) {
-			List<String> ignoreFields = LKListUtils.convert(LKFieldUtils.getFieldListWithAnnotations(obj.getClass(), ignoreFieldAnnotationClasses), source -> source.getName());
+			List<String> ignoreFields = LKListUtils.convert(LKFieldUtils.getFieldListWithAnnotations(obj.getClass(), ignoreFieldAnnotationClasses), new BeanConverter<Field, String>() {
+				@Override
+				public String convert(Field field) {
+					return field.getName();
+				}
+			});
 			if (CollectionUtils.isNotEmpty(ignoreFields)) {
 				if (ArrayUtils.isNotEmpty(propertyArray)) {
 					ignoreFields.addAll(Arrays.asList(propertyArray));
