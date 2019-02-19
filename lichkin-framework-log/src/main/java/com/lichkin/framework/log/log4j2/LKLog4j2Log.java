@@ -44,4 +44,13 @@ public interface LKLog4j2Log extends LKLog {
 	/** net包日志级别配置项(MainArgs) */
 	public static final String MAIN_ARG_LOG_LEVEL_NET = "--log.level.net=";
 
+	/** io包日志级别配置项 */
+	public static final String KEY_LOG_LEVEL_IO = "log_level_io";
+
+	/** io包日志级别配置值 */
+	public static final String VALUE_LOG_LEVEL_IO = "info";
+
+	/** io包日志级别配置项(MainArgs) */
+	public static final String MAIN_ARG_LOG_LEVEL_IO = "--log.level.io=";
+
 }

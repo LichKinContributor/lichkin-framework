@@ -1,9 +1,11 @@
 package com.lichkin.framework.log.log4j2;
 
+import static com.lichkin.framework.log.log4j2.LKLog4j2Log.KEY_LOG_LEVEL_IO;
 import static com.lichkin.framework.log.log4j2.LKLog4j2Log.KEY_LOG_LEVEL_NET;
 import static com.lichkin.framework.log.log4j2.LKLog4j2Log.KEY_LOG_LEVEL_ORG;
 import static com.lichkin.framework.log.log4j2.LKLog4j2Log.KEY_LOG_LEVEL_SYSTEM;
 import static com.lichkin.framework.log.log4j2.LKLog4j2Log.KEY_LOG_TAG;
+import static com.lichkin.framework.log.log4j2.LKLog4j2Log.VALUE_LOG_LEVEL_IO;
 import static com.lichkin.framework.log.log4j2.LKLog4j2Log.VALUE_LOG_LEVEL_NET;
 import static com.lichkin.framework.log.log4j2.LKLog4j2Log.VALUE_LOG_LEVEL_ORG;
 import static com.lichkin.framework.log.log4j2.LKLog4j2Log.VALUE_LOG_LEVEL_SYSTEM;
@@ -22,7 +24,7 @@ public class LKLog4j2Initializer {
 	 */
 	public static void init() {
 		// 配置log4j2的参数
-		setMainArguments(VALUE_LOG_TAG, VALUE_LOG_LEVEL_SYSTEM, VALUE_LOG_LEVEL_ORG, VALUE_LOG_LEVEL_NET);
+		setMainArguments(VALUE_LOG_TAG, VALUE_LOG_LEVEL_SYSTEM, VALUE_LOG_LEVEL_ORG, VALUE_LOG_LEVEL_NET, VALUE_LOG_LEVEL_IO);
 	}
 
 
@@ -32,8 +34,9 @@ public class LKLog4j2Initializer {
 	 * @param logLevelSystem 系统日志级别
 	 * @param logLevelOrg org包日志级别
 	 * @param logLevelNet net包日志级别
+	 * @param logLevelIo io包日志级别
 	 */
-	public static void setMainArguments(String logTag, String logLevelSystem, String logLevelOrg, String logLevelNet) {
+	public static void setMainArguments(String logTag, String logLevelSystem, String logLevelOrg, String logLevelNet, String logLevelIo) {
 		MainMapLookup.setMainArguments(new String[] {
 
 				KEY_LOG_TAG, logTag,
@@ -42,7 +45,9 @@ public class LKLog4j2Initializer {
 
 				KEY_LOG_LEVEL_ORG, logLevelOrg,
 
-				KEY_LOG_LEVEL_NET, logLevelNet
+				KEY_LOG_LEVEL_NET, logLevelNet,
+
+				KEY_LOG_LEVEL_IO, logLevelIo
 
 		});
 	}

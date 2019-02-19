@@ -35,5 +35,6 @@
     </root>
     <logger name="org" level="${main:log_level_org}" />
     <logger name="net" level="${main:log_level_net}" />
+    <logger name="io" level="${main:log_level_io}" />
   </loggers>
 </configuration>
