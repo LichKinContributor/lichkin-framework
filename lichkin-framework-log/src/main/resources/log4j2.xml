@@ -7,7 +7,7 @@
     <RollingFile name="RollingFileDebug" fileName="/lichkin-logs/${main:log_tag}.debug.log" filePattern="/lichkin-logs/${main:log_tag}/${date:yyyy}/${date:yyyy-MM}/${date:yyyy-MM-dd}/%d{yyyy-MM-dd-HH}-debug-%i.log.gz">
       <PatternLayout pattern="[%-5level] %d [%c] [%C:%L@%M] => %m%n" />
       <Filters>
-        <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY" />
+        <ThresholdFilter level="TRACE" onMatch="ACCEPT" onMismatch="DENY" />
       </Filters>
       <Policies>
         <SizeBasedTriggeringPolicy size="100MB" />
