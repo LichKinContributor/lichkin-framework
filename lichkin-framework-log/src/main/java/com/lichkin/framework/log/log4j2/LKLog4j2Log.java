@@ -21,7 +21,7 @@ public interface LKLog4j2Log extends LKLog {
 	public static final String KEY_LOG_LEVEL_SYSTEM = "log_level_system";
 
 	/** 系统日志级别配置值 */
-	public static final String VALUE_LOG_LEVEL_SYSTEM = "trace";
+	public static final String VALUE_LOG_LEVEL_SYSTEM = "debug";
 
 	/** 系统日志级别配置项(MainArgs) */
 	public static final String MAIN_ARG_LOG_LEVEL_SYSTEM = "--log.level.system=";
