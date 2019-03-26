@@ -35,8 +35,14 @@ public class LKConfigStatics {
 	/** 系统默认配置值：环境上下文路径 */
 	public static String WEB_CONTEXT_PATH = "/";
 
+	/** 系统默认配置值：环境上下文路径 */
+	public static final String DEFAULT_VALUE_WEB_CONTEXT_PATH = WEB_CONTEXT_PATH;
+
 	/** 系统默认配置值：端口号 */
 	public static String WEB_SERVER_PORT = "33333";
+
+	/** 系统默认配置值：端口号 */
+	public static final String DEFAULT_VALUE_WEB_SERVER_PORT = WEB_SERVER_PORT;
 
 	/** 系统默认配置值：是否启用页面调试功能 */
 	public static boolean WEB_ADMIN_DEBUG = true;
