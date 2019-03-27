@@ -44,7 +44,6 @@ public class LKJSONFileReader {
 			cache.put(fileName, json);
 			return json;
 		} catch (IOException e) {
-			e.printStackTrace();
 			throw new LKRuntimeException(LKErrorCodesEnum.CONFIG_ERROR);
 		}
 	}

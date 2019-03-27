@@ -53,7 +53,6 @@ public class LKRSAReader {
 			}
 			return sb.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
 			throw new LKRuntimeException(LKErrorCodesEnum.CONFIG_ERROR);
 		}
 
